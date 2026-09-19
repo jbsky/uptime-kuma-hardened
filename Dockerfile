@@ -125,15 +125,20 @@ RUN npm_config_build_from_source=true npm_config_sqlite=/usr npm_config_nodedir=
  && rm -rf node_modules/@louislam/sqlite3/build-tmp-napi-v* node_modules/@louislam/sqlite3/deps \
            node_modules/@louislam/sqlite3/src /tmp/addon.dyn
 
+# oracledb (depuis Kuma 2.5) livre cinq binaires precompiles -- glibc, darwin,
+# win32 -- pour son mode « thick », qui exige en plus l'Oracle Instant Client,
+# absent ici. Le mode « thin », le seul utilisable, est du JavaScript pur : les
+# binaires sont retires, pas recompiles. ssh2 et cpu-features ne construisent
+# leurs modules natifs optionnels que dans leur script d'installation, jamais
+# lance ici (--ignore-scripts) : ssh2 retombe sur sa crypto JavaScript.
+RUN rm -rf node_modules/oracledb/build
+
 # Aucun autre .node que celui compile ci-dessus : un binaire precompile
 # (glibc, autre architecture) passerait sinon dans l'image sans que personne
-# ne l'ait construit. Ce garde a deja servi : node-pre-gyp laisse deux copies
-# intermediaires dans build-tmp-napi-v6/, pas dans build/.
-# Montee en 2.5.x : il tombera, et c'est voulu. Le lockfile 2.5 ajoute
-# oracledb (cinq binaires precompiles, glibc/darwin/win32, inutilises en mode
-# thin : a supprimer), ssh2 et cpu-features (modules natifs optionnels : a
-# compiler ici ou a ecarter explicitement). Chacun doit etre tranche, pas
-# absorbe en relachant le compte.
+# ne l'ait construit. Ce garde a deja servi deux fois : node-pre-gyp laisse
+# deux copies intermediaires dans build-tmp-napi-v6/, et oracledb (2.5) en
+# livrait cinq. Chaque nouveau module natif se tranche, le compte ne se
+# relache pas.
 RUN find node_modules -name '*.node' -type f > /tmp/addons \
  && test "$(wc -l < /tmp/addons)" -eq 1 \
  && grep -q 'node_modules/@louislam/sqlite3/lib/binding/' /tmp/addons \
