@@ -10,7 +10,7 @@ gestionnaire de paquets. Pensee pour un deploiement Podman sur VyOS.
 | Base | Debian bookworm | `FROM scratch` |
 | Shell, apt, sudo | oui | non |
 | Utilisateur | root | `3001:3001` |
-| Capacites requises | `NET_RAW` (ping) | **aucune** (`cap_drop: ALL`) |
+| Teste sous `cap_drop: ALL`, lecture seule, `no-new-privileges` | -- | oui (`scripts/test.sh`) |
 | SQLite embarque par le module natif | 3.41.1 (mars 2023, binaire precompile) | 3.53.4 (Alpine, lie dynamiquement) |
 | Frontend `dist/` | fourni tout fait par la release | reconstruit depuis le tag |
 
@@ -116,8 +116,9 @@ make build   # lit versions.json, aucune version n'est ecrite ailleurs
 make test    # lance l'image en lecture seule, cap_drop ALL, no-new-privileges
 ```
 
-`scripts/test.sh` verifie l'absence de shell, l'utilisateur, la creation de la
-base et toutes les migrations knex, le frontend, `/metrics` protege, ping sans
+`scripts/test.sh` verifie l'absence de shell, l'utilisateur, la resolution de
+chaque `require()` du serveur, la creation de la base et toutes les migrations
+knex, le frontend, `/metrics` protege, ping sans
 capacite, Intl avec fuseaux et le healthcheck.
 
 Architecture : `linux/amd64` seulement pour l'instant.

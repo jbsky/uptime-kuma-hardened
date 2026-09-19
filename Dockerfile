@@ -129,6 +129,11 @@ RUN npm_config_build_from_source=true npm_config_sqlite=/usr npm_config_nodedir=
 # (glibc, autre architecture) passerait sinon dans l'image sans que personne
 # ne l'ait construit. Ce garde a deja servi : node-pre-gyp laisse deux copies
 # intermediaires dans build-tmp-napi-v6/, pas dans build/.
+# Montee en 2.5.x : il tombera, et c'est voulu. Le lockfile 2.5 ajoute
+# oracledb (cinq binaires precompiles, glibc/darwin/win32, inutilises en mode
+# thin : a supprimer), ssh2 et cpu-features (modules natifs optionnels : a
+# compiler ici ou a ecarter explicitement). Chacun doit etre tranche, pas
+# absorbe en relachant le compte.
 RUN find node_modules -name '*.node' -type f > /tmp/addons \
  && test "$(wc -l < /tmp/addons)" -eq 1 \
  && grep -q 'node_modules/@louislam/sqlite3/lib/binding/' /tmp/addons \

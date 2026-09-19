@@ -12,7 +12,9 @@ export KUMA_VERSION KUMA_SHA256 IPUTILS_VERSION IPUTILS_SHA256
 
 # CA du proxy SSL-bump, passee en secret BuildKit (jamais en couche). Absente
 # hors du homelab : le Dockerfile la declare required=false.
-CA_CERTS ?= /usr/local/share/ca-certificates/bump.crt
+# $(wildcard) rend une chaine vide si le fichier n'existe pas : compose se
+# rabat alors sur /dev/null au lieu d'echouer sur un secret introuvable.
+CA_CERTS ?= $(wildcard /usr/local/share/ca-certificates/bump.crt)
 export CA_CERTS
 
 help:

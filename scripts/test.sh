@@ -48,6 +48,29 @@ if [ "${user}" = "3001:3001" ]; then pass "USER 3001:3001"; else fail "USER = ${
 tier="$(docker image inspect -f '{{index .Config.Labels "security.hardening.tier"}}' "${IMAGE}")"
 if [ "${tier}" = "platine" ]; then pass "label security.hardening.tier=platine"; else fail "label tier = ${tier}"; fi
 
+# Chaque require() du serveur, types de sonde charges a la demande compris,
+# doit se resoudre dans l'image : c'est le garde de l'elagage de node_modules,
+# que le demarrage seul n'exerce pas (une sonde mqtt ne charge son module
+# qu'a la premiere verification).
+unresolved="$(docker run --rm --entrypoint /usr/bin/node -w /app "${IMAGE}" -e '
+const fs = require("fs"), path = require("path"), bad = new Set();
+(function walk(d) {
+  for (const f of fs.readdirSync(d)) {
+    const p = path.join(d, f);
+    if (fs.statSync(p).isDirectory()) { walk(p); continue; }
+    if (!p.endsWith(".js")) continue;
+    for (const m of fs.readFileSync(p, "utf8").matchAll(/require\("([^".][^"]*)"\)/g)) {
+      try { require.resolve(m[1], { paths: [path.dirname(p)] }); } catch (e) { bad.add(m[1]); }
+    }
+  }
+})("/app/server");
+process.stdout.write([...bad].join(" "));' 2>&1 || echo "node en echec")"
+if [ -z "${unresolved}" ]; then
+    pass "tous les require() de server/ se resolvent"
+else
+    fail "require() non resolus : ${unresolved}"
+fi
+
 echo ""
 echo "--- Demarrage (lecture seule, cap_drop ALL, no-new-privileges) ---"
 docker volume create "${NAME}-data" > /dev/null
