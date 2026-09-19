@@ -275,6 +275,9 @@ jobs:
           fi
           want=$(jq -r .iputils versions.json)
           raw=$(docker run --rm --entrypoint /bin/ping "${IMAGE}" -V 2>&1 || true)
+          # `ping -V` ajoute une ligne d'options de compilation : seule la
+          # premiere porte la version.
+          raw=${raw%%$'\n'*}
           echo "iputils declared: ${want} | image: ${raw}"
           if [ "$raw" != "ping from iputils ${want}" ]; then
             echo "::error::image ships '${raw}' but versions.json says iputils ${want}"
