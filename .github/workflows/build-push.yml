@@ -259,6 +259,29 @@ jobs:
         if: env.PUBLISH != 'true'
         run: docker load -i /tmp/image-tar/image.tar
 
+      # Demarre l'image par docker-compose.yml, comme le chemin local : un
+      # compose casse ne passe pas.
+      - name: Build & start stack
+        run: docker compose up -d --no-build uptime-kuma
+
+      # Le HEALTHCHECK de l'image (interval 60 s) rend son premier verdict
+      # apres une minute. Attendre `healthy` prouve l'instruction telle que
+      # declaree ; scripts/test.sh appelle init --healthcheck a la main, ce
+      # qui ne prouve pas son cablage.
+      - name: Wait for healthy
+        run: |
+          set -euo pipefail
+          cid="$(docker compose ps -q uptime-kuma)"
+          for _ in $(seq 1 45); do
+            status=$(docker inspect --format '{{.State.Health.Status}}' "$cid" 2>/dev/null || echo "starting")
+            [ "$status" = "healthy" ] && exit 0
+            sleep 5
+          done
+          echo "::error::uptime-kuma did not become healthy in time"
+          docker inspect --format '{{json .State.Health}}' "$cid" || true
+          docker compose logs
+          exit 1
+
       # Un tag qui ne correspond pas a ce que l'image contient est le seul
       # defaut que rien d'autre ici n'attrape (php a publie une 8.5.8 sous un
       # tag 8.5.9 pendant 18 jours). On demande a l'image ce qu'elle est.
@@ -298,8 +321,16 @@ jobs:
       # Lance l'image en lecture seule, cap_drop ALL, no-new-privileges :
       # base creee et migree, frontend, ping sans capacite, Intl, healthcheck,
       # et chaque require() du serveur resolu.
-      - name: Functional tests
+      - name: Run smoke tests
         run: ./scripts/test.sh "${IMAGE}"
+
+      - name: Container logs (on failure)
+        if: failure()
+        run: docker compose logs
+
+      - name: Teardown
+        if: always()
+        run: docker compose down -v
 
   # -------------------------------------------------------------------
   #  Retague le digest que `build` a pousse et que `test` vient de
@@ -444,6 +475,22 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.manifest.outputs.digest }}
           push-to-registry: true
+
+      - name: Summary
+        env:
+          HAS_DOCKERHUB: ${{ steps.dockerhub.outputs.available }}
+          DOCKERHUB_NS: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          {
+            echo "### uptime-kuma-hardened"
+            echo "**Digest:** \`${{ steps.manifest.outputs.digest }}\`"
+            echo '```'
+            echo "docker pull ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest"
+            if [ "$HAS_DOCKERHUB" = "true" ]; then
+              echo "docker pull docker.io/${DOCKERHUB_NS}/${{ env.IMAGE_NAME }}:latest"
+            fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   # -------------------------------------------------------------------
   #  Le README nomme le tag immuable courant : il est regenere ici pour
