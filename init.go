@@ -67,7 +67,10 @@ func setupDirs() error {
 		gid  int
 	}{
 		{appDir + "/data", 0o750, kumaUID, kumaGID},
-		{"/tmp", 0o1777, 0, 0},
+		// os.ModeSticky, pas 0o1000 : os.Chmod ne traduit que les bits
+		// speciaux de Go, un 0o1777 litteral donnait un /tmp en 0777 sans
+		// sticky (vu sur l'image exportee le 2026-09-19).
+		{"/tmp", os.ModeSticky | 0o777, 0, 0},
 	}
 	for _, d := range dirs {
 		if err := os.MkdirAll(d.path, d.mode); err != nil {

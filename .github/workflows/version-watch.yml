@@ -1,0 +1,72 @@
+# =====================================================================
+#  Version Watch – Uptime Kuma Hardened
+#  Quotidien : signale une version amont plus recente, NE LA POSE PAS.
+#
+#  Ecart volontaire au reste du parc, ou la veille reecrit versions.json et
+#  relance le build : une version de Kuma applique des migrations de base
+#  knex sans retour arriere, et chaque montee peut ajouter des modules natifs
+#  que le Dockerfile refuse tant qu'ils n'ont pas ete tranches (voir le garde
+#  des .node). Une montee se fait a la main, testee sur une copie de base.
+# =====================================================================
+name: version-watch
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    name: Check upstream versions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Compare with upstream releases
+        id: compare
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          report=""
+          check() {  # <cle versions.json> <depot amont> <nom>
+            local current latest
+            current=$(jq -r --arg k "$1" '.[$k]' versions.json)
+            latest=$(gh api "repos/$2/releases/latest" --jq .tag_name)
+            test -n "$latest" || { echo "::error::aucune release lue sur $2"; exit 1; }
+            if [ "$current" != "$latest" ]; then
+              report="${report}- $3 : ${current} -> ${latest} (https://github.com/$2/releases/tag/${latest})"$'\n'
+            fi
+            echo "- $3 : versions.json ${current}, amont ${latest}" >> "$GITHUB_STEP_SUMMARY"
+          }
+          check uptime-kuma louislam/uptime-kuma "Uptime Kuma"
+          check iputils iputils/iputils "iputils"
+          {
+            echo "report<<EOF"
+            printf '%s' "$report"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open or update issue
+        if: steps.compare.outputs.report != ''
+        uses: actions/github-script@v7
+        env:
+          REPORT: ${{ steps.compare.outputs.report }}
+        with:
+          script: |
+            const title = '[Veille] Version amont disponible';
+            const body = `${process.env.REPORT}\nMontee manuelle : versions.json (version + sha256 dans le meme commit), `
+              + `build, scripts/test.sh, essai sur une copie de base avant publication.`;
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 50,
+            });
+            const existing = open.data.find(i => i.title === title);
+            if (!existing) {
+              await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body });
+            } else if (existing.body !== body) {
+              await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, body });
+            }

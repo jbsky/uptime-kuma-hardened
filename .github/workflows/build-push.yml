@@ -1,0 +1,521 @@
+# =====================================================================
+#  Build & Push – Uptime Kuma Hardened
+#  Multi-stage Dockerfile → ghcr.io + Docker Hub
+#  Lint + Build + Test + Sign (cosign OIDC) + Scan (Trivy) + Release
+# =====================================================================
+name: build-push
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+    paths:
+      - 'Dockerfile'
+      - 'init.go'
+      - 'init_test.go'
+      - 'go.mod'
+      - 'keys/**'
+      - 'scripts/**'
+      # versions.json porte les build-args et le tag ; docker-compose.yml et
+      # le Makefile portent le chemin de build local. Un fichier absent de
+      # ce filtre est un fichier dont le changement n'est jamais construit.
+      - 'versions.json'
+      - 'docker-compose.yml'
+      - 'Makefile'
+      - 'image.manifest'
+      - '.hadolint.yaml'
+      - '.github/workflows/build-push.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  NAMESPACE: ${{ github.repository_owner }}
+  IMAGE_NAME: uptime-kuma-hardened
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  security-events: write
+  attestations: write
+
+jobs:
+  # -------------------------------------------------------------------
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v3.4.0
+        with:
+          dockerfile: Dockerfile
+          failure-threshold: warning
+
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ./scripts
+
+      # Les scripts partages du parc sont dupliques dans chaque depot : une
+      # edition locale d'un seul d'entre eux doit se voir dans le diff.
+      - name: Vendored scripts unchanged
+        run: sha256sum -c scripts/VENDORED.sha256
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: gofmt
+        run: |
+          set -euo pipefail
+          fmt_out=$(gofmt -l .)
+          if [ -n "$fmt_out" ]; then
+            echo "::error::gofmt found unformatted files:"
+            echo "$fmt_out"
+            exit 1
+          fi
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go test
+        run: go test ./...
+
+  # -------------------------------------------------------------------
+  #  Construit l'image une seule fois. Sur un vrai push (jamais sur
+  #  pull_request : une PR de fork n'a pas d'identifiants de registre),
+  #  elle part PAR DIGEST, que `test` retire et teste octet pour octet, et
+  #  que `promote` retague sans reconstruire. Sur une PR, l'image passe au
+  #  job `test` sous forme d'archive.
+  # -------------------------------------------------------------------
+  build:
+    name: Build image
+    needs: lint
+    runs-on: ubuntu-latest
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+    env:
+      PUBLISH: ${{ github.event_name != 'pull_request' && 'true' || 'false' }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login ghcr.io
+        if: env.PUBLISH == 'true'
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve versions
+        id: versions
+        run: |
+          set -euo pipefail
+          KUMA_VER=$(jq -r '."uptime-kuma"' versions.json)
+          KUMA_SHA=$(jq -r '."uptime-kuma_sha256"' versions.json)
+          IPUTILS_VER=$(jq -r '.iputils' versions.json)
+          IPUTILS_SHA=$(jq -r '.iputils_sha256' versions.json)
+          ALPINE_VER=$(jq -r '.alpine' versions.json)
+          for v in "$KUMA_VER" "$KUMA_SHA" "$IPUTILS_VER" "$IPUTILS_SHA"; do
+            test -n "$v" -a "$v" != "null" \
+              || { echo "versions.json incomplet -- le build n'aurait pas de controle d'integrite" >&2; exit 1; }
+          done
+          {
+            echo "kuma=${KUMA_VER}"
+            echo "kuma_sha256=${KUMA_SHA}"
+            echo "iputils=${IPUTILS_VER}"
+            echo "iputils_sha256=${IPUTILS_SHA}"
+            echo "alpine=${ALPINE_VER}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Make room for local tarball export (PR only)
+        if: env.PUBLISH != 'true'
+        run: mkdir -p /tmp/image-tar
+
+      - name: Build (push-by-digest, or local tarball on PR)
+        id: build
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64
+          outputs: ${{ env.PUBLISH == 'true' && format('type=image,name={0}/{1}/{2},push-by-digest=true,name-canonical=true,push=true', env.REGISTRY, env.NAMESPACE, env.IMAGE_NAME) || 'type=docker,dest=/tmp/image-tar/image.tar' }}
+          tags: ${{ env.PUBLISH != 'true' && format('localhost/{0}:latest', env.IMAGE_NAME) || '' }}
+          sbom: ${{ env.PUBLISH }}
+          provenance: ${{ env.PUBLISH == 'true' && 'mode=max' || 'false' }}
+          build-args: |
+            KUMA_VERSION=${{ steps.versions.outputs.kuma }}
+            KUMA_SHA256=${{ steps.versions.outputs.kuma_sha256 }}
+            IPUTILS_VERSION=${{ steps.versions.outputs.iputils }}
+            IPUTILS_SHA256=${{ steps.versions.outputs.iputils_sha256 }}
+            ALPINE_VERSION=${{ steps.versions.outputs.alpine }}
+          cache-from: type=gha,scope=uptime-kuma
+          cache-to: type=gha,mode=max,scope=uptime-kuma
+          # `prep` porte les paquets Alpine qui finissent dans l'image. Servi
+          # depuis le cache, il rendrait menteurs le manifeste (compare a une
+          # reference generee sur un build frais) et le scan CVE ci-dessous
+          # (qui examinerait des paquets perimes).
+          no-cache-filters: prep
+
+      # Le stage `prep` est la derniere Alpine lisible par un scanner : node,
+      # OpenSSL, SQLite, ICU... exactement les paquets copies dans l'image
+      # FROM scratch. Le SARIF remonte CRITICAL+HIGH ; l'echec est reserve aux
+      # CRITICAL corrigeables, pour qu'un job rouge veuille toujours dire
+      # « une mise a jour de prep corrige une faille critique ».
+      - name: Build prep stage (Alpine with runtime deps)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          target: prep
+          platforms: linux/amd64
+          load: true
+          tags: ${{ env.IMAGE_NAME }}-prep:scan
+          no-cache-filters: prep
+          build-args: |
+            KUMA_VERSION=${{ steps.versions.outputs.kuma }}
+            KUMA_SHA256=${{ steps.versions.outputs.kuma_sha256 }}
+            IPUTILS_VERSION=${{ steps.versions.outputs.iputils }}
+            IPUTILS_SHA256=${{ steps.versions.outputs.iputils_sha256 }}
+            ALPINE_VERSION=${{ steps.versions.outputs.alpine }}
+          cache-from: type=gha,scope=uptime-kuma
+
+      - name: Trivy scan prep stage (report CRITICAL+HIGH)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}-prep:scan
+          format: sarif
+          output: trivy-prep.sarif
+          severity: CRITICAL,HIGH
+          exit-code: '0'
+          ignore-unfixed: true
+
+      - name: Upload prep SARIF
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-prep.sarif
+          category: ${{ env.IMAGE_NAME }}-deps
+
+      - name: Trivy gate prep stage (fail on fixable CRITICAL)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}-prep:scan
+          format: table
+          severity: CRITICAL
+          exit-code: '1'
+          ignore-unfixed: true
+
+      - name: Upload image tarball (PR only, for the test job)
+        if: env.PUBLISH != 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: image-tar
+          path: /tmp/image-tar/image.tar
+          if-no-files-found: error
+          retention-days: 1
+
+  # -------------------------------------------------------------------
+  #  Teste les octets que `build` vient de produire (retires par digest,
+  #  ou charges depuis l'archive sur une PR).
+  # -------------------------------------------------------------------
+  test:
+    name: Functional tests
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      PUBLISH: ${{ github.event_name != 'pull_request' && 'true' || 'false' }}
+      IMAGE: localhost/uptime-kuma-hardened:latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Login ghcr.io
+        if: env.PUBLISH == 'true'
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull built digest for testing
+        if: env.PUBLISH == 'true'
+        run: |
+          set -euo pipefail
+          docker pull "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}"
+          docker tag  "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}" "${IMAGE}"
+
+      - name: Download image tarball (PR only)
+        if: env.PUBLISH != 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: image-tar
+          path: /tmp/image-tar
+
+      - name: Load image tarball (PR only)
+        if: env.PUBLISH != 'true'
+        run: docker load -i /tmp/image-tar/image.tar
+
+      # Un tag qui ne correspond pas a ce que l'image contient est le seul
+      # defaut que rien d'autre ici n'attrape (php a publie une 8.5.8 sous un
+      # tag 8.5.9 pendant 18 jours). On demande a l'image ce qu'elle est.
+      - name: Assert the image is the Uptime Kuma / iputils version we tag it with
+        run: |
+          set -euo pipefail
+          want=$(jq -r '."uptime-kuma"' versions.json)
+          got=$(docker run --rm --entrypoint /usr/bin/node "${IMAGE}" \
+                  -p 'require("/app/package.json").version' 2>&1 || true)
+          echo "uptime-kuma declared: ${want} | image: ${got}"
+          if [ "$want" != "$got" ]; then
+            echo "::error::image ships Uptime Kuma ${got} but would be published as ${want}"
+            exit 1
+          fi
+          want=$(jq -r .iputils versions.json)
+          raw=$(docker run --rm --entrypoint /bin/ping "${IMAGE}" -V 2>&1 || true)
+          echo "iputils declared: ${want} | image: ${raw}"
+          if [ "$raw" != "ping from iputils ${want}" ]; then
+            echo "::error::image ships '${raw}' but versions.json says iputils ${want}"
+            exit 1
+          fi
+
+      # Le manifeste dit ce qui est DANS l'image : chemins, modes, uid/gid,
+      # capacites de fichier, doublons de contenu. Toute derive echoue ; si
+      # elle est voulue, regenerer le manifeste DANS LE MEME COMMIT.
+      - name: Image manifest
+        run: ./scripts/image-manifest.py --check "${IMAGE}" -m image.manifest
+
+      # lddtree sort en 0 sur une dependance introuvable : le vrai chargeur
+      # musl, dans un chroot sur le filesystem de l'image, tranche.
+      - name: Image closure
+        run: ./scripts/check-image-closure.sh "${IMAGE}"
+
+      # Lance l'image en lecture seule, cap_drop ALL, no-new-privileges :
+      # base creee et migree, frontend, ping sans capacite, Intl, healthcheck,
+      # et chaque require() du serveur resolu.
+      - name: Functional tests
+        run: ./scripts/test.sh "${IMAGE}"
+
+  # -------------------------------------------------------------------
+  #  Retague le digest que `build` a pousse et que `test` vient de
+  #  verifier -- aucune reconstruction. imagetools create le copie aussi
+  #  vers Docker Hub quand les identifiants sont configures.
+  # -------------------------------------------------------------------
+  promote:
+    name: Promote tested digest
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    outputs:
+      digest: ${{ steps.manifest.outputs.digest }}
+
+    steps:
+      # fetch-depth 0 : build-revision.sh compte les commits, un clone
+      # superficiel ferait de chaque build un .0
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login ghcr.io
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Docker Hub credentials
+        id: dockerhub
+        run: |
+          if [ -n "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Login Docker Hub
+        if: steps.dockerhub.outputs.available == 'true'
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Resolve Uptime Kuma version
+        id: versions
+        run: |
+          set -euo pipefail
+          KUMA_VER=$(jq -r '."uptime-kuma"' versions.json)
+          echo "kuma=${KUMA_VER}" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Resolved versions"
+            echo "- uptime-kuma: ${KUMA_VER}"
+            echo "- iputils: $(jq -r .iputils versions.json)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Compute Docker Hub image name
+        id: dockerhub-image
+        if: steps.dockerhub.outputs.available == 'true'
+        env:
+          DOCKERHUB_NS: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: echo "image=docker.io/${DOCKERHUB_NS}/${{ env.IMAGE_NAME }}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute build revision
+        id: revision
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.versions.outputs.kuma }}"
+          REVISION=$(./scripts/build-revision.sh uptime-kuma Dockerfile init.go go.mod keys/ scripts/ versions.json)
+          echo "tag=${VERSION}.${REVISION}" >> "$GITHUB_OUTPUT"
+          echo "- Build revision: ${VERSION}.${REVISION}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
+            ${{ steps.dockerhub-image.outputs.image }}
+          tags: |
+            type=raw,value=${{ steps.revision.outputs.tag }}
+            type=semver,pattern={{version}}
+            type=raw,value=${{ steps.versions.outputs.kuma }}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Create tags on the tested digest (no rebuild)
+        id: manifest
+        run: |
+          set -euo pipefail
+          SOURCE="${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}"
+          TAGS=()
+          while IFS= read -r tag; do
+            [ -n "$tag" ] && TAGS+=(-t "$tag")
+          done <<< "${{ steps.meta.outputs.tags }}"
+          docker buildx imagetools create "${TAGS[@]}" "${SOURCE}"
+          DIGEST=$(docker buildx imagetools inspect "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:${{ steps.versions.outputs.kuma }}" --format '{{json .Manifest.Digest}}' | tr -d '"')
+          echo "digest=${DIGEST}" >> "$GITHUB_OUTPUT"
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign image (OIDC keyless)
+        env:
+          DIGEST: ${{ steps.manifest.outputs.digest }}
+          HAS_DOCKERHUB: ${{ steps.dockerhub.outputs.available }}
+          DOCKERHUB_NS: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          cosign sign --yes "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}@${DIGEST}"
+          if [ "$HAS_DOCKERHUB" = "true" ]; then
+            COSIGN_REPOSITORY="${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}" \
+              cosign sign --yes "docker.io/${DOCKERHUB_NS}/${{ env.IMAGE_NAME }}@${DIGEST}"
+          fi
+
+      # Scan de l'image finale : c'est ici que remontent les dependances npm
+      # de Kuma (le stage prep n'en contient aucune). Rapport seulement : ces
+      # CVE viennent du lockfile amont et ne se corrigent que par une montee
+      # de version -- voir SECURITY.md.
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}@${{ steps.manifest.outputs.digest }}
+          format: sarif
+          output: trivy-uptime-kuma.sarif
+          severity: CRITICAL,HIGH
+          exit-code: '0'
+          ignore-unfixed: true
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-uptime-kuma.sarif
+          category: uptime-kuma-hardened
+
+      - name: GitHub SLSA Attestation
+        if: "!startsWith(github.ref, 'refs/heads/dependabot/')"
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.manifest.outputs.digest }}
+          push-to-registry: true
+
+  # -------------------------------------------------------------------
+  #  Le README nomme le tag immuable courant : il est regenere ici pour
+  #  qu'il ne designe jamais un tag que les registres ne portent plus.
+  # -------------------------------------------------------------------
+  update-readme:
+    name: Refresh README tag block
+    needs: promote
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Rewrite tag block
+        run: |
+          set -euo pipefail
+          VERSION=$(jq -r '."uptime-kuma"' versions.json)
+          REVISION=$(./scripts/build-revision.sh uptime-kuma Dockerfile init.go go.mod keys/ scripts/ versions.json)
+          ./scripts/update-readme-tags.sh "jbsky/uptime-kuma-hardened=${VERSION}=${VERSION}.${REVISION}"
+
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet README.md; then
+            echo "README already names the current tag"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs(readme): tag immuable courant [skip ci]"
+          for _ in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            git pull --rebase origin main || true
+          done
+          exit 1
+
+  cleanup:
+    name: Prune old registry tags
+    needs: promote
+    uses: ./.github/workflows/registry-cleanup.yml
+    secrets: inherit
+
+  # -------------------------------------------------------------------
+  release:
+    name: GitHub Release
+    needs: promote
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Tarball + checksums
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME}"
+          mkdir -p dist
+          # Les seuls fichiers suivis par git : rien de genere, rien de local.
+          git archive --format=tar.gz --prefix="uptime-kuma-hardened-${VERSION}/" \
+              -o "dist/uptime-kuma-hardened-${VERSION}.tar.gz" HEAD
+          cd dist
+          sha256sum "uptime-kuma-hardened-${VERSION}.tar.gz" > "uptime-kuma-hardened-${VERSION}.sha256"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/uptime-kuma-hardened-${{ github.ref_name }}.tar.gz
+            dist/uptime-kuma-hardened-${{ github.ref_name }}.sha256

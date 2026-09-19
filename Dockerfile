@@ -264,6 +264,7 @@ RUN addon="$(find /stage/addons -name '*.node' -type f)" \
 FROM scratch
 
 ARG KUMA_VERSION
+ARG IPUTILS_VERSION
 # image.licenses decrit le logiciel embarque : Uptime Kuma (MIT), Node.js
 # (MIT et ses dependances), iputils (GPL-2.0-or-later pour ping, BSD pour
 # certaines parties), tini (MIT). Ce depot lui-meme est en Apache-2.0.
@@ -273,7 +274,8 @@ LABEL org.opencontainers.image.title="uptime-kuma-hardened" \
       org.opencontainers.image.version="${KUMA_VERSION}" \
       org.opencontainers.image.source="https://github.com/jbsky/uptime-kuma-hardened" \
       org.opencontainers.image.licenses="MIT AND GPL-2.0-or-later AND BSD-3-Clause" \
-      security.hardening.tier="platine"
+      security.hardening.tier="platine" \
+      versions="uptime-kuma=${KUMA_VERSION},iputils=${IPUTILS_VERSION}"
 
 # Runtime : node + ping + tini, leur cloture, ICU, CA, zoneinfo, passwd.
 COPY --link --from=prep /rootfs/ /

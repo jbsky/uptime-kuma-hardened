@@ -123,3 +123,20 @@ func TestHealthURL(t *testing.T) {
 		t.Errorf("port + TLS : %s", got)
 	}
 }
+
+// setupDirs pose un sticky bit sur /tmp : un mode litteral 0o1777 est ignore
+// par os.Chmod (seul os.ModeSticky est traduit), ce qui avait livre un /tmp en
+// 0777. Le test rejoue la traduction sur un repertoire temporaire.
+func TestStickyMode(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.Chmod(dir, os.ModeSticky|0o777); err != nil {
+		t.Fatalf("chmod: %v", err)
+	}
+	fi, err := os.Stat(dir)
+	if err != nil {
+		t.Fatalf("stat: %v", err)
+	}
+	if fi.Mode()&os.ModeSticky == 0 {
+		t.Errorf("mode %v : bit sticky absent", fi.Mode())
+	}
+}

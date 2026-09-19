@@ -1,5 +1,8 @@
 # Uptime Kuma Hardened
 
+[![Build](https://github.com/jbsky/uptime-kuma-hardened/actions/workflows/build-push.yml/badge.svg)](https://github.com/jbsky/uptime-kuma-hardened/actions/workflows/build-push.yml)
+[![Hardening](https://img.shields.io/badge/hardening-platine-blueviolet)](#ce-qui-est-embarque-et-dou-ca-vient)
+
 Image [Uptime Kuma](https://github.com/louislam/uptime-kuma) <!--v:uptime-kuma-hardened-->2.2.1<!--/v-->
 durcie : `FROM scratch`, init Go statique, tini en PID 1, aucun shell, aucun
 gestionnaire de paquets. Pensee pour un deploiement Podman sur VyOS.
@@ -19,6 +22,30 @@ type de sonde utilise -- http, keyword, dns, ping, port -- remonte au vert, et
 chaque ecart avec l'instance d'origine s'explique par la position reseau du banc
 (la meme cible est injoignable depuis un conteneur Alpine nu sur le meme pont).
 Memoire residente : ~300 Mio apres cinq minutes.
+
+## Tags
+
+Trois tags : `latest` (dernier build de `main`), la version amont seule, et la
+version amont suffixee d'un **compteur de revision**. Les deux premiers sont
+**reecrits en place** a chaque rebuild -- mise a jour Alpine, correctif, changement
+du Dockerfile. **En production, epinglez le tag qui porte le compteur.**
+
+<!-- BEGIN:tags (genere par la CI -- ne pas editer a la main) -->
+| Image | Version amont | Tag immuable a epingler |
+|-------|---------------|-------------------------|
+| `jbsky/uptime-kuma-hardened` | `2.2.1` | `2.2.1.1` |
+<!-- END:tags -->
+
+Images publiees sur `ghcr.io/jbsky/uptime-kuma-hardened` (signees par cosign,
+OIDC sans cle, avec attestation SLSA) et sur Docker Hub `jbsky/uptime-kuma-hardened`.
+Ce tableau, la version citee en tete et les tags des exemples sont rendus par
+`scripts/update-readme-tags.sh` apres chaque publication.
+
+```bash
+cosign verify ghcr.io/jbsky/uptime-kuma-hardened:latest \
+  --certificate-identity-regexp '^https://github.com/jbsky/uptime-kuma-hardened/' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com
+```
 
 ## Ce qui est embarque, et d'ou ca vient
 
@@ -92,7 +119,7 @@ Deux points qui ne se devinent pas :
 ### VyOS
 
 ```
-set container name uptime-kuma image 'docker.io/jbsky/uptime-kuma-hardened:<tag>'
+set container name uptime-kuma image 'docker.io/jbsky/uptime-kuma-hardened:2.2.1.1'
 set container name uptime-kuma sysctl parameter net.ipv4.ping_group_range value '3001 3001'
 set container name uptime-kuma memory '512'
 set container name uptime-kuma volume uptime-data source '/config/containers/uptime-kuma/data'
@@ -130,7 +157,7 @@ existante : toutes ses sondes ping etaient dans ce cas) recoit
 `interval * 1000 * 0.8` -- des **millisecondes** -- passe a `ping -w`, qui
 attend des **secondes** : `ping -w 48000` pour un intervalle de 60 s. Une cible qui cesse de repondre *sans* renvoyer d'ICMP (paquet jete par un
 pare-feu) bloque alors la sonde 13 heures au lieu de la passer DOWN.
-Present en 2.2.1 comme en 2.5.5 (`server/model/monitor.js`), independant de
+Present en 2.2.1 comme en 2.5.5 (`server/model/monitor.js`), independant de <!-- version-fixe -->
 l'image. Contournement : ouvrir chaque sonde ping en edition et l'enregistrer
 telle quelle -- l'interface remplace un timeout nul par 10 s
 (`src/pages/EditMonitor.vue`).

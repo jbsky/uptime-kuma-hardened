@@ -1,0 +1,1067 @@
+# image-manifest v2
+# image : jbsky/uptime-kuma-hardened:latest
+# genere par scripts/image-manifest.py -- ne pas editer a la main
+
+f 0755 0:0 elf app/node_modules/@louislam/sqlite3/lib/binding/napi-v6-linux-x64/node_sqlite3.node
+f 0755 0:0 elf bin/ping
+l bin/ping6 -> ping
+f 0644 0:0 - etc/group
+f 0644 0:0 - etc/passwd
+f 0755 0:0 elf lib/ld-musl-x86_64.so.1
+l lib/libc.musl-x86_64.so.1 -> ld-musl-x86_64.so.1
+f 0755 0:0 elf sbin/tini
+f 0755 0:0 elf usr/bin/node
+l usr/lib/libada.so.3 -> libada.so.3.<version>
+f 0755 0:0 elf usr/lib/libada.so.3.<version>
+l usr/lib/libbrotlicommon.so.1 -> libbrotlicommon.so.1.<version>
+f 0755 0:0 elf usr/lib/libbrotlicommon.so.1.<version>
+l usr/lib/libbrotlidec.so.1 -> libbrotlidec.so.1.<version>
+f 0755 0:0 elf usr/lib/libbrotlidec.so.1.<version>
+l usr/lib/libbrotlienc.so.1 -> libbrotlienc.so.1.<version>
+f 0755 0:0 elf usr/lib/libbrotlienc.so.1.<version>
+l usr/lib/libcares.so.2 -> libcares.so.2.<version>
+f 0755 0:0 elf usr/lib/libcares.so.2.<version>
+f 0755 0:0 elf usr/lib/libcrypto.so.3
+f 0644 0:0 elf usr/lib/libgcc_s.so.1
+l usr/lib/libicudata.so.78 -> libicudata.so.78.<version>
+f 0755 0:0 elf usr/lib/libicudata.so.78.<version>
+l usr/lib/libicui18n.so.78 -> libicui18n.so.78.<version>
+f 0755 0:0 elf usr/lib/libicui18n.so.78.<version>
+l usr/lib/libicuuc.so.78 -> libicuuc.so.78.<version>
+f 0755 0:0 elf usr/lib/libicuuc.so.78.<version>
+l usr/lib/libnghttp2.so.14 -> libnghttp2.so.14.<version>
+f 0755 0:0 elf usr/lib/libnghttp2.so.14.<version>
+l usr/lib/libsimdjson.so.29 -> libsimdjson.so.29.<version>
+f 0755 0:0 elf usr/lib/libsimdjson.so.29.<version>
+l usr/lib/libsimdutf.so.34 -> libsimdutf.so.34.<version>
+f 0755 0:0 elf usr/lib/libsimdutf.so.34.<version>
+l usr/lib/libsqlite3.so.0 -> libsqlite3.so.3.53.4
+f 0755 0:0 elf usr/lib/libsqlite3.so.3.53.4
+f 0755 0:0 elf usr/lib/libssl.so.3
+l usr/lib/libstdc++.so.6 -> libstdc++.so.6.<version>
+f 0755 0:0 elf usr/lib/libstdc++.so.6.<version>
+l usr/lib/libz.so.1 -> libz.so.1.<version>
+f 0755 0:0 elf usr/lib/libz.so.1.<version>
+l usr/lib/libzstd.so.1 -> libzstd.so.1.<version>
+f 0755 0:0 elf usr/lib/libzstd.so.1.<version>
+f 0755 0:0 elf usr/local/bin/init
+
+count 109 app/db/
+count 249 app/dist/
+count 28 app/extra/
+count 32 app/node_modules/.bin/
+count 179 app/node_modules/@aws-crypto/
+count 1008 app/node_modules/@aws-sdk/
+count 9 app/node_modules/@aws/
+count 46 app/node_modules/@azure-rest/
+count 2523 app/node_modules/@azure/
+count 5 app/node_modules/@gar/
+count 245 app/node_modules/@grpc/
+count 15 app/node_modules/@hey-api/
+count 46 app/node_modules/@isaacs/
+count 92 app/node_modules/@js-joda/
+count 21 app/node_modules/@louislam/ping/
+count 57 app/node_modules/@mapbox/
+count 15 app/node_modules/@mongodb-js/
+count 277 app/node_modules/@noble/
+count 34 app/node_modules/@npmcli/
+count 20 app/node_modules/@pkgjs/
+count 83 app/node_modules/@protobufjs/
+count 609 app/node_modules/@redis/
+count 122 app/node_modules/@scure/
+count 7 app/node_modules/@sindresorhus/
+count 1019 app/node_modules/@smithy/
+count 11 app/node_modules/@socket.io/
+count 7 app/node_modules/@szmarczak/
+count 11 app/node_modules/@tediousjs/
+count 4 app/node_modules/@tootallnate/
+count 108 app/node_modules/@types/
+count 354 app/node_modules/@typespec/
+count 19 app/node_modules/@vvo/
+count 4 app/node_modules/abbrev/
+count 11 app/node_modules/abort-controller/
+count 17 app/node_modules/accepts/
+count 6 app/node_modules/agent-base/
+count 9 app/node_modules/agentkeepalive/
+count 4 app/node_modules/aggregate-error/
+count 10 app/node_modules/anafanafo/
+count 4 app/node_modules/ansi-regex/
+count 4 app/node_modules/ansi-styles/
+count 22 app/node_modules/any-promise/
+count 4 app/node_modules/aproba/
+count 45 app/node_modules/are-we-there-yet/
+count 7 app/node_modules/args-parser/
+count 4 app/node_modules/array-flatten/
+count 15 app/node_modules/asn1-ber/
+count 24 app/node_modules/asn1.js/
+count 21 app/node_modules/asynckit/
+count 7 app/node_modules/await-lock/
+count 11 app/node_modules/aws-ssl-profiles/
+count 83 app/node_modules/axios/
+count 11 app/node_modules/badge-maker/
+count 6 app/node_modules/balanced-match/
+count 15 app/node_modules/barse/
+count 5 app/node_modules/base64-js/
+count 6 app/node_modules/base64id/
+count 11 app/node_modules/basic-auth/
+count 37 app/node_modules/bcryptjs/
+count 5 app/node_modules/binary-search/
+count 31 app/node_modules/bintrees/
+count 70 app/node_modules/bl/
+count 8 app/node_modules/bn.js/
+count 66 app/node_modules/body-parser/
+count 3 app/node_modules/boolbase/
+count 14 app/node_modules/bowser/
+count 6 app/node_modules/brace-expansion/
+count 69 app/node_modules/bson/
+count 7 app/node_modules/buffer-equal-constant-time/
+count 4 app/node_modules/buffer-from/
+count 5 app/node_modules/buffer/
+count 4 app/node_modules/bundle-name/
+count 5 app/node_modules/bytes/
+count 24 app/node_modules/cacache/
+count 5 app/node_modules/cacheable-lookup/
+count 5 app/node_modules/cacheable-request/
+count 17 app/node_modules/call-bind-apply-helpers/
+count 12 app/node_modules/call-bound/
+count 7 app/node_modules/char-width-table-consumer/
+count 16 app/node_modules/chardet/
+count 7 app/node_modules/check-password-strength/
+count 12 app/node_modules/cheerio-select/
+count 266 app/node_modules/cheerio/
+count 4 app/node_modules/chownr/
+count 129 app/node_modules/chroma-js/
+count 4 app/node_modules/clean-stack/
+count 10 app/node_modules/cliui/
+count 6 app/node_modules/cluster-key-slot/
+count 7 app/node_modules/color-convert/
+count 4 app/node_modules/color-name/
+count 6 app/node_modules/color-support/
+count 5 app/node_modules/colorette/
+count 6 app/node_modules/combined-stream/
+count 14 app/node_modules/command-exists/
+count 14 app/node_modules/commander/
+count 7 app/node_modules/commist/
+count 5 app/node_modules/compare-versions/
+count 5 app/node_modules/compressible/
+count 30 app/node_modules/compression/
+count 9 app/node_modules/concat-map/
+count 40 app/node_modules/concat-stream/
+count 5 app/node_modules/console-control-strings/
+count 5 app/node_modules/content-disposition/
+count 5 app/node_modules/content-type/
+count 4 app/node_modules/cookie-signature/
+count 5 app/node_modules/cookie/
+count 5 app/node_modules/core-util-is/
+count 5 app/node_modules/cors/
+count 7 app/node_modules/country-flag-emoji-polyfill/
+count 8 app/node_modules/croner/
+count 11 app/node_modules/cross-spawn/
+count 19 app/node_modules/css-color-converter/
+count 38 app/node_modules/css-select/
+count 5 app/node_modules/css-unit-converter/
+count 14 app/node_modules/css-what/
+count 413 app/node_modules/dayjs/
+count 8 app/node_modules/debug/
+count 10 app/node_modules/decompress-response/
+count 4 app/node_modules/default-browser-id/
+count 5 app/node_modules/default-browser/
+count 6 app/node_modules/defer-to-connect/
+count 7 app/node_modules/delayed-stream/
+count 9 app/node_modules/delegates/
+count 5 app/node_modules/denque/
+count 8 app/node_modules/depd/
+count 4 app/node_modules/destroy/
+count 8 app/node_modules/detect-libc/
+count 13 app/node_modules/dev-null/
+count 10 app/node_modules/dom-serializer/
+count 8 app/node_modules/domelementtype/
+count 10 app/node_modules/domhandler/
+count 22 app/node_modules/domutils/
+count 9 app/node_modules/dotenv/
+count 15 app/node_modules/dunder-proto/
+count 43 app/node_modules/duplexify/
+count 3 app/node_modules/eastasianwidth/
+count 7 app/node_modules/ecdsa-sig-formatter/
+count 4 app/node_modules/ee-first/
+count 9 app/node_modules/emitter-component/
+count 8 app/node_modules/emoji-regex/
+count 4 app/node_modules/encodeurl/
+count 13 app/node_modules/encoding-sniffer/
+count 9 app/node_modules/encoding/
+count 4 app/node_modules/end-of-stream/
+count 96 app/node_modules/engine.io-client/
+count 24 app/node_modules/engine.io-parser/
+count 47 app/node_modules/engine.io/
+count 24 app/node_modules/entities/
+count 4 app/node_modules/env-paths/
+count 11 app/node_modules/err-code/
+count 12 app/node_modules/es-define-property/
+count 17 app/node_modules/es-errors/
+count 14 app/node_modules/es-object-atoms/
+count 10 app/node_modules/es-set-tostringtag/
+count 9 app/node_modules/escalade/
+count 4 app/node_modules/escape-html/
+count 7 app/node_modules/esm/
+count 5 app/node_modules/etag/
+count 7 app/node_modules/event-target-shim/
+count 4 app/node_modules/event-to-promise/
+count 34 app/node_modules/events/
+count 7 app/node_modules/express-basic-auth/
+count 7 app/node_modules/express-static-gzip/
+count 44 app/node_modules/express/
+count 12 app/node_modules/fast-xml-builder/
+count 58 app/node_modules/fast-xml-parser/
+count 49 app/node_modules/feed/
+count 31 app/node_modules/finalhandler/
+count 7 app/node_modules/follow-redirects/
+count 32 app/node_modules/foreground-child/
+count 21 app/node_modules/form-data-encoder/
+count 8 app/node_modules/form-data/
+count 5 app/node_modules/forwarded/
+count 5 app/node_modules/fresh/
+count 4 app/node_modules/fs-minipass/
+count 5 app/node_modules/fs.realpath/
+count 14 app/node_modules/function-bind/
+count 134 app/node_modules/gamedig/
+count 19 app/node_modules/gauge/
+count 8 app/node_modules/gbxremote/
+count 7 app/node_modules/generate-function/
+count 4 app/node_modules/get-caller-file/
+count 11 app/node_modules/get-intrinsic/
+count 9 app/node_modules/get-package-type/
+count 14 app/node_modules/get-proto/
+count 5 app/node_modules/get-stream/
+count 5 app/node_modules/getopts/
+count 17 app/node_modules/glob/
+count 36 app/node_modules/globalping/
+count 12 app/node_modules/gopd/
+count 29 app/node_modules/got/
+count 7 app/node_modules/graceful-fs/
+count 17 app/node_modules/has-symbols/
+count 17 app/node_modules/has-tostringtag/
+count 4 app/node_modules/has-unicode/
+count 10 app/node_modules/hasown/
+count 64 app/node_modules/help-me/
+count 13 app/node_modules/html-escaper/
+count 14 app/node_modules/htmlparser2/
+count 4 app/node_modules/http-cache-semantics/
+count 32 app/node_modules/http-cookie-agent/
+count 5 app/node_modules/http-errors/
+count 5 app/node_modules/http-graceful-shutdown/
+count 5 app/node_modules/http-proxy-agent/
+count 28 app/node_modules/http2-wrapper/
+count 3 app/node_modules/http_ece/
+count 6 app/node_modules/https-proxy-agent/
+count 5 app/node_modules/humanize-ms/
+count 39 app/node_modules/iconv-lite/
+count 4 app/node_modules/ieee754/
+count 4 app/node_modules/imurmurhash/
+count 4 app/node_modules/indent-string/
+count 4 app/node_modules/infer-owner/
+count 4 app/node_modules/inflight/
+count 5 app/node_modules/inherits/
+count 6 app/node_modules/interpret/
+count 27 app/node_modules/ip-address/
+count 6 app/node_modules/ipaddr.js/
+count 10 app/node_modules/is-core-module/
+count 4 app/node_modules/is-fullwidth-code-point/
+count 14 app/node_modules/is-inside-container/
+count 7 app/node_modules/is-lambda/
+count 5 app/node_modules/is-property/
+count 8 app/node_modules/is-url/
+count 6 app/node_modules/isarray/
+count 9 app/node_modules/isexe/
+count 5 app/node_modules/isomorphic-ws/
+count 12 app/node_modules/jackspeak/
+count 315 app/node_modules/jose/
+count 52 app/node_modules/js-md4/
+count 71 app/node_modules/js-sdsl/
+count 8 app/node_modules/jsesc/
+count 7 app/node_modules/json-buffer/
+count 7 app/node_modules/jsonata/
+count 16 app/node_modules/jsonwebtoken/
+count 15 app/node_modules/just-performance/
+count 5 app/node_modules/jwa/
+count 11 app/node_modules/jws/
+count 8 app/node_modules/jwt-decode/
+count 575 app/node_modules/kafkajs/
+count 4 app/node_modules/keyv/
+count 267 app/node_modules/knex/
+count 4 app/node_modules/leven/
+count 27 app/node_modules/limiter/
+count 24 app/node_modules/liquidjs/
+count 4 app/node_modules/lodash.camelcase/
+count 4 app/node_modules/lodash.get/
+count 4 app/node_modules/lodash.includes/
+count 4 app/node_modules/lodash.isboolean/
+count 4 app/node_modules/lodash.isinteger/
+count 4 app/node_modules/lodash.isnumber/
+count 4 app/node_modules/lodash.isplainobject/
+count 4 app/node_modules/lodash.isstring/
+count 4 app/node_modules/lodash.once/
+count 1052 app/node_modules/lodash/
+count 7 app/node_modules/long/
+count 4 app/node_modules/lowercase-keys/
+count 4 app/node_modules/lru-cache/
+count 8 app/node_modules/lru.min/
+count 15 app/node_modules/make-dir/
+count 44 app/node_modules/make-fetch-happen/
+count 14 app/node_modules/marked/
+count 26 app/node_modules/math-intrinsics/
+count 5 app/node_modules/media-typer/
+count 6 app/node_modules/memory-pager/
+count 5 app/node_modules/merge-descriptors/
+count 5 app/node_modules/methods/
+count 6 app/node_modules/mime-db/
+count 13 app/node_modules/mime-types/
+count 11 app/node_modules/mime/
+count 4 app/node_modules/mimic-response/
+count 4 app/node_modules/minimalistic-assert/
+count 20 app/node_modules/minimatch/
+count 27 app/node_modules/minimist/
+count 4 app/node_modules/minipass-collect/
+count 13 app/node_modules/minipass-fetch/
+count 4 app/node_modules/minipass-flush/
+count 4 app/node_modules/minipass-pipeline/
+count 8 app/node_modules/minipass-sized/
+count 4 app/node_modules/minipass/
+count 5 app/node_modules/minizlib/
+count 7 app/node_modules/mitt/
+count 14 app/node_modules/mkdirp/
+count 36 app/node_modules/mongodb-connection-string-url/
+count 232 app/node_modules/mongodb/
+count 124 app/node_modules/mqtt/
+count 4 app/node_modules/ms/
+count 55 app/node_modules/mssql/
+count 107 app/node_modules/mysql2/
+count 4 app/node_modules/named-placeholders/
+count 25 app/node_modules/nanoid/
+count 9 app/node_modules/native-duplexpair/
+count 10 app/node_modules/negotiator/
+count 83 app/node_modules/net-snmp/
+count 5 app/node_modules/net/
+count 19 app/node_modules/node-addon-api/
+count 6 app/node_modules/node-cloudflared-tunnel/
+count 32 app/node_modules/node-fetch/
+count 233 app/node_modules/node-gyp/
+count 228 app/node_modules/node-radius-utils/
+count 68 app/node_modules/nodemailer/
+count 8 app/node_modules/nopt/
+count 4 app/node_modules/normalize-url/
+count 105 app/node_modules/nostr-tools/
+count 13 app/node_modules/nostr-wasm/
+count 12 app/node_modules/notp/
+count 4 app/node_modules/npmlog/
+count 12 app/node_modules/nth-check/
+count 18 app/node_modules/number-allocator/
+count 4 app/node_modules/object-assign/
+count 6 app/node_modules/object-hash/
+count 38 app/node_modules/object-inspect/
+count 5 app/node_modules/oidc-token-hash/
+count 5 app/node_modules/on-finished/
+count 5 app/node_modules/on-headers/
+count 4 app/node_modules/once/
+count 35 app/node_modules/openid-client/
+count 4 app/node_modules/p-cancelable/
+count 4 app/node_modules/p-map/
+count 8 app/node_modules/parse5-htmlparser2-tree-adapter/
+count 8 app/node_modules/parse5-parser-stream/
+count 91 app/node_modules/parse5/
+count 5 app/node_modules/parseurl/
+count 13 app/node_modules/password-hash/
+count 4 app/node_modules/path-is-absolute/
+count 4 app/node_modules/path-key/
+count 4 app/node_modules/path-parse/
+count 35 app/node_modules/path-scurry/
+count 4 app/node_modules/path-to-regexp/
+count 11 app/node_modules/pg-cloudflare/
+count 4 app/node_modules/pg-connection-string/
+count 4 app/node_modules/pg-int8/
+count 6 app/node_modules/pg-pool/
+count 29 app/node_modules/pg-protocol/
+count 14 app/node_modules/pg-types/
+count 23 app/node_modules/pg/
+count 13 app/node_modules/pgpass/
+count 18 app/node_modules/pkginfo/
+count 324 app/node_modules/playwright-core/
+count 4 app/node_modules/postgres-array/
+count 4 app/node_modules/postgres-bytea/
+count 4 app/node_modules/postgres-date/
+count 4 app/node_modules/postgres-interval/
+count 4 app/node_modules/process-nextick-args/
+count 7 app/node_modules/process/
+count 37 app/node_modules/prom-client/
+count 27 app/node_modules/prometheus-api-metrics/
+count 4 app/node_modules/promise-inflight/
+count 9 app/node_modules/promise-retry/
+count 6 app/node_modules/promisify-child-process/
+count 80 app/node_modules/protobufjs/
+count 5 app/node_modules/proxy-addr/
+count 7 app/node_modules/proxy-from-env/
+count 16 app/node_modules/psl/
+count 11 app/node_modules/pump/
+count 5 app/node_modules/punycode/
+count 24 app/node_modules/qs/
+count 4 app/node_modules/querystringify/
+count 4 app/node_modules/quick-lru/
+count 52 app/node_modules/radius/
+count 5 app/node_modules/range-parser/
+count 34 app/node_modules/raw-body/
+count 15 app/node_modules/readable-stream/
+count 9 app/node_modules/rechoir/
+count 385 app/node_modules/redbean-node/
+count 4 app/node_modules/redis/
+count 8 app/node_modules/reinterval/
+count 7 app/node_modules/require-directory/
+count 7 app/node_modules/requires-port/
+count 4 app/node_modules/resolve-alpn/
+count 154 app/node_modules/resolve/
+count 4 app/node_modules/responselike/
+count 21 app/node_modules/retry/
+count 11 app/node_modules/rfdc/
+count 6 app/node_modules/rimraf/
+count 4 app/node_modules/run-applescript/
+count 4 app/node_modules/safe-buffer/
+count 7 app/node_modules/safer-buffer/
+count 5 app/node_modules/sax/
+count 19 app/node_modules/seek-bzip/
+count 56 app/node_modules/semver/
+count 32 app/node_modules/send/
+count 13 app/node_modules/seq-queue/
+count 5 app/node_modules/serve-static/
+count 5 app/node_modules/set-blocking/
+count 6 app/node_modules/setprototypeof/
+count 4 app/node_modules/shebang-command/
+count 4 app/node_modules/shebang-regex/
+count 13 app/node_modules/side-channel-list/
+count 13 app/node_modules/side-channel-map/
+count 13 app/node_modules/side-channel-weakmap/
+count 13 app/node_modules/side-channel/
+count 5 app/node_modules/signal-exit/
+count 13 app/node_modules/smart-buffer/
+count 31 app/node_modules/socket.io-adapter/
+count 38 app/node_modules/socket.io-client/
+count 19 app/node_modules/socket.io-parser/
+count 19 app/node_modules/socket.io/
+count 5 app/node_modules/socks-proxy-agent/
+count 30 app/node_modules/socks/
+count 7 app/node_modules/sparse-bitfield/
+count 42 app/node_modules/split2/
+count 11 app/node_modules/sprintf-js/
+count 7 app/node_modules/sqlstring/
+count 5 app/node_modules/ssri/
+count 6 app/node_modules/statuses/
+count 8 app/node_modules/stream-shift/
+count 7 app/node_modules/stream/
+count 56 app/node_modules/string-to-stream/
+count 4 app/node_modules/string-width-cjs/
+count 4 app/node_modules/string-width/
+count 5 app/node_modules/string_decoder/
+count 4 app/node_modules/strip-ansi-cjs/
+count 4 app/node_modules/strip-ansi/
+count 13 app/node_modules/strnum/
+count 12 app/node_modules/supports-preserve-symlinks-flag/
+count 37 app/node_modules/tar/
+count 11 app/node_modules/tarn/
+count 4 app/node_modules/tcp-ping/
+count 15 app/node_modules/tdigest/
+count 146 app/node_modules/tedious/
+count 6 app/node_modules/telnet-client/
+count 12 app/node_modules/thirty-two/
+count 4 app/node_modules/tildify/
+count 50 app/node_modules/tldts-core/
+count 31 app/node_modules/tldts/
+count 5 app/node_modules/toidentifier/
+count 13 app/node_modules/tough-cookie/
+count 13 app/node_modules/tslib/
+count 5 app/node_modules/type-is/
+count 11 app/node_modules/typedarray/
+count 500 app/node_modules/underscore/
+count 3 app/node_modules/undici-types/
+count 19 app/node_modules/unique-filename/
+count 7 app/node_modules/unique-slug/
+count 4 app/node_modules/universalify/
+count 5 app/node_modules/unpipe/
+count 7 app/node_modules/url-parse/
+count 6 app/node_modules/util-deprecate/
+count 5 app/node_modules/utils-merge/
+count 238 app/node_modules/validator/
+count 8 app/node_modules/varint/
+count 5 app/node_modules/vary/
+count 12 app/node_modules/web-push/
+count 5 app/node_modules/webidl-conversions/
+count 7 app/node_modules/whatwg-encoding/
+count 9 app/node_modules/whatwg-mimetype/
+count 7 app/node_modules/which/
+count 4 app/node_modules/wide-align/
+count 4 app/node_modules/wrap-ansi-cjs/
+count 4 app/node_modules/wrap-ansi/
+count 4 app/node_modules/wrappy/
+count 20 app/node_modules/ws/
+count 10 app/node_modules/wsl-utils/
+count 25 app/node_modules/xml-js/
+count 28 app/node_modules/xmlbuilder/
+count 5 app/node_modules/xmlhttprequest-ssl/
+count 24 app/node_modules/xmlrpc/
+count 7 app/node_modules/xtend/
+count 12 app/node_modules/y18n/
+count 5 app/node_modules/yallist/
+count 84 app/node_modules/yargs/
+count 206 app/server/
+count 1 app/src/
+count 3 etc/ssl/
+count 627 usr/share/
+
+dup 4 11358 app/node_modules/@aws-crypto/sha256-browser/LICENSE app/node_modules/@aws-crypto/supports-web-crypto/LICENSE app/node_modules/js-md4/doc/scripts/prettify/Apache-License-2.0.txt app/node_modules/long/LICENSE
+dup 38 11357 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/is-array-buffer/LICENSE app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/util-buffer-from/LICENSE app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/util-utf8/LICENSE app/node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer/LICENSE app/node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from/LICENSE app/node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/LICENSE app/node_modules/@aws-sdk/credential-provider-env/LICENSE app/node_modules/@aws-sdk/credential-provider-ini/LICENSE app/node_modules/@aws-sdk/credential-provider-node/LICENSE app/node_modules/@aws-sdk/credential-providers/LICENSE app/node_modules/@aws-sdk/region-config-resolver/LICENSE app/node_modules/@aws-sdk/token-providers/LICENSE app/node_modules/@aws-sdk/types/LICENSE app/node_modules/@aws-sdk/util-endpoints/LICENSE app/node_modules/@aws-sdk/util-locate-window/LICENSE app/node_modules/@aws-sdk/xml-builder/LICENSE app/node_modules/@smithy/abort-controller/LICENSE app/node_modules/@smithy/config-resolver/LICENSE app/node_modules/@smithy/credential-provider-imds/LICENSE app/node_modules/@smithy/fetch-http-handler/LICENSE app/node_modules/@smithy/hash-node/LICENSE app/node_modules/@smithy/is-array-buffer/LICENSE app/node_modules/@smithy/middleware-content-length/LICENSE app/node_modules/@smithy/middleware-endpoint/LICENSE app/node_modules/@smithy/middleware-stack/LICENSE app/node_modules/@smithy/node-http-handler/LICENSE app/node_modules/@smithy/property-provider/LICENSE app/node_modules/@smithy/shared-ini-file-loader/LICENSE app/node_modules/@smithy/signature-v4/LICENSE app/node_modules/@smithy/util-base64/LICENSE app/node_modules/@smithy/util-body-length-browser/LICENSE app/node_modules/@smithy/util-body-length-node/LICENSE app/node_modules/@smithy/util-buffer-from/LICENSE app/node_modules/@smithy/util-hex-encoding/LICENSE app/node_modules/@smithy/util-stream/LICENSE app/node_modules/@smithy/util-uri-escape/LICENSE app/node_modules/@smithy/util-utf8/LICENSE app/node_modules/@smithy/uuid/LICENSE
+dup 2 1333 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/is-array-buffer/dist-cjs/index.js app/node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer/dist-cjs/index.js
+dup 2 1948 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/is-array-buffer/package.json app/node_modules/@aws-crypto/util/node_modules/@smithy/is-array-buffer/package.json
+dup 2 1983 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/util-buffer-from/dist-cjs/index.js app/node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from/dist-cjs/index.js
+dup 2 1938 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/util-buffer-from/package.json app/node_modules/@aws-crypto/util/node_modules/@smithy/util-buffer-from/package.json
+dup 2 2345 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/util-utf8/dist-cjs/index.js app/node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/dist-cjs/index.js
+dup 2 2088 app/node_modules/@aws-crypto/sha256-browser/node_modules/@smithy/util-utf8/package.json app/node_modules/@aws-crypto/util/node_modules/@smithy/util-utf8/package.json
+dup 2 11323 app/node_modules/@aws-crypto/sha256-js/LICENSE app/node_modules/mongodb/LICENSE.md
+dup 11 11390 app/node_modules/@aws-sdk/client-cognito-identity/LICENSE app/node_modules/@aws-sdk/credential-provider-cognito-identity/LICENSE app/node_modules/@aws-sdk/util-user-agent-browser/LICENSE app/node_modules/@aws-sdk/util-user-agent-node/LICENSE app/node_modules/@smithy/middleware-retry/LICENSE app/node_modules/@smithy/querystring-builder/LICENSE app/node_modules/@smithy/querystring-parser/LICENSE app/node_modules/@smithy/service-error-classification/LICENSE app/node_modules/@smithy/url-parser/LICENSE app/node_modules/@smithy/util-defaults-mode-browser/LICENSE app/node_modules/@smithy/util-defaults-mode-node/LICENSE
+dup 2 2567 app/node_modules/@aws-sdk/client-cognito-identity/dist-cjs/runtimeConfig.shared.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/cognito-identity/runtimeConfig.shared.js
+dup 6 1338 app/node_modules/@aws-sdk/client-cognito-identity/dist-es/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthExtensionConfiguration.js
+dup 2 2283 app/node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeConfig.shared.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.shared.js
+dup 6 1144 app/node_modules/@aws-sdk/client-cognito-identity/dist-es/runtimeExtensions.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeExtensions.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeExtensions.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeExtensions.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeExtensions.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeExtensions.js
+dup 3 11352 app/node_modules/@aws-sdk/credential-provider-process/LICENSE app/node_modules/@aws-sdk/credential-provider-sso/LICENSE app/node_modules/@aws-sdk/credential-provider-web-identity/LICENSE
+dup 9 11385 app/node_modules/@aws-sdk/middleware-host-header/LICENSE app/node_modules/@aws-sdk/middleware-recursion-detection/LICENSE app/node_modules/@aws-sdk/middleware-user-agent/LICENSE app/node_modules/@smithy/core/LICENSE app/node_modules/@smithy/invalid-dependency/LICENSE app/node_modules/@smithy/middleware-serde/LICENSE app/node_modules/@smithy/protocol-http/LICENSE app/node_modules/@smithy/smithy-client/LICENSE app/node_modules/@smithy/types/LICENSE
+dup 3 11352 app/node_modules/@aws-sdk/middleware-logger/LICENSE app/node_modules/@smithy/node-config-provider/LICENSE app/node_modules/@smithy/util-config-provider/LICENSE
+dup 3 2576 app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/cognito-identity/runtimeConfig.browser.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/sso-oidc/runtimeConfig.browser.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/sso/runtimeConfig.browser.js
+dup 4 3643 app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/cognito-identity/runtimeConfig.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/signin/runtimeConfig.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/sso-oidc/runtimeConfig.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/sso/runtimeConfig.js
+dup 2 2715 app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/signin/runtimeConfig.browser.js app/node_modules/@aws-sdk/nested-clients/dist-cjs/submodules/sts/runtimeConfig.browser.js
+dup 3 2168 app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.browser.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.browser.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.browser.js
+dup 4 3242 app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/runtimeConfig.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/runtimeConfig.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/runtimeConfig.js
+dup 2 2307 app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/runtimeConfig.browser.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/runtimeConfig.browser.js
+dup 2 9538 app/node_modules/@aws-sdk/util-endpoints/dist-cjs/lib/aws/partitions.json app/node_modules/@aws-sdk/util-endpoints/dist-es/lib/aws/partitions.json
+dup 2 1073 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/LICENSE app/node_modules/fast-xml-parser/LICENSE
+dup 2 2697 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/cli/cli.js app/node_modules/fast-xml-parser/src/cli/cli.js
+dup 2 2371 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/TagPath.js app/node_modules/fast-xml-parser/src/v6/TagPath.js
+dup 2 8038 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/Xml2JsParser.js app/node_modules/fast-xml-parser/src/v6/Xml2JsParser.js
+dup 2 6276 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/XmlPartReader.js app/node_modules/fast-xml-parser/src/v6/XmlPartReader.js
+dup 2 3344 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/XmlSpecialTagsReader.js app/node_modules/fast-xml-parser/src/v6/XmlSpecialTagsReader.js
+dup 2 3107 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/inputSource/BufferSource.js app/node_modules/fast-xml-parser/src/v6/inputSource/BufferSource.js
+dup 2 3141 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/inputSource/StringSource.js app/node_modules/fast-xml-parser/src/v6/inputSource/StringSource.js
+dup 2 1249 app/node_modules/@aws-sdk/xml-builder/node_modules/fast-xml-parser/src/v6/valueParsers/currency.js app/node_modules/fast-xml-parser/src/v6/valueParsers/currency.js
+dup 11 1074 app/node_modules/@azure-rest/core-client/LICENSE app/node_modules/@azure/core-auth/LICENSE app/node_modules/@azure/core-client/LICENSE app/node_modules/@azure/core-http-compat/LICENSE app/node_modules/@azure/core-rest-pipeline/LICENSE app/node_modules/@azure/core-tracing/LICENSE app/node_modules/@azure/core-util/LICENSE app/node_modules/@azure/identity/LICENSE app/node_modules/@azure/keyvault-keys/LICENSE app/node_modules/@azure/logger/LICENSE app/node_modules/@typespec/ts-http-runtime/LICENSE
+dup 3 2009 app/node_modules/@azure-rest/core-client/dist/browser/clientHelpers.js app/node_modules/@azure-rest/core-client/dist/esm/clientHelpers.js app/node_modules/@azure-rest/core-client/dist/react-native/clientHelpers.js
+dup 3 2826 app/node_modules/@azure-rest/core-client/dist/browser/getClient.js app/node_modules/@azure-rest/core-client/dist/esm/getClient.js app/node_modules/@azure-rest/core-client/dist/react-native/getClient.js
+dup 3 1076 app/node_modules/@azure/abort-controller/LICENSE app/node_modules/@azure/core-lro/LICENSE app/node_modules/@azure/core-paging/LICENSE
+dup 3 1922 app/node_modules/@azure/core-auth/dist/browser/azureNamedKeyCredential.js app/node_modules/@azure/core-auth/dist/esm/azureNamedKeyCredential.js app/node_modules/@azure/core-auth/dist/react-native/azureNamedKeyCredential.js
+dup 3 1634 app/node_modules/@azure/core-auth/dist/browser/azureSASCredential.js app/node_modules/@azure/core-auth/dist/esm/azureSASCredential.js app/node_modules/@azure/core-auth/dist/react-native/azureSASCredential.js
+dup 3 1303 app/node_modules/@azure/core-auth/dist/browser/tokenCredential.js app/node_modules/@azure/core-auth/dist/esm/tokenCredential.js app/node_modules/@azure/core-auth/dist/react-native/tokenCredential.js
+dup 3 3392 app/node_modules/@azure/core-client/dist/browser/authorizeRequestOnClaimChallenge.js app/node_modules/@azure/core-client/dist/esm/authorizeRequestOnClaimChallenge.js app/node_modules/@azure/core-client/dist/react-native/authorizeRequestOnClaimChallenge.js
+dup 3 4158 app/node_modules/@azure/core-client/dist/browser/authorizeRequestOnTenantChallenge.js app/node_modules/@azure/core-client/dist/esm/authorizeRequestOnTenantChallenge.js app/node_modules/@azure/core-client/dist/react-native/authorizeRequestOnTenantChallenge.js
+dup 3 10646 app/node_modules/@azure/core-client/dist/browser/deserializationPolicy.js app/node_modules/@azure/core-client/dist/esm/deserializationPolicy.js app/node_modules/@azure/core-client/dist/react-native/deserializationPolicy.js
+dup 3 1274 app/node_modules/@azure/core-client/dist/browser/interfaceHelpers.js app/node_modules/@azure/core-client/dist/esm/interfaceHelpers.js app/node_modules/@azure/core-client/dist/react-native/interfaceHelpers.js
+dup 3 3619 app/node_modules/@azure/core-client/dist/browser/operationHelpers.js app/node_modules/@azure/core-client/dist/esm/operationHelpers.js app/node_modules/@azure/core-client/dist/react-native/operationHelpers.js
+dup 3 1197 app/node_modules/@azure/core-client/dist/browser/pipeline.js app/node_modules/@azure/core-client/dist/esm/pipeline.js app/node_modules/@azure/core-client/dist/react-native/pipeline.js
+dup 3 7633 app/node_modules/@azure/core-client/dist/browser/serializationPolicy.js app/node_modules/@azure/core-client/dist/esm/serializationPolicy.js app/node_modules/@azure/core-client/dist/react-native/serializationPolicy.js
+dup 3 41561 app/node_modules/@azure/core-client/dist/browser/serializer.js app/node_modules/@azure/core-client/dist/esm/serializer.js app/node_modules/@azure/core-client/dist/react-native/serializer.js
+dup 3 7440 app/node_modules/@azure/core-client/dist/browser/serviceClient.js app/node_modules/@azure/core-client/dist/esm/serviceClient.js app/node_modules/@azure/core-client/dist/react-native/serviceClient.js
+dup 3 9830 app/node_modules/@azure/core-client/dist/browser/urlHelpers.js app/node_modules/@azure/core-client/dist/esm/urlHelpers.js app/node_modules/@azure/core-client/dist/react-native/urlHelpers.js
+dup 3 4825 app/node_modules/@azure/core-client/dist/browser/utils.js app/node_modules/@azure/core-client/dist/esm/utils.js app/node_modules/@azure/core-client/dist/react-native/utils.js
+dup 3 1980 app/node_modules/@azure/core-http-compat/dist/browser/extendedClient.js app/node_modules/@azure/core-http-compat/dist/esm/extendedClient.js app/node_modules/@azure/core-http-compat/dist/react-native/extendedClient.js
+dup 3 2057 app/node_modules/@azure/core-http-compat/dist/browser/policies/requestPolicyFactoryPolicy.js app/node_modules/@azure/core-http-compat/dist/esm/policies/requestPolicyFactoryPolicy.js app/node_modules/@azure/core-http-compat/dist/react-native/policies/requestPolicyFactoryPolicy.js
+dup 3 2334 app/node_modules/@azure/core-http-compat/dist/browser/response.js app/node_modules/@azure/core-http-compat/dist/esm/response.js app/node_modules/@azure/core-http-compat/dist/react-native/response.js
+dup 3 9437 app/node_modules/@azure/core-http-compat/dist/browser/util.js app/node_modules/@azure/core-http-compat/dist/esm/util.js app/node_modules/@azure/core-http-compat/dist/react-native/util.js
+dup 3 10707 app/node_modules/@azure/core-lro/dist/browser/http/operation.js app/node_modules/@azure/core-lro/dist/esm/http/operation.js app/node_modules/@azure/core-lro/dist/react-native/http/operation.js
+dup 3 2139 app/node_modules/@azure/core-lro/dist/browser/http/poller.js app/node_modules/@azure/core-lro/dist/esm/http/poller.js app/node_modules/@azure/core-lro/dist/react-native/http/poller.js
+dup 3 1301 app/node_modules/@azure/core-lro/dist/browser/legacy/lroEngine/lroEngine.js app/node_modules/@azure/core-lro/dist/esm/legacy/lroEngine/lroEngine.js app/node_modules/@azure/core-lro/dist/react-native/legacy/lroEngine/lroEngine.js
+dup 3 3332 app/node_modules/@azure/core-lro/dist/browser/legacy/lroEngine/operation.js app/node_modules/@azure/core-lro/dist/esm/legacy/lroEngine/operation.js app/node_modules/@azure/core-lro/dist/react-native/legacy/lroEngine/operation.js
+dup 3 14993 app/node_modules/@azure/core-lro/dist/browser/legacy/poller.js app/node_modules/@azure/core-lro/dist/esm/legacy/poller.js app/node_modules/@azure/core-lro/dist/react-native/legacy/poller.js
+dup 3 6510 app/node_modules/@azure/core-lro/dist/browser/poller/operation.js app/node_modules/@azure/core-lro/dist/esm/poller/operation.js app/node_modules/@azure/core-lro/dist/react-native/poller/operation.js
+dup 3 7541 app/node_modules/@azure/core-lro/dist/browser/poller/poller.js app/node_modules/@azure/core-lro/dist/esm/poller/poller.js app/node_modules/@azure/core-lro/dist/react-native/poller/poller.js
+dup 3 4613 app/node_modules/@azure/core-paging/dist/browser/getPagedAsyncIterator.js app/node_modules/@azure/core-paging/dist/esm/getPagedAsyncIterator.js app/node_modules/@azure/core-paging/dist/react-native/getPagedAsyncIterator.js
+dup 3 2878 app/node_modules/@azure/core-rest-pipeline/dist/browser/createPipelineFromOptions.js app/node_modules/@azure/core-rest-pipeline/dist/esm/createPipelineFromOptions.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/createPipelineFromOptions.js
+dup 3 1070 app/node_modules/@azure/core-rest-pipeline/dist/browser/defaultHttpClient.js app/node_modules/@azure/core-rest-pipeline/dist/esm/defaultHttpClient.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/defaultHttpClient.js
+dup 3 2315 app/node_modules/@azure/core-rest-pipeline/dist/browser/index.js app/node_modules/@azure/core-rest-pipeline/dist/esm/index.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/index.js
+dup 3 3110 app/node_modules/@azure/core-rest-pipeline/dist/browser/policies/auxiliaryAuthenticationHeaderPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/esm/policies/auxiliaryAuthenticationHeaderPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/policies/auxiliaryAuthenticationHeaderPolicy.js
+dup 3 10709 app/node_modules/@azure/core-rest-pipeline/dist/browser/policies/bearerTokenAuthenticationPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/esm/policies/bearerTokenAuthenticationPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/policies/bearerTokenAuthenticationPolicy.js
+dup 3 1362 app/node_modules/@azure/core-rest-pipeline/dist/browser/policies/proxyPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/esm/policies/proxyPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/policies/proxyPolicy.js
+dup 3 4977 app/node_modules/@azure/core-rest-pipeline/dist/browser/policies/tracingPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/esm/policies/tracingPolicy.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/policies/tracingPolicy.js
+dup 3 1111 app/node_modules/@azure/core-rest-pipeline/dist/browser/policies/wrapAbortSignalLikePolicy.js app/node_modules/@azure/core-rest-pipeline/dist/esm/policies/wrapAbortSignalLikePolicy.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/policies/wrapAbortSignalLikePolicy.js
+dup 3 4848 app/node_modules/@azure/core-rest-pipeline/dist/browser/util/file.js app/node_modules/@azure/core-rest-pipeline/dist/esm/util/file.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/util/file.js
+dup 3 6627 app/node_modules/@azure/core-rest-pipeline/dist/browser/util/tokenCycler.js app/node_modules/@azure/core-rest-pipeline/dist/esm/util/tokenCycler.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/util/tokenCycler.js
+dup 2 2027 app/node_modules/@azure/core-rest-pipeline/dist/browser/util/userAgentPlatform.js app/node_modules/@typespec/ts-http-runtime/dist/browser/util/userAgentPlatform.js
+dup 3 1264 app/node_modules/@azure/core-rest-pipeline/dist/browser/util/wrapAbortSignal.js app/node_modules/@azure/core-rest-pipeline/dist/esm/util/wrapAbortSignal.js app/node_modules/@azure/core-rest-pipeline/dist/react-native/util/wrapAbortSignal.js
+dup 2 1706 app/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/userAgentPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/commonjs/policies/userAgentPolicy.js
+dup 2 2479 app/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgentPlatform.js app/node_modules/@typespec/ts-http-runtime/dist/commonjs/util/userAgentPlatform.js
+dup 3 1775 app/node_modules/@azure/core-tracing/dist/browser/instrumenter.js app/node_modules/@azure/core-tracing/dist/esm/instrumenter.js app/node_modules/@azure/core-tracing/dist/react-native/instrumenter.js
+dup 3 3061 app/node_modules/@azure/core-tracing/dist/browser/tracingClient.js app/node_modules/@azure/core-tracing/dist/esm/tracingClient.js app/node_modules/@azure/core-tracing/dist/react-native/tracingClient.js
+dup 3 1534 app/node_modules/@azure/core-tracing/dist/browser/tracingContext.js app/node_modules/@azure/core-tracing/dist/esm/tracingContext.js app/node_modules/@azure/core-tracing/dist/react-native/tracingContext.js
+dup 3 1408 app/node_modules/@azure/core-util/dist/browser/createAbortablePromise.js app/node_modules/@azure/core-util/dist/esm/createAbortablePromise.js app/node_modules/@azure/core-util/dist/react-native/createAbortablePromise.js
+dup 3 1831 app/node_modules/@azure/core-util/dist/browser/delay.js app/node_modules/@azure/core-util/dist/esm/delay.js app/node_modules/@azure/core-util/dist/react-native/delay.js
+dup 3 4550 app/node_modules/@azure/core-util/dist/browser/index.js app/node_modules/@azure/core-util/dist/esm/index.js app/node_modules/@azure/core-util/dist/react-native/index.js
+dup 3 1157 app/node_modules/@azure/core-util/dist/browser/typeGuards.js app/node_modules/@azure/core-util/dist/esm/typeGuards.js app/node_modules/@azure/core-util/dist/react-native/typeGuards.js
+dup 3 11554 app/node_modules/@azure/identity/dist/browser/client/identityClient.js app/node_modules/@azure/identity/dist/esm/client/identityClient.js app/node_modules/@azure/identity/dist/workerd/client/identityClient.js
+dup 3 2198 app/node_modules/@azure/identity/dist/browser/constants.js app/node_modules/@azure/identity/dist/esm/constants.js app/node_modules/@azure/identity/dist/workerd/constants.js
+dup 3 3381 app/node_modules/@azure/identity/dist/browser/credentials/brokerCredential.js app/node_modules/@azure/identity/dist/esm/credentials/brokerCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/brokerCredential.js
+dup 3 4168 app/node_modules/@azure/identity/dist/browser/credentials/chainedTokenCredential.js app/node_modules/@azure/identity/dist/esm/credentials/chainedTokenCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/chainedTokenCredential.js
+dup 3 5765 app/node_modules/@azure/identity/dist/browser/credentials/defaultAzureCredentialFunctions.js app/node_modules/@azure/identity/dist/esm/credentials/defaultAzureCredentialFunctions.js app/node_modules/@azure/identity/dist/workerd/credentials/defaultAzureCredentialFunctions.js
+dup 3 4879 app/node_modules/@azure/identity/dist/browser/credentials/managedIdentityCredential/imdsMsi.js app/node_modules/@azure/identity/dist/esm/credentials/managedIdentityCredential/imdsMsi.js app/node_modules/@azure/identity/dist/workerd/credentials/managedIdentityCredential/imdsMsi.js
+dup 3 2201 app/node_modules/@azure/identity/dist/browser/credentials/managedIdentityCredential/imdsRetryPolicy.js app/node_modules/@azure/identity/dist/esm/credentials/managedIdentityCredential/imdsRetryPolicy.js app/node_modules/@azure/identity/dist/workerd/credentials/managedIdentityCredential/imdsRetryPolicy.js
+dup 3 1780 app/node_modules/@azure/identity/dist/browser/credentials/managedIdentityCredential/tokenExchangeMsi.js app/node_modules/@azure/identity/dist/esm/credentials/managedIdentityCredential/tokenExchangeMsi.js app/node_modules/@azure/identity/dist/workerd/credentials/managedIdentityCredential/tokenExchangeMsi.js
+dup 3 3262 app/node_modules/@azure/identity/dist/browser/credentials/managedIdentityCredential/utils.js app/node_modules/@azure/identity/dist/esm/credentials/managedIdentityCredential/utils.js app/node_modules/@azure/identity/dist/workerd/credentials/managedIdentityCredential/utils.js
+dup 3 5190 app/node_modules/@azure/identity/dist/browser/errors.js app/node_modules/@azure/identity/dist/esm/errors.js app/node_modules/@azure/identity/dist/workerd/errors.js
+dup 3 2458 app/node_modules/@azure/identity/dist/browser/index.js app/node_modules/@azure/identity/dist/esm/index.js app/node_modules/@azure/identity/dist/workerd/index.js
+dup 3 10731 app/node_modules/@azure/identity/dist/browser/msal/browserFlows/msalBrowserCommon.js app/node_modules/@azure/identity/dist/esm/msal/browserFlows/msalBrowserCommon.js app/node_modules/@azure/identity/dist/workerd/msal/browserFlows/msalBrowserCommon.js
+dup 3 23568 app/node_modules/@azure/identity/dist/browser/msal/nodeFlows/msalClient.js app/node_modules/@azure/identity/dist/esm/msal/nodeFlows/msalClient.js app/node_modules/@azure/identity/dist/workerd/msal/nodeFlows/msalClient.js
+dup 3 5995 app/node_modules/@azure/identity/dist/browser/msal/nodeFlows/msalPlugins.js app/node_modules/@azure/identity/dist/esm/msal/nodeFlows/msalPlugins.js app/node_modules/@azure/identity/dist/workerd/msal/nodeFlows/msalPlugins.js
+dup 3 7935 app/node_modules/@azure/identity/dist/browser/msal/utils.js app/node_modules/@azure/identity/dist/esm/msal/utils.js app/node_modules/@azure/identity/dist/workerd/msal/utils.js
+dup 3 8774 app/node_modules/@azure/identity/dist/browser/regionalAuthority.js app/node_modules/@azure/identity/dist/esm/regionalAuthority.js app/node_modules/@azure/identity/dist/workerd/regionalAuthority.js
+dup 3 2231 app/node_modules/@azure/identity/dist/browser/tokenProvider.js app/node_modules/@azure/identity/dist/esm/tokenProvider.js app/node_modules/@azure/identity/dist/workerd/tokenProvider.js
+dup 3 3300 app/node_modules/@azure/identity/dist/browser/util/logging.js app/node_modules/@azure/identity/dist/esm/util/logging.js app/node_modules/@azure/identity/dist/workerd/util/logging.js
+dup 3 1399 app/node_modules/@azure/identity/dist/browser/util/tenantIdUtils.js app/node_modules/@azure/identity/dist/esm/util/tenantIdUtils.js app/node_modules/@azure/identity/dist/workerd/util/tenantIdUtils.js
+dup 2 3420 app/node_modules/@azure/identity/dist/esm/credentials/authorizationCodeCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/authorizationCodeCredential.js
+dup 2 9844 app/node_modules/@azure/identity/dist/esm/credentials/azureCliCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/azureCliCredential.js
+dup 2 9685 app/node_modules/@azure/identity/dist/esm/credentials/azureDeveloperCliCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/azureDeveloperCliCredential.js
+dup 2 8415 app/node_modules/@azure/identity/dist/esm/credentials/azurePipelinesCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/azurePipelinesCredential.js
+dup 2 10686 app/node_modules/@azure/identity/dist/esm/credentials/azurePowerShellCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/azurePowerShellCredential.js
+dup 2 3205 app/node_modules/@azure/identity/dist/esm/credentials/clientAssertionCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/clientAssertionCredential.js
+dup 2 6546 app/node_modules/@azure/identity/dist/esm/credentials/clientCertificateCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/clientCertificateCredential.js
+dup 2 3658 app/node_modules/@azure/identity/dist/esm/credentials/clientSecretCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/clientSecretCredential.js
+dup 2 8617 app/node_modules/@azure/identity/dist/esm/credentials/defaultAzureCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/defaultAzureCredential.js
+dup 2 5134 app/node_modules/@azure/identity/dist/esm/credentials/deviceCodeCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/deviceCodeCredential.js
+dup 2 7820 app/node_modules/@azure/identity/dist/esm/credentials/environmentCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/environmentCredential.js
+dup 2 6317 app/node_modules/@azure/identity/dist/esm/credentials/interactiveBrowserCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/interactiveBrowserCredential.js
+dup 2 13303 app/node_modules/@azure/identity/dist/esm/credentials/managedIdentityCredential/index.js app/node_modules/@azure/identity/dist/workerd/credentials/managedIdentityCredential/index.js
+dup 2 6775 app/node_modules/@azure/identity/dist/esm/credentials/onBehalfOfCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/onBehalfOfCredential.js
+dup 2 4252 app/node_modules/@azure/identity/dist/esm/credentials/usernamePasswordCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/usernamePasswordCredential.js
+dup 2 6751 app/node_modules/@azure/identity/dist/esm/credentials/visualStudioCodeCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/visualStudioCodeCredential.js
+dup 2 7043 app/node_modules/@azure/identity/dist/esm/credentials/workloadIdentityCredential.js app/node_modules/@azure/identity/dist/workerd/credentials/workloadIdentityCredential.js
+dup 2 1474 app/node_modules/@azure/identity/dist/esm/plugins/consumer.js app/node_modules/@azure/identity/dist/workerd/plugins/consumer.js
+dup 2 1655 app/node_modules/@azure/identity/dist/esm/util/processMultiTenantRequest.js app/node_modules/@azure/identity/dist/workerd/util/processMultiTenantRequest.js
+dup 26 1117 app/node_modules/@azure/identity/node_modules/define-lazy-prop/license app/node_modules/@azure/identity/node_modules/open/license app/node_modules/@isaacs/cliui/node_modules/ansi-regex/license app/node_modules/@isaacs/cliui/node_modules/ansi-styles/license app/node_modules/@isaacs/cliui/node_modules/string-width/license app/node_modules/@isaacs/cliui/node_modules/strip-ansi/license app/node_modules/@isaacs/cliui/node_modules/wrap-ansi/license app/node_modules/@sindresorhus/is/license app/node_modules/bundle-name/license app/node_modules/decompress-response/license app/node_modules/decompress-response/node_modules/mimic-response/license app/node_modules/default-browser-id/license app/node_modules/default-browser/license app/node_modules/get-stream/license app/node_modules/is-inside-container/license app/node_modules/is-inside-container/node_modules/is-docker/license app/node_modules/lowercase-keys/license app/node_modules/mimic-response/license app/node_modules/normalize-url/license app/node_modules/p-cancelable/license app/node_modules/p-map/license app/node_modules/run-applescript/license app/node_modules/wrap-ansi-cjs/license app/node_modules/wrap-ansi/license app/node_modules/wsl-utils/license app/node_modules/wsl-utils/node_modules/is-wsl/license
+dup 2 6665 app/node_modules/@azure/keyvault-common/dist/browser/keyVaultAuthenticationPolicy.js app/node_modules/@azure/keyvault-common/dist/esm/keyVaultAuthenticationPolicy.js
+dup 2 1567 app/node_modules/@azure/keyvault-common/dist/browser/parseKeyVaultIdentifier.js app/node_modules/@azure/keyvault-common/dist/esm/parseKeyVaultIdentifier.js
+dup 2 1800 app/node_modules/@azure/keyvault-common/dist/browser/parseWWWAuthenticate.js app/node_modules/@azure/keyvault-common/dist/esm/parseWWWAuthenticate.js
+dup 2 6882 app/node_modules/@azure/keyvault-common/dist/browser/tokenCycler.js app/node_modules/@azure/keyvault-common/dist/esm/tokenCycler.js
+dup 2 3273 app/node_modules/@azure/keyvault-keys/dist/browser/cryptography/conversions.js app/node_modules/@azure/keyvault-keys/dist/esm/cryptography/conversions.js
+dup 2 10384 app/node_modules/@azure/keyvault-keys/dist/browser/cryptography/remoteCryptographyProvider.js app/node_modules/@azure/keyvault-keys/dist/esm/cryptography/remoteCryptographyProvider.js
+dup 2 22046 app/node_modules/@azure/keyvault-keys/dist/browser/cryptographyClient.js app/node_modules/@azure/keyvault-keys/dist/esm/cryptographyClient.js
+dup 2 2449 app/node_modules/@azure/keyvault-keys/dist/browser/generated/api/keyVaultContext.js app/node_modules/@azure/keyvault-keys/dist/esm/generated/api/keyVaultContext.js
+dup 2 43474 app/node_modules/@azure/keyvault-keys/dist/browser/generated/api/operations.js app/node_modules/@azure/keyvault-keys/dist/esm/generated/api/operations.js
+dup 2 13606 app/node_modules/@azure/keyvault-keys/dist/browser/generated/keyVaultClient.js app/node_modules/@azure/keyvault-keys/dist/esm/generated/keyVaultClient.js
+dup 2 30149 app/node_modules/@azure/keyvault-keys/dist/browser/generated/models/models.js app/node_modules/@azure/keyvault-keys/dist/esm/generated/models/models.js
+dup 2 5451 app/node_modules/@azure/keyvault-keys/dist/browser/generated/static-helpers/pagingHelpers.js app/node_modules/@azure/keyvault-keys/dist/esm/generated/static-helpers/pagingHelpers.js
+dup 2 6099 app/node_modules/@azure/keyvault-keys/dist/browser/generated/static-helpers/urlTemplate.js app/node_modules/@azure/keyvault-keys/dist/esm/generated/static-helpers/urlTemplate.js
+dup 2 39670 app/node_modules/@azure/keyvault-keys/dist/browser/index.js app/node_modules/@azure/keyvault-keys/dist/esm/index.js
+dup 2 2870 app/node_modules/@azure/keyvault-keys/dist/browser/lro/delete/operation.js app/node_modules/@azure/keyvault-keys/dist/esm/lro/delete/operation.js
+dup 2 1524 app/node_modules/@azure/keyvault-keys/dist/browser/lro/keyVaultKeyPoller.js app/node_modules/@azure/keyvault-keys/dist/esm/lro/keyVaultKeyPoller.js
+dup 2 3206 app/node_modules/@azure/keyvault-keys/dist/browser/lro/recover/operation.js app/node_modules/@azure/keyvault-keys/dist/esm/lro/recover/operation.js
+dup 2 8194 app/node_modules/@azure/keyvault-keys/dist/browser/transformations.js app/node_modules/@azure/keyvault-keys/dist/esm/transformations.js
+dup 3 1249 app/node_modules/@azure/logger/dist/browser/index.js app/node_modules/@azure/logger/dist/esm/index.js app/node_modules/@azure/logger/dist/react-native/index.js
+dup 2 1094 app/node_modules/@azure/msal-browser/LICENSE app/node_modules/@azure/msal-common/LICENSE
+dup 2 6321 app/node_modules/@azure/msal-browser/dist/broker/nativeBroker/PlatformAuthDOMHandler.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/broker/nativeBroker/PlatformAuthDOMHandler.mjs
+dup 2 12902 app/node_modules/@azure/msal-browser/dist/broker/nativeBroker/PlatformAuthExtensionHandler.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/broker/nativeBroker/PlatformAuthExtensionHandler.mjs
+dup 2 5206 app/node_modules/@azure/msal-browser/dist/cache/AccountManager.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/AccountManager.mjs
+dup 2 4870 app/node_modules/@azure/msal-browser/dist/cache/AsyncMemoryStorage.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/AsyncMemoryStorage.mjs
+dup 2 69244 app/node_modules/@azure/msal-browser/dist/cache/BrowserCacheManager.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/BrowserCacheManager.mjs
+dup 2 1311 app/node_modules/@azure/msal-browser/dist/cache/CacheHelpers.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/CacheHelpers.mjs
+dup 2 2835 app/node_modules/@azure/msal-browser/dist/cache/CookieStorage.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/CookieStorage.mjs
+dup 2 7700 app/node_modules/@azure/msal-browser/dist/cache/DatabaseStorage.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/DatabaseStorage.mjs
+dup 2 13154 app/node_modules/@azure/msal-browser/dist/cache/LocalStorage.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/LocalStorage.mjs
+dup 2 1209 app/node_modules/@azure/msal-browser/dist/cache/MemoryStorage.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/MemoryStorage.mjs
+dup 2 1403 app/node_modules/@azure/msal-browser/dist/cache/SessionStorage.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/SessionStorage.mjs
+dup 2 11905 app/node_modules/@azure/msal-browser/dist/cache/TokenCache.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/cache/TokenCache.mjs
+dup 2 6521 app/node_modules/@azure/msal-browser/dist/config/Configuration.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/config/Configuration.mjs
+dup 2 80634 app/node_modules/@azure/msal-browser/dist/controllers/StandardController.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/controllers/StandardController.mjs
+dup 2 10964 app/node_modules/@azure/msal-browser/dist/crypto/BrowserCrypto.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/crypto/BrowserCrypto.mjs
+dup 2 7553 app/node_modules/@azure/msal-browser/dist/crypto/CryptoOps.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/crypto/CryptoOps.mjs
+dup 2 2972 app/node_modules/@azure/msal-browser/dist/crypto/PkceGenerator.mjs app/node_modules/@azure/msal-browser/dist/custom-auth-path/crypto/PkceGenerator.mjs
+dup 2 1404 app/node_modules/@azure/msal-browser/dist/custom-auth-path/encode/Base64Decode.mjs app/node_modules/@azure/msal-browser/dist/encode/Base64Decode.mjs
+dup 2 1435 app/node_modules/@azure/msal-browser/dist/custom-auth-path/encode/Base64Encode.mjs app/node_modules/@azure/msal-browser/dist/encode/Base64Encode.mjs
+dup 2 4316 app/node_modules/@azure/msal-browser/dist/custom-auth-path/error/BrowserAuthErrorCodes.mjs app/node_modules/@azure/msal-browser/dist/error/BrowserAuthErrorCodes.mjs
+dup 2 2964 app/node_modules/@azure/msal-browser/dist/custom-auth-path/error/NativeAuthError.mjs app/node_modules/@azure/msal-browser/dist/error/NativeAuthError.mjs
+dup 2 4254 app/node_modules/@azure/msal-browser/dist/custom-auth-path/event/EventHandler.mjs app/node_modules/@azure/msal-browser/dist/event/EventHandler.mjs
+dup 2 1626 app/node_modules/@azure/msal-browser/dist/custom-auth-path/event/EventType.mjs app/node_modules/@azure/msal-browser/dist/event/EventType.mjs
+dup 2 6255 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/BaseInteractionClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/BaseInteractionClient.mjs
+dup 2 31426 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/PlatformAuthInteractionClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/PlatformAuthInteractionClient.mjs
+dup 2 28895 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/PopupClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/PopupClient.mjs
+dup 2 25829 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/RedirectClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/RedirectClient.mjs
+dup 2 4066 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/SilentAuthCodeClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/SilentAuthCodeClient.mjs
+dup 2 2934 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/SilentCacheClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/SilentCacheClient.mjs
+dup 2 16132 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/SilentIframeClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/SilentIframeClient.mjs
+dup 2 3882 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/SilentRefreshClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/SilentRefreshClient.mjs
+dup 2 10892 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_client/StandardInteractionClient.mjs app/node_modules/@azure/msal-browser/dist/interaction_client/StandardInteractionClient.mjs
+dup 2 4599 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_handler/InteractionHandler.mjs app/node_modules/@azure/msal-browser/dist/interaction_handler/InteractionHandler.mjs
+dup 2 6700 app/node_modules/@azure/msal-browser/dist/custom-auth-path/interaction_handler/SilentHandler.mjs app/node_modules/@azure/msal-browser/dist/interaction_handler/SilentHandler.mjs
+dup 2 1640 app/node_modules/@azure/msal-browser/dist/custom-auth-path/navigation/NavigationClient.mjs app/node_modules/@azure/msal-browser/dist/navigation/NavigationClient.mjs
+dup 2 4233 app/node_modules/@azure/msal-browser/dist/custom-auth-path/network/FetchClient.mjs app/node_modules/@azure/msal-browser/dist/network/FetchClient.mjs
+dup 2 3896 app/node_modules/@azure/msal-browser/dist/custom-auth-path/operatingcontext/BaseOperatingContext.mjs app/node_modules/@azure/msal-browser/dist/operatingcontext/BaseOperatingContext.mjs
+dup 2 1820 app/node_modules/@azure/msal-browser/dist/custom-auth-path/operatingcontext/StandardOperatingContext.mjs app/node_modules/@azure/msal-browser/dist/operatingcontext/StandardOperatingContext.mjs
+dup 2 13178 app/node_modules/@azure/msal-browser/dist/custom-auth-path/protocol/Authorize.mjs app/node_modules/@azure/msal-browser/dist/protocol/Authorize.mjs
+dup 2 4357 app/node_modules/@azure/msal-browser/dist/custom-auth-path/request/RequestHelpers.mjs app/node_modules/@azure/msal-browser/dist/request/RequestHelpers.mjs
+dup 2 2329 app/node_modules/@azure/msal-browser/dist/custom-auth-path/response/ResponseHandler.mjs app/node_modules/@azure/msal-browser/dist/response/ResponseHandler.mjs
+dup 4 11357 app/node_modules/@grpc/grpc-js/LICENSE app/node_modules/@grpc/proto-loader/LICENSE app/node_modules/args-parser/LICENSE app/node_modules/detect-libc/LICENSE
+dup 4 1077 app/node_modules/@isaacs/cliui/node_modules/emoji-regex/LICENSE-MIT.txt app/node_modules/emoji-regex/LICENSE-MIT.txt app/node_modules/jsesc/LICENSE-MIT.txt app/node_modules/punycode/LICENSE-MIT.txt
+dup 2 5056 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/README.md app/node_modules/make-fetch-happen/node_modules/agent-base/README.md
+dup 2 7910 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/dist/src/index.js app/node_modules/make-fetch-happen/node_modules/agent-base/dist/src/index.js
+dup 2 1635 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/package.json app/node_modules/make-fetch-happen/node_modules/agent-base/package.json
+dup 2 9018 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/src/index.ts app/node_modules/make-fetch-happen/node_modules/agent-base/src/index.ts
+dup 2 4761 app/node_modules/@mapbox/node-pre-gyp/node_modules/https-proxy-agent/README.md app/node_modules/make-fetch-happen/node_modules/https-proxy-agent/README.md
+dup 2 7841 app/node_modules/@mapbox/node-pre-gyp/node_modules/https-proxy-agent/dist/agent.js app/node_modules/make-fetch-happen/node_modules/https-proxy-agent/dist/agent.js
+dup 2 2460 app/node_modules/@mapbox/node-pre-gyp/node_modules/https-proxy-agent/dist/parse-proxy-response.js app/node_modules/make-fetch-happen/node_modules/https-proxy-agent/dist/parse-proxy-response.js
+dup 2 1405 app/node_modules/@mapbox/node-pre-gyp/node_modules/https-proxy-agent/package.json app/node_modules/make-fetch-happen/node_modules/https-proxy-agent/package.json
+dup 4 1109 app/node_modules/@noble/curves/LICENSE app/node_modules/@noble/curves/node_modules/@noble/hashes/LICENSE app/node_modules/@noble/hashes/LICENSE app/node_modules/@scure/bip32/node_modules/@noble/curves/LICENSE
+dup 2 7155 app/node_modules/@noble/curves/abstract/curve.js app/node_modules/@scure/bip32/node_modules/@noble/curves/abstract/curve.js
+dup 2 19532 app/node_modules/@noble/curves/abstract/edwards.js app/node_modules/@scure/bip32/node_modules/@noble/curves/abstract/edwards.js
+dup 2 6353 app/node_modules/@noble/curves/abstract/montgomery.js app/node_modules/@scure/bip32/node_modules/@noble/curves/abstract/montgomery.js
+dup 2 1075 app/node_modules/@noble/curves/bn254.js app/node_modules/@scure/bip32/node_modules/@noble/curves/bn254.js
+dup 2 6945 app/node_modules/@noble/curves/esm/abstract/curve.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/abstract/curve.js
+dup 2 19208 app/node_modules/@noble/curves/esm/abstract/edwards.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/abstract/edwards.js
+dup 2 6134 app/node_modules/@noble/curves/esm/abstract/montgomery.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/abstract/montgomery.js
+dup 2 1786 app/node_modules/@noble/curves/esm/p256.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/p256.js
+dup 2 2041 app/node_modules/@noble/curves/esm/p384.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/p384.js
+dup 2 2405 app/node_modules/@noble/curves/esm/p521.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/p521.js
+dup 2 11486 app/node_modules/@noble/curves/esm/secp256k1.js app/node_modules/@scure/bip32/node_modules/@noble/curves/esm/secp256k1.js
+dup 2 2715 app/node_modules/@noble/curves/jubjub.js app/node_modules/@scure/bip32/node_modules/@noble/curves/jubjub.js
+dup 2 6633 app/node_modules/@noble/curves/node_modules/@noble/hashes/eskdf.js app/node_modules/@noble/hashes/eskdf.js
+dup 2 6237 app/node_modules/@noble/curves/node_modules/@noble/hashes/esm/eskdf.js app/node_modules/@noble/hashes/esm/eskdf.js
+dup 2 7118 app/node_modules/@noble/curves/node_modules/@noble/hashes/src/eskdf.ts app/node_modules/@noble/hashes/src/eskdf.ts
+dup 2 2046 app/node_modules/@noble/curves/p256.js app/node_modules/@scure/bip32/node_modules/@noble/curves/p256.js
+dup 2 2301 app/node_modules/@noble/curves/p384.js app/node_modules/@scure/bip32/node_modules/@noble/curves/p384.js
+dup 2 2665 app/node_modules/@noble/curves/p521.js app/node_modules/@scure/bip32/node_modules/@noble/curves/p521.js
+dup 2 1277 app/node_modules/@noble/curves/pasta.js app/node_modules/@scure/bip32/node_modules/@noble/curves/pasta.js
+dup 2 12327 app/node_modules/@noble/curves/secp256k1.js app/node_modules/@scure/bip32/node_modules/@noble/curves/secp256k1.js
+dup 2 7537 app/node_modules/@noble/curves/src/abstract/curve.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/abstract/curve.ts
+dup 2 20401 app/node_modules/@noble/curves/src/abstract/edwards.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/abstract/edwards.ts
+dup 2 6634 app/node_modules/@noble/curves/src/abstract/montgomery.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/abstract/montgomery.ts
+dup 2 1849 app/node_modules/@noble/curves/src/p256.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/p256.ts
+dup 2 2101 app/node_modules/@noble/curves/src/p384.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/p384.ts
+dup 2 2494 app/node_modules/@noble/curves/src/p521.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/p521.ts
+dup 2 11964 app/node_modules/@noble/curves/src/secp256k1.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/secp256k1.ts
+dup 3 11357 app/node_modules/@pkgjs/parseargs/LICENSE app/node_modules/bson/LICENSE.md app/node_modules/prometheus-api-metrics/LICENSE
+dup 10 1505 app/node_modules/@protobufjs/aspromise/LICENSE app/node_modules/@protobufjs/base64/LICENSE app/node_modules/@protobufjs/codegen/LICENSE app/node_modules/@protobufjs/eventemitter/LICENSE app/node_modules/@protobufjs/fetch/LICENSE app/node_modules/@protobufjs/float/LICENSE app/node_modules/@protobufjs/inquire/LICENSE app/node_modules/@protobufjs/path/LICENSE app/node_modules/@protobufjs/pool/LICENSE app/node_modules/@protobufjs/utf8/LICENSE
+dup 2 1122 app/node_modules/@scure/bip32/LICENSE app/node_modules/@scure/bip39/LICENSE
+dup 3 11352 app/node_modules/@smithy/util-endpoints/LICENSE app/node_modules/@smithy/util-middleware/LICENSE app/node_modules/@smithy/util-retry/LICENSE
+dup 3 1071 app/node_modules/@szmarczak/http-timer/LICENSE app/node_modules/defer-to-connect/LICENSE app/node_modules/http2-wrapper/LICENSE
+dup 25 1141 app/node_modules/@types/accepts/LICENSE app/node_modules/@types/body-parser/LICENSE app/node_modules/@types/connect/LICENSE app/node_modules/@types/content-disposition/LICENSE app/node_modules/@types/cookies/LICENSE app/node_modules/@types/cors/LICENSE app/node_modules/@types/express-serve-static-core/LICENSE app/node_modules/@types/express/LICENSE app/node_modules/@types/http-assert/LICENSE app/node_modules/@types/http-cache-semantics/LICENSE app/node_modules/@types/http-errors/LICENSE app/node_modules/@types/keygrip/LICENSE app/node_modules/@types/koa-compose/LICENSE app/node_modules/@types/koa/LICENSE app/node_modules/@types/mime/LICENSE app/node_modules/@types/node/LICENSE app/node_modules/@types/qs/LICENSE app/node_modules/@types/range-parser/LICENSE app/node_modules/@types/readable-stream/LICENSE app/node_modules/@types/send/LICENSE app/node_modules/@types/serve-static/LICENSE app/node_modules/@types/serve-static/node_modules/@types/send/LICENSE app/node_modules/@types/webidl-conversions/LICENSE app/node_modules/@types/whatwg-url/LICENSE app/node_modules/redbean-node/node_modules/@types/node/LICENSE
+dup 3 2079 app/node_modules/@typespec/ts-http-runtime/dist/browser/client/clientHelpers.js app/node_modules/@typespec/ts-http-runtime/dist/esm/client/clientHelpers.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/client/clientHelpers.js
+dup 3 4458 app/node_modules/@typespec/ts-http-runtime/dist/browser/client/getClient.js app/node_modules/@typespec/ts-http-runtime/dist/esm/client/getClient.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/client/getClient.js
+dup 3 4456 app/node_modules/@typespec/ts-http-runtime/dist/browser/client/multipart.js app/node_modules/@typespec/ts-http-runtime/dist/esm/client/multipart.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/client/multipart.js
+dup 3 1150 app/node_modules/@typespec/ts-http-runtime/dist/browser/client/restError.js app/node_modules/@typespec/ts-http-runtime/dist/esm/client/restError.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/client/restError.js
+dup 3 6663 app/node_modules/@typespec/ts-http-runtime/dist/browser/client/sendRequest.js app/node_modules/@typespec/ts-http-runtime/dist/esm/client/sendRequest.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/client/sendRequest.js
+dup 3 6238 app/node_modules/@typespec/ts-http-runtime/dist/browser/client/urlHelpers.js app/node_modules/@typespec/ts-http-runtime/dist/esm/client/urlHelpers.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/client/urlHelpers.js
+dup 3 2366 app/node_modules/@typespec/ts-http-runtime/dist/browser/createPipelineFromOptions.js app/node_modules/@typespec/ts-http-runtime/dist/esm/createPipelineFromOptions.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/createPipelineFromOptions.js
+dup 3 9942 app/node_modules/@typespec/ts-http-runtime/dist/browser/fetchHttpClient.js app/node_modules/@typespec/ts-http-runtime/dist/esm/fetchHttpClient.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/fetchHttpClient.js
+dup 3 2857 app/node_modules/@typespec/ts-http-runtime/dist/browser/httpHeaders.js app/node_modules/@typespec/ts-http-runtime/dist/esm/httpHeaders.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/httpHeaders.js
+dup 3 6276 app/node_modules/@typespec/ts-http-runtime/dist/browser/logger/debug.js app/node_modules/@typespec/ts-http-runtime/dist/esm/logger/debug.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/logger/debug.js
+dup 3 4310 app/node_modules/@typespec/ts-http-runtime/dist/browser/logger/logger.js app/node_modules/@typespec/ts-http-runtime/dist/esm/logger/logger.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/logger/logger.js
+dup 3 13128 app/node_modules/@typespec/ts-http-runtime/dist/browser/nodeHttpClient.js app/node_modules/@typespec/ts-http-runtime/dist/esm/nodeHttpClient.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/nodeHttpClient.js
+dup 3 10415 app/node_modules/@typespec/ts-http-runtime/dist/browser/pipeline.js app/node_modules/@typespec/ts-http-runtime/dist/esm/pipeline.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/pipeline.js
+dup 3 2011 app/node_modules/@typespec/ts-http-runtime/dist/browser/pipelineRequest.js app/node_modules/@typespec/ts-http-runtime/dist/esm/pipelineRequest.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/pipelineRequest.js
+dup 3 1284 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/auth/apiKeyAuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/auth/apiKeyAuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/auth/apiKeyAuthenticationPolicy.js
+dup 3 1408 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/auth/basicAuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/auth/basicAuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/auth/basicAuthenticationPolicy.js
+dup 3 1284 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/auth/bearerAuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/auth/bearerAuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/auth/bearerAuthenticationPolicy.js
+dup 3 2019 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/auth/checkInsecureConnection.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/auth/checkInsecureConnection.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/auth/checkInsecureConnection.js
+dup 3 1276 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/auth/oauth2AuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/auth/oauth2AuthenticationPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/auth/oauth2AuthenticationPolicy.js
+dup 3 1154 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/defaultRetryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/defaultRetryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/defaultRetryPolicy.js
+dup 3 3943 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/formDataPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/formDataPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/formDataPolicy.js
+dup 3 1220 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/internal.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/internal.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/internal.js
+dup 3 1193 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/logPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/logPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/logPolicy.js
+dup 3 4132 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/multipartPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/multipartPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/multipartPolicy.js
+dup 3 2526 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/redirectPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/redirectPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/redirectPolicy.js
+dup 3 5310 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/retryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/retryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/retryPolicy.js
+dup 3 1088 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/systemErrorRetryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/systemErrorRetryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/systemErrorRetryPolicy.js
+dup 3 1186 app/node_modules/@typespec/ts-http-runtime/dist/browser/policies/throttlingRetryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/policies/throttlingRetryPolicy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/policies/throttlingRetryPolicy.js
+dup 3 3228 app/node_modules/@typespec/ts-http-runtime/dist/browser/restError.js app/node_modules/@typespec/ts-http-runtime/dist/esm/restError.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/restError.js
+dup 3 2741 app/node_modules/@typespec/ts-http-runtime/dist/browser/retryStrategies/exponentialRetryStrategy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/retryStrategies/exponentialRetryStrategy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/retryStrategies/exponentialRetryStrategy.js
+dup 3 3079 app/node_modules/@typespec/ts-http-runtime/dist/browser/retryStrategies/throttlingRetryStrategy.js app/node_modules/@typespec/ts-http-runtime/dist/esm/retryStrategies/throttlingRetryStrategy.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/retryStrategies/throttlingRetryStrategy.js
+dup 3 3462 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/bytesEncoding.common.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/bytesEncoding.common.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/bytesEncoding.common.js
+dup 3 1927 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/checkEnvironment.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/checkEnvironment.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/checkEnvironment.js
+dup 3 1834 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/concat.common.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/concat.common.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/concat.common.js
+dup 3 1037 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/delay.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/delay.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/delay.js
+dup 3 2174 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/helpers.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/helpers.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/helpers.js
+dup 3 4996 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/sanitizer.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/sanitizer.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/sanitizer.js
+dup 3 1897 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/sha256.common.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/sha256.common.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/sha256.common.js
+dup 3 1142 app/node_modules/@typespec/ts-http-runtime/dist/browser/util/uuidUtils.common.js app/node_modules/@typespec/ts-http-runtime/dist/esm/util/uuidUtils.common.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/util/uuidUtils.common.js
+dup 3 6906 app/node_modules/@typespec/ts-http-runtime/dist/browser/xhrHttpClient.js app/node_modules/@typespec/ts-http-runtime/dist/esm/xhrHttpClient.js app/node_modules/@typespec/ts-http-runtime/dist/react-native/xhrHttpClient.js
+dup 2 1167 app/node_modules/accepts/LICENSE app/node_modules/mime-types/LICENSE
+dup 2 1177 app/node_modules/accepts/node_modules/negotiator/LICENSE app/node_modules/negotiator/LICENSE
+dup 2 3081 app/node_modules/accepts/node_modules/negotiator/lib/charset.js app/node_modules/negotiator/lib/charset.js
+dup 2 3409 app/node_modules/accepts/node_modules/negotiator/lib/language.js app/node_modules/negotiator/lib/language.js
+dup 3 1101 app/node_modules/agent-base/LICENSE app/node_modules/https-proxy-agent/LICENSE app/node_modules/socks-proxy-agent/LICENSE
+dup 19 1109 app/node_modules/aggregate-error/license app/node_modules/ansi-regex/license app/node_modules/ansi-styles/license app/node_modules/clean-stack/license app/node_modules/env-paths/license app/node_modules/got/license app/node_modules/indent-string/license app/node_modules/is-fullwidth-code-point/license app/node_modules/knex/node_modules/resolve-from/license app/node_modules/make-dir/license app/node_modules/path-key/license app/node_modules/quick-lru/license app/node_modules/redbean-node/node_modules/resolve-from/license app/node_modules/shebang-regex/license app/node_modules/string-width-cjs/license app/node_modules/string-width/license app/node_modules/strip-ansi-cjs/license app/node_modules/strip-ansi/license app/node_modules/tildify/license
+dup 2 1071 app/node_modules/anafanafo/LICENSE app/node_modules/char-width-table-consumer/LICENSE
+dup 2 6596 app/node_modules/are-we-there-yet/README.md app/node_modules/node-gyp/node_modules/are-we-there-yet/README.md
+dup 8 1443 app/node_modules/are-we-there-yet/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/concat-stream/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/duplexify/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/help-me/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/mqtt/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/node-gyp/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/split2/node_modules/readable-stream/CONTRIBUTING.md app/node_modules/string-to-stream/node_modules/readable-stream/CONTRIBUTING.md
+dup 8 5550 app/node_modules/are-we-there-yet/node_modules/readable-stream/GOVERNANCE.md app/node_modules/concat-stream/node_modules/readable-stream/GOVERNANCE.md app/node_modules/duplexify/node_modules/readable-stream/GOVERNANCE.md app/node_modules/help-me/node_modules/readable-stream/GOVERNANCE.md app/node_modules/mqtt/node_modules/readable-stream/GOVERNANCE.md app/node_modules/node-gyp/node_modules/readable-stream/GOVERNANCE.md app/node_modules/split2/node_modules/readable-stream/GOVERNANCE.md app/node_modules/string-to-stream/node_modules/readable-stream/GOVERNANCE.md
+dup 9 2337 app/node_modules/are-we-there-yet/node_modules/readable-stream/LICENSE app/node_modules/bl/node_modules/readable-stream/LICENSE app/node_modules/concat-stream/node_modules/readable-stream/LICENSE app/node_modules/duplexify/node_modules/readable-stream/LICENSE app/node_modules/help-me/node_modules/readable-stream/LICENSE app/node_modules/mqtt/node_modules/readable-stream/LICENSE app/node_modules/node-gyp/node_modules/readable-stream/LICENSE app/node_modules/split2/node_modules/readable-stream/LICENSE app/node_modules/string-to-stream/node_modules/readable-stream/LICENSE
+dup 7 4710 app/node_modules/are-we-there-yet/node_modules/readable-stream/README.md app/node_modules/concat-stream/node_modules/readable-stream/README.md app/node_modules/duplexify/node_modules/readable-stream/README.md app/node_modules/help-me/node_modules/readable-stream/README.md app/node_modules/mqtt/node_modules/readable-stream/README.md app/node_modules/node-gyp/node_modules/readable-stream/README.md app/node_modules/split2/node_modules/readable-stream/README.md
+dup 7 4197 app/node_modules/are-we-there-yet/node_modules/readable-stream/errors-browser.js app/node_modules/concat-stream/node_modules/readable-stream/errors-browser.js app/node_modules/duplexify/node_modules/readable-stream/errors-browser.js app/node_modules/help-me/node_modules/readable-stream/errors-browser.js app/node_modules/mqtt/node_modules/readable-stream/errors-browser.js app/node_modules/node-gyp/node_modules/readable-stream/errors-browser.js app/node_modules/split2/node_modules/readable-stream/errors-browser.js
+dup 7 3715 app/node_modules/are-we-there-yet/node_modules/readable-stream/errors.js app/node_modules/concat-stream/node_modules/readable-stream/errors.js app/node_modules/duplexify/node_modules/readable-stream/errors.js app/node_modules/help-me/node_modules/readable-stream/errors.js app/node_modules/mqtt/node_modules/readable-stream/errors.js app/node_modules/node-gyp/node_modules/readable-stream/errors.js app/node_modules/split2/node_modules/readable-stream/errors.js
+dup 7 4381 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/_stream_duplex.js app/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_duplex.js app/node_modules/duplexify/node_modules/readable-stream/lib/_stream_duplex.js app/node_modules/help-me/node_modules/readable-stream/lib/_stream_duplex.js app/node_modules/mqtt/node_modules/readable-stream/lib/_stream_duplex.js app/node_modules/node-gyp/node_modules/readable-stream/lib/_stream_duplex.js app/node_modules/split2/node_modules/readable-stream/lib/_stream_duplex.js
+dup 7 1628 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/_stream_passthrough.js app/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_passthrough.js app/node_modules/duplexify/node_modules/readable-stream/lib/_stream_passthrough.js app/node_modules/help-me/node_modules/readable-stream/lib/_stream_passthrough.js app/node_modules/mqtt/node_modules/readable-stream/lib/_stream_passthrough.js app/node_modules/node-gyp/node_modules/readable-stream/lib/_stream_passthrough.js app/node_modules/split2/node_modules/readable-stream/lib/_stream_passthrough.js
+dup 7 36023 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/_stream_readable.js app/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_readable.js app/node_modules/duplexify/node_modules/readable-stream/lib/_stream_readable.js app/node_modules/help-me/node_modules/readable-stream/lib/_stream_readable.js app/node_modules/mqtt/node_modules/readable-stream/lib/_stream_readable.js app/node_modules/node-gyp/node_modules/readable-stream/lib/_stream_readable.js app/node_modules/split2/node_modules/readable-stream/lib/_stream_readable.js
+dup 7 7936 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/_stream_transform.js app/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_transform.js app/node_modules/duplexify/node_modules/readable-stream/lib/_stream_transform.js app/node_modules/help-me/node_modules/readable-stream/lib/_stream_transform.js app/node_modules/mqtt/node_modules/readable-stream/lib/_stream_transform.js app/node_modules/node-gyp/node_modules/readable-stream/lib/_stream_transform.js app/node_modules/split2/node_modules/readable-stream/lib/_stream_transform.js
+dup 7 21907 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/_stream_writable.js app/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_writable.js app/node_modules/duplexify/node_modules/readable-stream/lib/_stream_writable.js app/node_modules/help-me/node_modules/readable-stream/lib/_stream_writable.js app/node_modules/mqtt/node_modules/readable-stream/lib/_stream_writable.js app/node_modules/node-gyp/node_modules/readable-stream/lib/_stream_writable.js app/node_modules/split2/node_modules/readable-stream/lib/_stream_writable.js
+dup 7 6468 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/internal/streams/async_iterator.js app/node_modules/concat-stream/node_modules/readable-stream/lib/internal/streams/async_iterator.js app/node_modules/duplexify/node_modules/readable-stream/lib/internal/streams/async_iterator.js app/node_modules/help-me/node_modules/readable-stream/lib/internal/streams/async_iterator.js app/node_modules/mqtt/node_modules/readable-stream/lib/internal/streams/async_iterator.js app/node_modules/node-gyp/node_modules/readable-stream/lib/internal/streams/async_iterator.js app/node_modules/split2/node_modules/readable-stream/lib/internal/streams/async_iterator.js
+dup 7 6905 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/internal/streams/buffer_list.js app/node_modules/concat-stream/node_modules/readable-stream/lib/internal/streams/buffer_list.js app/node_modules/duplexify/node_modules/readable-stream/lib/internal/streams/buffer_list.js app/node_modules/help-me/node_modules/readable-stream/lib/internal/streams/buffer_list.js app/node_modules/mqtt/node_modules/readable-stream/lib/internal/streams/buffer_list.js app/node_modules/node-gyp/node_modules/readable-stream/lib/internal/streams/buffer_list.js app/node_modules/split2/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+dup 7 3109 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/internal/streams/destroy.js app/node_modules/concat-stream/node_modules/readable-stream/lib/internal/streams/destroy.js app/node_modules/duplexify/node_modules/readable-stream/lib/internal/streams/destroy.js app/node_modules/help-me/node_modules/readable-stream/lib/internal/streams/destroy.js app/node_modules/mqtt/node_modules/readable-stream/lib/internal/streams/destroy.js app/node_modules/node-gyp/node_modules/readable-stream/lib/internal/streams/destroy.js app/node_modules/split2/node_modules/readable-stream/lib/internal/streams/destroy.js
+dup 7 3084 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/internal/streams/end-of-stream.js app/node_modules/concat-stream/node_modules/readable-stream/lib/internal/streams/end-of-stream.js app/node_modules/duplexify/node_modules/readable-stream/lib/internal/streams/end-of-stream.js app/node_modules/help-me/node_modules/readable-stream/lib/internal/streams/end-of-stream.js app/node_modules/mqtt/node_modules/readable-stream/lib/internal/streams/end-of-stream.js app/node_modules/node-gyp/node_modules/readable-stream/lib/internal/streams/end-of-stream.js app/node_modules/split2/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+dup 7 3668 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/internal/streams/from.js app/node_modules/concat-stream/node_modules/readable-stream/lib/internal/streams/from.js app/node_modules/duplexify/node_modules/readable-stream/lib/internal/streams/from.js app/node_modules/help-me/node_modules/readable-stream/lib/internal/streams/from.js app/node_modules/mqtt/node_modules/readable-stream/lib/internal/streams/from.js app/node_modules/node-gyp/node_modules/readable-stream/lib/internal/streams/from.js app/node_modules/split2/node_modules/readable-stream/lib/internal/streams/from.js
+dup 7 2416 app/node_modules/are-we-there-yet/node_modules/readable-stream/lib/internal/streams/pipeline.js app/node_modules/concat-stream/node_modules/readable-stream/lib/internal/streams/pipeline.js app/node_modules/duplexify/node_modules/readable-stream/lib/internal/streams/pipeline.js app/node_modules/help-me/node_modules/readable-stream/lib/internal/streams/pipeline.js app/node_modules/mqtt/node_modules/readable-stream/lib/internal/streams/pipeline.js app/node_modules/node-gyp/node_modules/readable-stream/lib/internal/streams/pipeline.js app/node_modules/split2/node_modules/readable-stream/lib/internal/streams/pipeline.js
+dup 7 1886 app/node_modules/are-we-there-yet/node_modules/readable-stream/package.json app/node_modules/concat-stream/node_modules/readable-stream/package.json app/node_modules/duplexify/node_modules/readable-stream/package.json app/node_modules/help-me/node_modules/readable-stream/package.json app/node_modules/mqtt/node_modules/readable-stream/package.json app/node_modules/node-gyp/node_modules/readable-stream/package.json app/node_modules/split2/node_modules/readable-stream/package.json
+dup 9 2338 app/node_modules/are-we-there-yet/node_modules/string_decoder/LICENSE app/node_modules/bl/node_modules/string_decoder/LICENSE app/node_modules/concat-stream/node_modules/string_decoder/LICENSE app/node_modules/duplexify/node_modules/string_decoder/LICENSE app/node_modules/help-me/node_modules/string_decoder/LICENSE app/node_modules/mqtt/node_modules/string_decoder/LICENSE app/node_modules/node-gyp/node_modules/string_decoder/LICENSE app/node_modules/split2/node_modules/string_decoder/LICENSE app/node_modules/string-to-stream/node_modules/string_decoder/LICENSE
+dup 9 1801 app/node_modules/are-we-there-yet/node_modules/string_decoder/README.md app/node_modules/bl/node_modules/string_decoder/README.md app/node_modules/concat-stream/node_modules/string_decoder/README.md app/node_modules/duplexify/node_modules/string_decoder/README.md app/node_modules/help-me/node_modules/string_decoder/README.md app/node_modules/mqtt/node_modules/string_decoder/README.md app/node_modules/node-gyp/node_modules/string_decoder/README.md app/node_modules/split2/node_modules/string_decoder/README.md app/node_modules/string-to-stream/node_modules/string_decoder/README.md
+dup 9 9465 app/node_modules/are-we-there-yet/node_modules/string_decoder/lib/string_decoder.js app/node_modules/bl/node_modules/string_decoder/lib/string_decoder.js app/node_modules/concat-stream/node_modules/string_decoder/lib/string_decoder.js app/node_modules/duplexify/node_modules/string_decoder/lib/string_decoder.js app/node_modules/help-me/node_modules/string_decoder/lib/string_decoder.js app/node_modules/mqtt/node_modules/string_decoder/lib/string_decoder.js app/node_modules/node-gyp/node_modules/string_decoder/lib/string_decoder.js app/node_modules/split2/node_modules/string_decoder/lib/string_decoder.js app/node_modules/string-to-stream/node_modules/string_decoder/lib/string_decoder.js
+dup 2 1103 app/node_modules/array-flatten/LICENSE app/node_modules/path-to-regexp/LICENSE
+dup 3 1081 app/node_modules/basic-auth/node_modules/safe-buffer/LICENSE app/node_modules/safe-buffer/LICENSE app/node_modules/string-to-stream/node_modules/safe-buffer/LICENSE
+dup 3 19555 app/node_modules/basic-auth/node_modules/safe-buffer/README.md app/node_modules/safe-buffer/README.md app/node_modules/string-to-stream/node_modules/safe-buffer/README.md
+dup 2 1529 app/node_modules/basic-auth/node_modules/safe-buffer/index.js app/node_modules/string-to-stream/node_modules/safe-buffer/index.js
+dup 2 1216 app/node_modules/bl/LICENSE.md app/node_modules/mqtt/node_modules/bl/LICENSE.md
+dup 2 2043 app/node_modules/bl/bl.js app/node_modules/mqtt/node_modules/bl/bl.js
+dup 2 1106 app/node_modules/bl/node_modules/buffer/LICENSE app/node_modules/buffer/LICENSE
+dup 2 15130 app/node_modules/bl/test/indexOf.js app/node_modules/mqtt/node_modules/bl/test/indexOf.js
+dup 3 1172 app/node_modules/body-parser/LICENSE app/node_modules/compression/LICENSE app/node_modules/type-is/LICENSE
+dup 5 11707 app/node_modules/body-parser/node_modules/debug/CHANGELOG.md app/node_modules/compression/node_modules/debug/CHANGELOG.md app/node_modules/express/node_modules/debug/CHANGELOG.md app/node_modules/finalhandler/node_modules/debug/CHANGELOG.md app/node_modules/send/node_modules/debug/CHANGELOG.md
+dup 6 1107 app/node_modules/body-parser/node_modules/debug/LICENSE app/node_modules/compression/node_modules/debug/LICENSE app/node_modules/express/node_modules/debug/LICENSE app/node_modules/finalhandler/node_modules/debug/LICENSE app/node_modules/prometheus-api-metrics/node_modules/debug/LICENSE app/node_modules/send/node_modules/debug/LICENSE
+dup 5 1059 app/node_modules/body-parser/node_modules/debug/Makefile app/node_modules/compression/node_modules/debug/Makefile app/node_modules/express/node_modules/debug/Makefile app/node_modules/finalhandler/node_modules/debug/Makefile app/node_modules/send/node_modules/debug/Makefile
+dup 5 17918 app/node_modules/body-parser/node_modules/debug/README.md app/node_modules/compression/node_modules/debug/README.md app/node_modules/express/node_modules/debug/README.md app/node_modules/finalhandler/node_modules/debug/README.md app/node_modules/send/node_modules/debug/README.md
+dup 5 1736 app/node_modules/body-parser/node_modules/debug/karma.conf.js app/node_modules/compression/node_modules/debug/karma.conf.js app/node_modules/express/node_modules/debug/karma.conf.js app/node_modules/finalhandler/node_modules/debug/karma.conf.js app/node_modules/send/node_modules/debug/karma.conf.js
+dup 5 1138 app/node_modules/body-parser/node_modules/debug/package.json app/node_modules/compression/node_modules/debug/package.json app/node_modules/express/node_modules/debug/package.json app/node_modules/finalhandler/node_modules/debug/package.json app/node_modules/send/node_modules/debug/package.json
+dup 5 4734 app/node_modules/body-parser/node_modules/debug/src/browser.js app/node_modules/compression/node_modules/debug/src/browser.js app/node_modules/express/node_modules/debug/src/browser.js app/node_modules/finalhandler/node_modules/debug/src/browser.js app/node_modules/send/node_modules/debug/src/browser.js
+dup 5 4394 app/node_modules/body-parser/node_modules/debug/src/debug.js app/node_modules/compression/node_modules/debug/src/debug.js app/node_modules/express/node_modules/debug/src/debug.js app/node_modules/finalhandler/node_modules/debug/src/debug.js app/node_modules/send/node_modules/debug/src/debug.js
+dup 5 6015 app/node_modules/body-parser/node_modules/debug/src/node.js app/node_modules/compression/node_modules/debug/src/node.js app/node_modules/express/node_modules/debug/src/node.js app/node_modules/finalhandler/node_modules/debug/src/node.js app/node_modules/send/node_modules/debug/src/node.js
+dup 2 4342 app/node_modules/body-parser/node_modules/iconv-lite/Changelog.md app/node_modules/raw-body/node_modules/iconv-lite/Changelog.md
+dup 5 1064 app/node_modules/body-parser/node_modules/iconv-lite/LICENSE app/node_modules/gamedig/node_modules/iconv-lite/LICENSE app/node_modules/iconv-lite/LICENSE app/node_modules/raw-body/node_modules/iconv-lite/LICENSE app/node_modules/tedious/node_modules/iconv-lite/LICENSE
+dup 2 6534 app/node_modules/body-parser/node_modules/iconv-lite/README.md app/node_modules/raw-body/node_modules/iconv-lite/README.md
+dup 2 21415 app/node_modules/body-parser/node_modules/iconv-lite/encodings/dbcs-codec.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/dbcs-codec.js
+dup 2 8291 app/node_modules/body-parser/node_modules/iconv-lite/encodings/dbcs-data.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/dbcs-data.js
+dup 2 6115 app/node_modules/body-parser/node_modules/iconv-lite/encodings/internal.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/internal.js
+dup 3 2191 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-codec.js
+dup 5 32034 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-data-generated.js
+dup 2 4686 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-data.js
+dup 5 17717 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/big5-added.json
+dup 5 47320 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp936.json
+dup 5 38122 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp949.json
+dup 5 42356 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp950.json
+dup 5 41064 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/eucjp.json
+dup 5 2216 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json
+dup 2 1227 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/gbk-added.json
+dup 5 23782 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/shiftjis.json
+dup 2 5011 app/node_modules/body-parser/node_modules/iconv-lite/encodings/utf16.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/utf16.js
+dup 2 9215 app/node_modules/body-parser/node_modules/iconv-lite/encodings/utf7.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/utf7.js
+dup 3 1109 app/node_modules/body-parser/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/raw-body/node_modules/iconv-lite/lib/bom-handling.js
+dup 2 8701 app/node_modules/body-parser/node_modules/iconv-lite/lib/extend-node.js app/node_modules/raw-body/node_modules/iconv-lite/lib/extend-node.js
+dup 2 5123 app/node_modules/body-parser/node_modules/iconv-lite/lib/index.js app/node_modules/raw-body/node_modules/iconv-lite/lib/index.js
+dup 2 3387 app/node_modules/body-parser/node_modules/iconv-lite/lib/streams.js app/node_modules/raw-body/node_modules/iconv-lite/lib/streams.js
+dup 2 1227 app/node_modules/body-parser/node_modules/iconv-lite/package.json app/node_modules/raw-body/node_modules/iconv-lite/package.json
+dup 5 2764 app/node_modules/body-parser/node_modules/ms/index.js app/node_modules/compression/node_modules/ms/index.js app/node_modules/express/node_modules/ms/index.js app/node_modules/finalhandler/node_modules/ms/index.js app/node_modules/send/node_modules/debug/node_modules/ms/index.js
+dup 7 1077 app/node_modules/body-parser/node_modules/ms/license.md app/node_modules/compression/node_modules/ms/license.md app/node_modules/express/node_modules/ms/license.md app/node_modules/finalhandler/node_modules/ms/license.md app/node_modules/knex/node_modules/ms/license.md app/node_modules/redbean-node/node_modules/ms/license.md app/node_modules/send/node_modules/debug/node_modules/ms/license.md
+dup 5 1721 app/node_modules/body-parser/node_modules/ms/readme.md app/node_modules/compression/node_modules/ms/readme.md app/node_modules/express/node_modules/ms/readme.md app/node_modules/finalhandler/node_modules/ms/readme.md app/node_modules/send/node_modules/debug/node_modules/ms/readme.md
+dup 2 1096 app/node_modules/brace-expansion/LICENSE app/node_modules/glob/node_modules/brace-expansion/LICENSE
+dup 7 1071 app/node_modules/call-bind-apply-helpers/LICENSE app/node_modules/call-bound/LICENSE app/node_modules/es-define-property/LICENSE app/node_modules/es-errors/LICENSE app/node_modules/es-object-atoms/LICENSE app/node_modules/side-channel-list/LICENSE app/node_modules/side-channel-map/LICENSE
+dup 9 1260 app/node_modules/cheerio-select/LICENSE app/node_modules/css-select/LICENSE app/node_modules/css-what/LICENSE app/node_modules/domelementtype/LICENSE app/node_modules/domhandler/LICENSE app/node_modules/domutils/LICENSE app/node_modules/entities/LICENSE app/node_modules/nth-check/LICENSE app/node_modules/parse5/node_modules/entities/LICENSE
+dup 2 19580 app/node_modules/cheerio/dist/browser/api/attributes.js app/node_modules/cheerio/dist/esm/api/attributes.js
+dup 2 3187 app/node_modules/cheerio/dist/browser/api/css.js app/node_modules/cheerio/dist/esm/api/css.js
+dup 2 1479 app/node_modules/cheerio/dist/browser/api/extract.js app/node_modules/cheerio/dist/esm/api/extract.js
+dup 2 3103 app/node_modules/cheerio/dist/browser/api/forms.js app/node_modules/cheerio/dist/esm/api/forms.js
+dup 2 24825 app/node_modules/cheerio/dist/browser/api/manipulation.js app/node_modules/cheerio/dist/esm/api/manipulation.js
+dup 2 24587 app/node_modules/cheerio/dist/browser/api/traversing.js app/node_modules/cheerio/dist/esm/api/traversing.js
+dup 2 2013 app/node_modules/cheerio/dist/browser/cheerio.js app/node_modules/cheerio/dist/esm/cheerio.js
+dup 2 1337 app/node_modules/cheerio/dist/browser/load-parse.js app/node_modules/cheerio/dist/esm/load-parse.js
+dup 2 5209 app/node_modules/cheerio/dist/browser/load.js app/node_modules/cheerio/dist/esm/load.js
+dup 2 2223 app/node_modules/cheerio/dist/browser/parse.js app/node_modules/cheerio/dist/esm/parse.js
+dup 2 1963 app/node_modules/cheerio/dist/browser/parsers/parse5-adapter.js app/node_modules/cheerio/dist/esm/parsers/parse5-adapter.js
+dup 2 6131 app/node_modules/cheerio/dist/browser/static.js app/node_modules/cheerio/dist/esm/static.js
+dup 2 2531 app/node_modules/cheerio/dist/browser/utils.js app/node_modules/cheerio/dist/esm/utils.js
+dup 2 1090 app/node_modules/cheerio/node_modules/undici/LICENSE app/node_modules/undici-types/LICENSE
+dup 2 1080 app/node_modules/colorette/LICENSE.md app/node_modules/getopts/LICENSE.md
+dup 2 1085 app/node_modules/combined-stream/License app/node_modules/delayed-stream/License
+dup 4 1098 app/node_modules/commander/LICENSE app/node_modules/mssql/node_modules/commander/LICENSE app/node_modules/redbean-node/node_modules/commander/LICENSE app/node_modules/seek-bzip/node_modules/commander/LICENSE
+dup 2 3174 app/node_modules/commander/lib/argument.js app/node_modules/redbean-node/node_modules/commander/lib/argument.js
+dup 2 70043 app/node_modules/commander/lib/command.js app/node_modules/redbean-node/node_modules/commander/lib/command.js
+dup 2 1240 app/node_modules/commander/lib/error.js app/node_modules/redbean-node/node_modules/commander/lib/error.js
+dup 3 2765 app/node_modules/commander/lib/suggestSimilar.js app/node_modules/mssql/node_modules/commander/lib/suggestSimilar.js app/node_modules/redbean-node/node_modules/commander/lib/suggestSimilar.js
+dup 2 1073 app/node_modules/concat-map/LICENSE app/node_modules/minimist/LICENSE
+dup 3 1094 app/node_modules/content-disposition/LICENSE app/node_modules/forwarded/LICENSE app/node_modules/vary/LICENSE
+dup 2 1132 app/node_modules/css-color-converter/LICENSE app/node_modules/css-unit-converter/LICENSE
+dup 3 1139 app/node_modules/debug/LICENSE app/node_modules/knex/node_modules/debug/LICENSE app/node_modules/redbean-node/node_modules/debug/LICENSE
+dup 2 1073 app/node_modules/dunder-proto/LICENSE app/node_modules/math-intrinsics/LICENSE
+dup 4 1078 app/node_modules/duplexify/LICENSE app/node_modules/end-of-stream/LICENSE app/node_modules/generate-function/LICENSE app/node_modules/pump/LICENSE
+dup 2 1113 app/node_modules/engine.io-client/LICENSE app/node_modules/socket.io/LICENSE
+dup 2 2511 app/node_modules/engine.io-client/build/esm-debug/contrib/parseuri.js app/node_modules/engine.io-client/build/esm/contrib/parseuri.js
+dup 2 2634 app/node_modules/engine.io-client/build/esm-debug/globals.node.js app/node_modules/engine.io-client/build/esm/globals.node.js
+dup 2 1875 app/node_modules/engine.io-client/build/esm-debug/transports/polling-fetch.js app/node_modules/engine.io-client/build/esm/transports/polling-fetch.js
+dup 2 1446 app/node_modules/engine.io-client/build/esm-debug/transports/websocket.node.js app/node_modules/engine.io-client/build/esm/transports/websocket.node.js
+dup 2 1845 app/node_modules/engine.io-client/build/esm-debug/util.js app/node_modules/engine.io-client/build/esm/util.js
+dup 4 1183 app/node_modules/engine.io-client/node_modules/ws/LICENSE app/node_modules/engine.io/node_modules/ws/LICENSE app/node_modules/socket.io-adapter/node_modules/ws/LICENSE app/node_modules/ws/LICENSE
+dup 4 15306 app/node_modules/engine.io-client/node_modules/ws/README.md app/node_modules/engine.io/node_modules/ws/README.md app/node_modules/socket.io-adapter/node_modules/ws/README.md app/node_modules/ws/README.md
+dup 4 3056 app/node_modules/engine.io-client/node_modules/ws/lib/buffer-util.js app/node_modules/engine.io/node_modules/ws/lib/buffer-util.js app/node_modules/socket.io-adapter/node_modules/ws/lib/buffer-util.js app/node_modules/ws/lib/buffer-util.js
+dup 4 7321 app/node_modules/engine.io-client/node_modules/ws/lib/event-target.js app/node_modules/engine.io/node_modules/ws/lib/event-target.js app/node_modules/socket.io-adapter/node_modules/ws/lib/event-target.js app/node_modules/ws/lib/event-target.js
+dup 4 6183 app/node_modules/engine.io-client/node_modules/ws/lib/extension.js app/node_modules/engine.io/node_modules/ws/lib/extension.js app/node_modules/socket.io-adapter/node_modules/ws/lib/extension.js app/node_modules/ws/lib/extension.js
+dup 5 1034 app/node_modules/engine.io-client/node_modules/ws/lib/limiter.js app/node_modules/engine.io/node_modules/ws/lib/limiter.js app/node_modules/mqtt/node_modules/ws/lib/limiter.js app/node_modules/socket.io-adapter/node_modules/ws/lib/limiter.js app/node_modules/ws/lib/limiter.js
+dup 4 14510 app/node_modules/engine.io-client/node_modules/ws/lib/permessage-deflate.js app/node_modules/engine.io/node_modules/ws/lib/permessage-deflate.js app/node_modules/socket.io-adapter/node_modules/ws/lib/permessage-deflate.js app/node_modules/ws/lib/permessage-deflate.js
+dup 4 16460 app/node_modules/engine.io-client/node_modules/ws/lib/receiver.js app/node_modules/engine.io/node_modules/ws/lib/receiver.js app/node_modules/socket.io-adapter/node_modules/ws/lib/receiver.js app/node_modules/ws/lib/receiver.js
+dup 4 16711 app/node_modules/engine.io-client/node_modules/ws/lib/sender.js app/node_modules/engine.io/node_modules/ws/lib/sender.js app/node_modules/socket.io-adapter/node_modules/ws/lib/sender.js app/node_modules/ws/lib/sender.js
+dup 4 4204 app/node_modules/engine.io-client/node_modules/ws/lib/stream.js app/node_modules/engine.io/node_modules/ws/lib/stream.js app/node_modules/socket.io-adapter/node_modules/ws/lib/stream.js app/node_modules/ws/lib/stream.js
+dup 4 1498 app/node_modules/engine.io-client/node_modules/ws/lib/subprotocol.js app/node_modules/engine.io/node_modules/ws/lib/subprotocol.js app/node_modules/socket.io-adapter/node_modules/ws/lib/subprotocol.js app/node_modules/ws/lib/subprotocol.js
+dup 4 3903 app/node_modules/engine.io-client/node_modules/ws/lib/validation.js app/node_modules/engine.io/node_modules/ws/lib/validation.js app/node_modules/socket.io-adapter/node_modules/ws/lib/validation.js app/node_modules/ws/lib/validation.js
+dup 3 16393 app/node_modules/engine.io-client/node_modules/ws/lib/websocket-server.js app/node_modules/engine.io/node_modules/ws/lib/websocket-server.js app/node_modules/socket.io-adapter/node_modules/ws/lib/websocket-server.js
+dup 3 36463 app/node_modules/engine.io-client/node_modules/ws/lib/websocket.js app/node_modules/engine.io/node_modules/ws/lib/websocket.js app/node_modules/socket.io-adapter/node_modules/ws/lib/websocket.js
+dup 3 1723 app/node_modules/engine.io-client/node_modules/ws/package.json app/node_modules/engine.io/node_modules/ws/package.json app/node_modules/socket.io-adapter/node_modules/ws/package.json
+dup 2 1094 app/node_modules/etag/LICENSE app/node_modules/proxy-addr/LICENSE
+dup 2 1118 app/node_modules/form-data/License app/node_modules/sqlstring/LICENSE
+dup 2 6587 app/node_modules/gamedig/node_modules/iconv-lite/README.md app/node_modules/tedious/node_modules/iconv-lite/README.md
+dup 2 20464 app/node_modules/gamedig/node_modules/iconv-lite/encodings/dbcs-codec.js app/node_modules/tedious/node_modules/iconv-lite/encodings/dbcs-codec.js
+dup 2 8881 app/node_modules/gamedig/node_modules/iconv-lite/encodings/dbcs-data.js app/node_modules/tedious/node_modules/iconv-lite/encodings/dbcs-data.js
+dup 2 6560 app/node_modules/gamedig/node_modules/iconv-lite/encodings/internal.js app/node_modules/tedious/node_modules/iconv-lite/encodings/internal.js
+dup 2 2114 app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-codec.js
+dup 2 4527 app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-data.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-data.js
+dup 3 1247 app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/gbk-added.json
+dup 2 5097 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf16.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf16.js
+dup 2 9063 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf32.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf32.js
+dup 2 8580 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf7.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf7.js
+dup 2 1035 app/node_modules/gamedig/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/tedious/node_modules/iconv-lite/lib/bom-handling.js
+dup 2 2979 app/node_modules/gamedig/node_modules/iconv-lite/lib/streams.js app/node_modules/tedious/node_modules/iconv-lite/lib/streams.js
+dup 2 5953 app/node_modules/is-core-module/core.json app/node_modules/resolve/lib/core.json
+dup 2 1072 app/node_modules/jose/dist/browser/jwe/compact/decrypt.js app/node_modules/jose/dist/node/esm/jwe/compact/decrypt.js
+dup 2 7068 app/node_modules/jose/dist/browser/jwe/flattened/encrypt.js app/node_modules/jose/dist/node/esm/jwe/flattened/encrypt.js
+dup 2 7813 app/node_modules/jose/dist/browser/jwe/general/encrypt.js app/node_modules/jose/dist/node/esm/jwe/general/encrypt.js
+dup 2 2421 app/node_modules/jose/dist/browser/jwk/thumbprint.js app/node_modules/jose/dist/node/esm/jwk/thumbprint.js
+dup 2 3314 app/node_modules/jose/dist/browser/jwks/remote.js app/node_modules/jose/dist/node/esm/jwks/remote.js
+dup 2 3272 app/node_modules/jose/dist/browser/jws/flattened/sign.js app/node_modules/jose/dist/node/esm/jws/flattened/sign.js
+dup 2 2213 app/node_modules/jose/dist/browser/jws/general/sign.js app/node_modules/jose/dist/node/esm/jws/general/sign.js
+dup 2 1240 app/node_modules/jose/dist/browser/jwt/decrypt.js app/node_modules/jose/dist/node/esm/jwt/decrypt.js
+dup 2 2403 app/node_modules/jose/dist/browser/jwt/encrypt.js app/node_modules/jose/dist/node/esm/jwt/encrypt.js
+dup 2 1597 app/node_modules/jose/dist/browser/jwt/produce.js app/node_modules/jose/dist/node/esm/jwt/produce.js
+dup 2 2175 app/node_modules/jose/dist/browser/key/import.js app/node_modules/jose/dist/node/esm/key/import.js
+dup 2 1742 app/node_modules/jose/dist/browser/lib/buffer_utils.js app/node_modules/jose/dist/node/esm/lib/buffer_utils.js
+dup 2 1933 app/node_modules/jose/dist/browser/lib/check_key_type.js app/node_modules/jose/dist/node/esm/lib/check_key_type.js
+dup 2 5259 app/node_modules/jose/dist/browser/lib/crypto_key.js app/node_modules/jose/dist/node/esm/lib/crypto_key.js
+dup 2 3459 app/node_modules/jose/dist/browser/lib/encrypt_key_management.js app/node_modules/jose/dist/node/esm/lib/encrypt_key_management.js
+dup 2 1209 app/node_modules/jose/dist/browser/lib/secs.js app/node_modules/jose/dist/node/esm/lib/secs.js
+dup 2 1585 app/node_modules/jose/dist/browser/lib/validate_crit.js app/node_modules/jose/dist/node/esm/lib/validate_crit.js
+dup 2 4337 app/node_modules/jose/dist/browser/util/errors.js app/node_modules/jose/dist/node/esm/util/errors.js
+dup 2 1121 app/node_modules/jsonwebtoken/LICENSE app/node_modules/jwt-decode/LICENSE
+dup 2 1068 app/node_modules/jwa/LICENSE app/node_modules/jws/LICENSE
+dup 2 1064 app/node_modules/knex/LICENSE app/node_modules/redbean-node/node_modules/knex/LICENSE
+dup 2 3737 app/node_modules/knex/lib/builder-interface-augmenter.js app/node_modules/redbean-node/node_modules/knex/lib/builder-interface-augmenter.js
+dup 2 1312 app/node_modules/knex/lib/constants.js app/node_modules/redbean-node/node_modules/knex/lib/constants.js
+dup 2 3159 app/node_modules/knex/lib/dialects/cockroachdb/crdb-querycompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/cockroachdb/crdb-querycompiler.js
+dup 2 1107 app/node_modules/knex/lib/dialects/cockroachdb/crdb-tablecompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/cockroachdb/crdb-tablecompiler.js
+dup 2 2284 app/node_modules/knex/lib/dialects/cockroachdb/index.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/cockroachdb/index.js
+dup 2 1093 app/node_modules/knex/lib/dialects/mssql/mssql-formatter.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mssql/mssql-formatter.js
+dup 2 5983 app/node_modules/knex/lib/dialects/mssql/schema/mssql-columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mssql/schema/mssql-columncompiler.js
+dup 2 2607 app/node_modules/knex/lib/dialects/mssql/schema/mssql-compiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mssql/schema/mssql-compiler.js
+dup 2 13919 app/node_modules/knex/lib/dialects/mssql/schema/mssql-tablecompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mssql/schema/mssql-tablecompiler.js
+dup 2 1269 app/node_modules/knex/lib/dialects/mssql/schema/mssql-viewcompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mssql/schema/mssql-viewcompiler.js
+dup 2 4495 app/node_modules/knex/lib/dialects/mssql/transaction.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mssql/transaction.js
+dup 2 4737 app/node_modules/knex/lib/dialects/mysql/schema/mysql-columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mysql/schema/mysql-columncompiler.js
+dup 2 1426 app/node_modules/knex/lib/dialects/mysql/schema/mysql-compiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mysql/schema/mysql-compiler.js
+dup 2 1248 app/node_modules/knex/lib/dialects/mysql/transaction.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mysql/transaction.js
+dup 2 1247 app/node_modules/knex/lib/dialects/mysql2/transaction.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/mysql2/transaction.js
+dup 2 2450 app/node_modules/knex/lib/dialects/oracle/index.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/oracle/index.js
+dup 2 3557 app/node_modules/knex/lib/dialects/oracle/schema/oracle-columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/oracle/schema/oracle-columncompiler.js
+dup 2 13980 app/node_modules/knex/lib/dialects/oracledb/query/oracledb-querycompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/oracledb/query/oracledb-querycompiler.js
+dup 2 2973 app/node_modules/knex/lib/dialects/oracledb/transaction.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/oracledb/transaction.js
+dup 2 5813 app/node_modules/knex/lib/dialects/oracledb/utils.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/oracledb/utils.js
+dup 2 1415 app/node_modules/knex/lib/dialects/pgnative/index.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/pgnative/index.js
+dup 2 4108 app/node_modules/knex/lib/dialects/postgres/schema/pg-columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/postgres/schema/pg-columncompiler.js
+dup 2 3334 app/node_modules/knex/lib/dialects/postgres/schema/pg-compiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/postgres/schema/pg-compiler.js
+dup 2 2212 app/node_modules/knex/lib/dialects/redshift/index.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/redshift/index.js
+dup 2 4249 app/node_modules/knex/lib/dialects/redshift/query/redshift-querycompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/redshift/query/redshift-querycompiler.js
+dup 2 2354 app/node_modules/knex/lib/dialects/redshift/schema/redshift-columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/redshift/schema/redshift-columncompiler.js
+dup 2 3639 app/node_modules/knex/lib/dialects/redshift/schema/redshift-tablecompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/redshift/schema/redshift-tablecompiler.js
+dup 2 6843 app/node_modules/knex/lib/dialects/sqlite3/index.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/index.js
+dup 2 9339 app/node_modules/knex/lib/dialects/sqlite3/query/sqlite-querycompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/query/sqlite-querycompiler.js
+dup 2 11352 app/node_modules/knex/lib/dialects/sqlite3/schema/ddl.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/ddl.js
+dup 2 7797 app/node_modules/knex/lib/dialects/sqlite3/schema/internal/compiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/internal/compiler.js
+dup 2 3760 app/node_modules/knex/lib/dialects/sqlite3/schema/internal/parser-combinator.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/internal/parser-combinator.js
+dup 2 16253 app/node_modules/knex/lib/dialects/sqlite3/schema/internal/parser.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/internal/parser.js
+dup 2 1382 app/node_modules/knex/lib/dialects/sqlite3/schema/sqlite-columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/sqlite-columncompiler.js
+dup 2 2100 app/node_modules/knex/lib/dialects/sqlite3/schema/sqlite-compiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/sqlite-compiler.js
+dup 2 11393 app/node_modules/knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler.js app/node_modules/redbean-node/node_modules/knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler.js
+dup 2 1330 app/node_modules/knex/lib/execution/batch-insert.js app/node_modules/redbean-node/node_modules/knex/lib/execution/batch-insert.js
+dup 2 1834 app/node_modules/knex/lib/execution/internal/query-executioner.js app/node_modules/redbean-node/node_modules/knex/lib/execution/internal/query-executioner.js
+dup 2 1277 app/node_modules/knex/lib/formatter/formatterUtils.js app/node_modules/redbean-node/node_modules/knex/lib/formatter/formatterUtils.js
+dup 2 1825 app/node_modules/knex/lib/formatter/rawFormatter.js app/node_modules/redbean-node/node_modules/knex/lib/formatter/rawFormatter.js
+dup 2 6333 app/node_modules/knex/lib/formatter/wrappingFormatter.js app/node_modules/redbean-node/node_modules/knex/lib/formatter/wrappingFormatter.js
+dup 2 1522 app/node_modules/knex/lib/knex-builder/Knex.js app/node_modules/redbean-node/node_modules/knex/lib/knex-builder/Knex.js
+dup 2 1696 app/node_modules/knex/lib/knex-builder/internal/config-resolver.js app/node_modules/redbean-node/node_modules/knex/lib/knex-builder/internal/config-resolver.js
+dup 2 1988 app/node_modules/knex/lib/knex-builder/internal/parse-connection.js app/node_modules/redbean-node/node_modules/knex/lib/knex-builder/internal/parse-connection.js
+dup 2 1636 app/node_modules/knex/lib/logger.js app/node_modules/redbean-node/node_modules/knex/lib/logger.js
+dup 2 2553 app/node_modules/knex/lib/migrations/migrate/MigrationGenerator.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/migrate/MigrationGenerator.js
+dup 2 1036 app/node_modules/knex/lib/migrations/migrate/migration-list-resolver.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/migrate/migration-list-resolver.js
+dup 2 1648 app/node_modules/knex/lib/migrations/migrate/migrator-configuration-merger.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/migrate/migrator-configuration-merger.js
+dup 2 2120 app/node_modules/knex/lib/migrations/migrate/sources/fs-migrations.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/migrate/sources/fs-migrations.js
+dup 2 2047 app/node_modules/knex/lib/migrations/migrate/table-creator.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/migrate/table-creator.js
+dup 2 3909 app/node_modules/knex/lib/migrations/seed/Seeder.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/seed/Seeder.js
+dup 2 1573 app/node_modules/knex/lib/migrations/seed/seeder-configuration-merger.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/seed/seeder-configuration-merger.js
+dup 2 1823 app/node_modules/knex/lib/migrations/seed/sources/fs-seeds.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/seed/sources/fs-seeds.js
+dup 2 2011 app/node_modules/knex/lib/migrations/util/fs.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/util/fs.js
+dup 2 1415 app/node_modules/knex/lib/migrations/util/template.js app/node_modules/redbean-node/node_modules/knex/lib/migrations/util/template.js
+dup 2 1349 app/node_modules/knex/lib/query/analytic.js app/node_modules/redbean-node/node_modules/knex/lib/query/analytic.js
+dup 2 6314 app/node_modules/knex/lib/query/joinclause.js app/node_modules/redbean-node/node_modules/knex/lib/query/joinclause.js
+dup 2 3522 app/node_modules/knex/lib/raw.js app/node_modules/redbean-node/node_modules/knex/lib/raw.js
+dup 2 3103 app/node_modules/knex/lib/schema/builder.js app/node_modules/redbean-node/node_modules/knex/lib/schema/builder.js
+dup 2 3610 app/node_modules/knex/lib/schema/columnbuilder.js app/node_modules/redbean-node/node_modules/knex/lib/schema/columnbuilder.js
+dup 2 8410 app/node_modules/knex/lib/schema/columncompiler.js app/node_modules/redbean-node/node_modules/knex/lib/schema/columncompiler.js
+dup 2 5085 app/node_modules/knex/lib/schema/compiler.js app/node_modules/redbean-node/node_modules/knex/lib/schema/compiler.js
+dup 2 1429 app/node_modules/knex/lib/schema/internal/helpers.js app/node_modules/redbean-node/node_modules/knex/lib/schema/internal/helpers.js
+dup 2 9410 app/node_modules/knex/lib/schema/tablebuilder.js app/node_modules/redbean-node/node_modules/knex/lib/schema/tablebuilder.js
+dup 2 2024 app/node_modules/knex/lib/schema/viewbuilder.js app/node_modules/redbean-node/node_modules/knex/lib/schema/viewbuilder.js
+dup 2 3520 app/node_modules/knex/lib/schema/viewcompiler.js app/node_modules/redbean-node/node_modules/knex/lib/schema/viewcompiler.js
+dup 2 2341 app/node_modules/knex/lib/util/helpers.js app/node_modules/redbean-node/node_modules/knex/lib/util/helpers.js
+dup 2 1055 app/node_modules/knex/lib/util/nanoid.js app/node_modules/redbean-node/node_modules/knex/lib/util/nanoid.js
+dup 2 4404 app/node_modules/knex/lib/util/string.js app/node_modules/redbean-node/node_modules/knex/lib/util/string.js
+dup 2 22496 app/node_modules/knex/node_modules/debug/README.md app/node_modules/redbean-node/node_modules/debug/README.md
+dup 2 1419 app/node_modules/knex/node_modules/debug/package.json app/node_modules/redbean-node/node_modules/debug/package.json
+dup 2 6010 app/node_modules/knex/node_modules/debug/src/browser.js app/node_modules/redbean-node/node_modules/debug/src/browser.js
+dup 2 6289 app/node_modules/knex/node_modules/debug/src/common.js app/node_modules/redbean-node/node_modules/debug/src/common.js
+dup 2 4685 app/node_modules/knex/node_modules/debug/src/node.js app/node_modules/redbean-node/node_modules/debug/src/node.js
+dup 2 3023 app/node_modules/knex/node_modules/ms/index.js app/node_modules/redbean-node/node_modules/ms/index.js
+dup 2 2037 app/node_modules/knex/node_modules/ms/readme.md app/node_modules/redbean-node/node_modules/ms/readme.md
+dup 3 1082 app/node_modules/knex/node_modules/pg-connection-string/LICENSE app/node_modules/pg-connection-string/LICENSE app/node_modules/redbean-node/node_modules/pg-connection-string/LICENSE
+dup 3 3460 app/node_modules/knex/node_modules/pg-connection-string/README.md app/node_modules/pg-connection-string/README.md app/node_modules/redbean-node/node_modules/pg-connection-string/README.md
+dup 2 3011 app/node_modules/knex/node_modules/pg-connection-string/index.js app/node_modules/pg-connection-string/index.js
+dup 2 1201 app/node_modules/knex/node_modules/resolve-from/index.js app/node_modules/redbean-node/node_modules/resolve-from/index.js
+dup 2 1867 app/node_modules/knex/node_modules/resolve-from/readme.md app/node_modules/redbean-node/node_modules/resolve-from/readme.md
+dup 2 4704 app/node_modules/knex/scripts/build.js app/node_modules/redbean-node/node_modules/knex/scripts/build.js
+dup 2 2647 app/node_modules/knex/scripts/oracledb-install-driver-libs.sh app/node_modules/redbean-node/node_modules/knex/scripts/oracledb-install-driver-libs.sh
+dup 2 2807 app/node_modules/knex/scripts/update_gitignore_for_tsc_output.js app/node_modules/redbean-node/node_modules/knex/scripts/update_gitignore_for_tsc_output.js
+dup 3 1119 app/node_modules/leven/license app/node_modules/object-assign/license app/node_modules/path-is-absolute/license
+dup 6 1951 app/node_modules/lodash.camelcase/LICENSE app/node_modules/lodash.get/LICENSE app/node_modules/lodash.includes/LICENSE app/node_modules/lodash.isinteger/LICENSE app/node_modules/lodash.isplainobject/LICENSE app/node_modules/lodash.once/LICENSE
+dup 3 1233 app/node_modules/lodash.isboolean/LICENSE app/node_modules/lodash.isnumber/LICENSE app/node_modules/lodash.isstring/LICENSE
+dup 2 1089 app/node_modules/media-typer/LICENSE app/node_modules/on-headers/LICENSE
+dup 2 1172 app/node_modules/mime-db/LICENSE app/node_modules/mime-types/node_modules/mime-db/LICENSE
+dup 2 1323 app/node_modules/node-fetch/node_modules/webidl-conversions/LICENSE.md app/node_modules/webidl-conversions/LICENSE.md
+dup 2 5983 app/node_modules/node-gyp/node_modules/npmlog/README.md app/node_modules/npmlog/README.md
+dup 3 1109 app/node_modules/parse5-htmlparser2-tree-adapter/LICENSE app/node_modules/parse5-parser-stream/LICENSE app/node_modules/parse5/LICENSE
+dup 3 1552 app/node_modules/path-scurry/LICENSE.md app/node_modules/path-scurry/node_modules/minipass/LICENSE.md app/node_modules/redbean-node/node_modules/minipass/LICENSE.md
+dup 2 27159 app/node_modules/path-scurry/node_modules/minipass/README.md app/node_modules/redbean-node/node_modules/minipass/README.md
+dup 2 34050 app/node_modules/path-scurry/node_modules/minipass/dist/commonjs/index.js app/node_modules/redbean-node/node_modules/minipass/dist/commonjs/index.js
+dup 2 33328 app/node_modules/path-scurry/node_modules/minipass/dist/esm/index.js app/node_modules/redbean-node/node_modules/minipass/dist/esm/index.js
+dup 2 1904 app/node_modules/path-scurry/node_modules/minipass/package.json app/node_modules/redbean-node/node_modules/minipass/package.json
+dup 3 1077 app/node_modules/pg-cloudflare/LICENSE app/node_modules/pg-protocol/LICENSE app/node_modules/pg/LICENSE
+dup 2 6022 app/node_modules/playwright-core/lib/vite/recorder/assets/codeMirrorModule-5d0f417c.css app/node_modules/playwright-core/lib/vite/traceViewer/codeMirrorModule.5d0f417c.css
+dup 2 73464 app/node_modules/playwright-core/lib/vite/recorder/assets/codicon-79f233d0.ttf app/node_modules/playwright-core/lib/vite/traceViewer/codicon.79f233d0.ttf
+dup 2 5033 app/node_modules/playwright-core/lib/vite/recorder/playwright-logo.svg app/node_modules/playwright-core/lib/vite/traceViewer/playwright-logo.svg
+dup 4 1111 app/node_modules/postgres-array/license app/node_modules/postgres-bytea/license app/node_modules/postgres-date/license app/node_modules/postgres-interval/license
+dup 3 1115 app/node_modules/querystringify/LICENSE app/node_modules/requires-port/LICENSE app/node_modules/url-parse/LICENSE
+dup 2 1634 app/node_modules/redbean-node/dist/bean-converter-stream.js app/node_modules/redbean-node/dist/lib/bean-converter-stream.js
+dup 2 1677 app/node_modules/redbean-node/dist/lazy-load-array.js app/node_modules/redbean-node/dist/lib/lazy-load-array.js
+dup 2 1071 app/node_modules/side-channel-weakmap/LICENSE app/node_modules/side-channel/LICENSE
+dup 2 1113 app/node_modules/socket.io-adapter/LICENSE app/node_modules/socket.io-parser/LICENSE
+dup 2 1384 app/node_modules/socket.io-client/build/esm-debug/contrib/backo2.js app/node_modules/socket.io-client/build/esm/contrib/backo2.js
+dup 2 40435 app/node_modules/socket.io-client/dist/socket.io.esm.min.js app/node_modules/socket.io/client-dist/socket.io.esm.min.js
+dup 2 155836 app/node_modules/socket.io-client/dist/socket.io.js app/node_modules/socket.io/client-dist/socket.io.js
+dup 2 46822 app/node_modules/socket.io-client/dist/socket.io.min.js app/node_modules/socket.io/client-dist/socket.io.min.js
+dup 2 50368 app/node_modules/socket.io-client/dist/socket.io.msgpack.min.js app/node_modules/socket.io/client-dist/socket.io.msgpack.min.js
+dup 2 2743 app/node_modules/socket.io-parser/build/esm-debug/binary.js app/node_modules/socket.io-parser/build/esm/binary.js
+dup 2 1576 app/node_modules/socket.io-parser/build/esm-debug/is-binary.js app/node_modules/socket.io-parser/build/esm/is-binary.js
+dup 2 1079 app/node_modules/sparse-bitfield/LICENSE app/node_modules/stream-shift/LICENSE
+dup 2 1396 app/node_modules/string-width-cjs/readme.md app/node_modules/string-width/readme.md
+dup 2 1599 app/node_modules/strip-ansi-cjs/readme.md app/node_modules/strip-ansi/readme.md
+dup 2 1078 app/node_modules/tldts-core/LICENSE app/node_modules/tldts/LICENSE
+dup 2 19668 app/node_modules/underscore/underscore-min.js app/node_modules/underscore/underscore-umd-min.js
+dup 2 68916 app/node_modules/underscore/underscore-umd.js app/node_modules/underscore/underscore.js
+dup 2 1069 app/node_modules/whatwg-encoding/LICENSE.txt app/node_modules/whatwg-mimetype/LICENSE.txt
+dup 2 5772 app/node_modules/wrap-ansi-cjs/index.js app/node_modules/wrap-ansi/index.js
+dup 2 2745 app/node_modules/wrap-ansi-cjs/readme.md app/node_modules/wrap-ansi/readme.md

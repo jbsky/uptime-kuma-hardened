@@ -1,0 +1,122 @@
+# =====================================================================
+#  Security Audit – Uptime Kuma Hardened
+#  Hebdomadaire : Trivy + Grype + verification cosign → issue si echec
+# =====================================================================
+name: security-audit
+
+on:
+  schedule:
+    - cron: '0 3 * * 2'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  NAMESPACE: ${{ github.repository_owner }}
+  IMAGE_NAME: uptime-kuma-hardened
+
+permissions:
+  contents: read
+  packages: read
+  security-events: write
+  issues: write
+
+jobs:
+  audit:
+    name: Security scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Login ghcr.io
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trivy full scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
+          format: sarif
+          output: trivy-audit.sarif
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '0'
+          ignore-unfixed: false
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-audit.sarif
+          category: uptime-kuma-audit
+
+      # Grype seul ne suffit pas a declarer une image propre : le 2026-08-18
+      # il a rendu « No vulnerabilities found » sur des images soeurs pendant
+      # que Trivy listait 8 CVE High dans le meme binaire. Les deux tournent,
+      # rapportent, et l'issue ci-dessous couvre l'un comme l'autre.
+      - name: Trivy gate
+        id: trivy_gate
+        continue-on-error: true
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
+          format: table
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+          ignore-unfixed: true
+
+      - name: Grype cross-check
+        id: grype
+        continue-on-error: true
+        uses: anchore/scan-action@v5
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
+          fail-build: 'true'
+          severity-cutoff: high
+          only-fixed: true
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Verify signature
+        id: verify
+        continue-on-error: true
+        run: |
+          cosign verify \
+            "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}:latest" \
+            --certificate-identity-regexp '^https://github.com/${{ github.repository }}/' \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com
+
+      # Les dependances npm de Kuma portent des CVE corrigees en amont que
+      # seule une montee de version efface (SECURITY.md) : le gate restera
+      # rouge d'une semaine a l'autre. Une issue par semaine noierait la
+      # seule qui compte -- on commente l'issue ouverte au lieu d'en creer une.
+      - name: Open or update issue on failure
+        if: steps.grype.outcome == 'failure' || steps.trivy_gate.outcome == 'failure' || steps.verify.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const failed = [
+              ['${{ steps.trivy_gate.outcome }}', 'Trivy (CRITICAL/HIGH corrigeables)'],
+              ['${{ steps.grype.outcome }}', 'Grype (high+ corrigeables)'],
+              ['${{ steps.verify.outcome }}', 'signature cosign'],
+            ].filter(([o]) => o === 'failure').map(([, n]) => `- ${n}`).join('\n');
+            const body = `Audit du ${new Date().toISOString().slice(0,10)} : echec de\n${failed}\n\n[Execution](${run})`;
+            const open = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              state: 'open', labels: 'security', per_page: 10,
+            });
+            const existing = open.data.find(i => i.title.startsWith('[Security] Audit'));
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.number, body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: '[Security] Audit en echec', body, labels: ['security'],
+              });
+            }

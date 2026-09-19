@@ -10,11 +10,10 @@ IPUTILS_VERSION := $(shell jq -r .iputils versions.json)
 IPUTILS_SHA256  := $(shell jq -r .iputils_sha256 versions.json)
 export KUMA_VERSION KUMA_SHA256 IPUTILS_VERSION IPUTILS_SHA256
 
-# CA du proxy SSL-bump, passee en secret BuildKit (jamais en couche). Absente
-# hors du homelab : le Dockerfile la declare required=false.
-# $(wildcard) rend une chaine vide si le fichier n'existe pas : compose se
-# rabat alors sur /dev/null au lieu d'echouer sur un secret introuvable.
-CA_CERTS ?= $(wildcard /usr/local/share/ca-certificates/bump.crt)
+# Derriere un proxy qui dechiffre le TLS : `make build CA_CERTS=/chemin/ca.crt`.
+# La CA passe en secret BuildKit, jamais en couche ; le Dockerfile la declare
+# required=false. Vide par defaut : compose se rabat sur /dev/null.
+CA_CERTS ?=
 export CA_CERTS
 
 help:
