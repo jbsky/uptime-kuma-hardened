@@ -3,7 +3,7 @@
 [![Build](https://github.com/jbsky/uptime-kuma-hardened/actions/workflows/build-push.yml/badge.svg)](https://github.com/jbsky/uptime-kuma-hardened/actions/workflows/build-push.yml)
 [![Hardening](https://img.shields.io/badge/hardening-platine-blueviolet)](#ce-qui-est-embarque-et-dou-ca-vient)
 
-Image [Uptime Kuma](https://github.com/louislam/uptime-kuma) <!--v:uptime-kuma-hardened-->2.2.1<!--/v-->
+Image [Uptime Kuma](https://github.com/louislam/uptime-kuma) <!--v:uptime-kuma-hardened-->2.5.5<!--/v-->
 durcie : `FROM scratch`, init Go statique, tini en PID 1, aucun shell, aucun
 gestionnaire de paquets. Pensee pour un deploiement Podman sur VyOS.
 
@@ -33,7 +33,7 @@ du Dockerfile. **En production, epinglez le tag qui porte le compteur.**
 <!-- BEGIN:tags (genere par la CI -- ne pas editer a la main) -->
 | Image | Version amont | Tag immuable a epingler |
 |-------|---------------|-------------------------|
-| `jbsky/uptime-kuma-hardened` | `2.2.1` | `2.2.1.2` |
+| `jbsky/uptime-kuma-hardened` | `2.5.5` | `2.5.5.0` |
 <!-- END:tags -->
 
 Images publiees sur `ghcr.io/jbsky/uptime-kuma-hardened` (signees par cosign,
@@ -119,7 +119,7 @@ Deux points qui ne se devinent pas :
 ### VyOS
 
 ```
-set container name uptime-kuma image 'docker.io/jbsky/uptime-kuma-hardened:2.2.1.2'
+set container name uptime-kuma image 'docker.io/jbsky/uptime-kuma-hardened:2.5.5.0'
 set container name uptime-kuma sysctl parameter net.ipv4.ping_group_range value '3001 3001'
 set container name uptime-kuma memory '512'
 set container name uptime-kuma volume uptime-data source '/config/containers/uptime-kuma/data'
