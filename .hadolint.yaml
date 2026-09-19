@@ -1,0 +1,6 @@
+ignored:
+  - DL3003  # Use WORKDIR -- cd legitime dans un RUN multi-etapes avec nettoyage
+  - DL3018  # Pin versions in apk add -- Alpine bouge vite, on veut les derniers correctifs
+  - DL3059  # Multiple consecutive RUN
+trustedRegistries:
+  - docker.io

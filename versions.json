@@ -1,0 +1,7 @@
+{
+  "uptime-kuma": "2.2.1",
+  "uptime-kuma_sha256": "2a417a7bf09223b95b907c24ee2e1ec1fa747fd2c95834bbdaf269026af5189a",
+  "iputils": "20250605",
+  "iputils_sha256": "6f213700dbf96b5cc4499ca70cb15ecd69c09f405b06785bb4a1a10b572b6276",
+  "alpine": "3.24"
+}

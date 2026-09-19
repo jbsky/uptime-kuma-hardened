@@ -1,0 +1,48 @@
+x-common-security: &common-security
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  ulimits:
+    nofile: { soft: 65536, hard: 65536 }
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options: { max-size: "50m", max-file: "5" }
+
+services:
+  uptime-kuma:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Lus depuis versions.json par `make build` -- jamais ecrits ici.
+        # `:-` et pas `:?` : compose interpole build.args meme pour `up
+        # --no-build`, `logs` et `down`. La garde est dans le Dockerfile.
+        KUMA_VERSION: ${KUMA_VERSION:-}
+        KUMA_SHA256: ${KUMA_SHA256:-}
+        IPUTILS_VERSION: ${IPUTILS_VERSION:-}
+        IPUTILS_SHA256: ${IPUTILS_SHA256:-}
+      secrets:
+        - ca-certs
+    image: localhost/uptime-kuma-hardened:latest
+    <<: *common-security
+    ports:
+      - "3001:3001"
+    # ping ouvre un socket ICMP datagramme, sans capacite : le noyau ne
+    # l'accorde qu'aux groupes de cette plage. Docker l'ouvre deja a tous ;
+    # la ligne est la pour que le compose dise ce dont l'image a besoin.
+    sysctls:
+      net.ipv4.ping_group_range: "3001 3001"
+    volumes:
+      - kuma-data:/app/data
+    tmpfs:
+      - /tmp:nodev,nosuid,noexec,size=64m,mode=1777
+
+secrets:
+  ca-certs:
+    file: ${CA_CERTS:-/dev/null}
+
+volumes:
+  kuma-data:
