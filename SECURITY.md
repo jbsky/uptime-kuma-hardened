@@ -23,12 +23,13 @@ corrigee ici par une montee de version dans `versions.json`.
 | Perimetre | CRITICAL | HIGH | Corrigeables en amont |
 |---|--:|--:|--:|
 | Stage `prep` (Alpine) | 0 | 0 | -- |
-| Image publiee, Kuma 2.2.1 | 7 | 68 | 74 |
-| Lockfile de Kuma 2.5.5, pour comparaison | 2 | 28 | 30 |
+| Image Kuma 2.2.1 | 7 | 68 | 74 |
+| **Image Kuma 2.5.5** | **2** | **28** | **30** |
 
 Toutes viennent du `package-lock.json` d'Uptime Kuma : ce sont les memes que
-dans l'image officielle, qui installe le meme lockfile. CRITICAL en 2.2.1 :
-`fast-xml-parser`, `jsonata`, `liquidjs`, `protobufjs`, `tar`.
+dans l'image officielle, qui installe le meme lockfile. CRITICAL restants en
+2.5.5 : `protobufjs`, `tar` (en 2.2.1 s'y ajoutaient `fast-xml-parser`,
+`jsonata`, `liquidjs`).
 
 Elles ne bloquent pas la publication, volontairement : le seul correctif est une
 montee de Kuma, et une montee de Kuma applique des migrations de base sans
@@ -36,5 +37,5 @@ retour arriere -- elle se decide et se teste, elle ne se declenche pas sur un
 scan. Reecrire le lockfile (`overrides` npm) ferait tourner Kuma sur un arbre
 de dependances que l'amont n'a jamais teste.
 
-Correctif : montee en 2.5.x, suivie par la veille de versions (issue
+Correctif : montee de version, suivie par la veille de versions (issue
 « [Veille] Version amont disponible »).
