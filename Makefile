@@ -3,12 +3,8 @@
 DC := docker compose
 
 # versions.json est la seule source de verite : le Dockerfile n'a aucun
-# defaut, il faut donc lui passer chaque version.
-KUMA_VERSION    := $(shell jq -r '."uptime-kuma"' versions.json)
-KUMA_SHA256     := $(shell jq -r '."uptime-kuma_sha256"' versions.json)
-IPUTILS_VERSION := $(shell jq -r .iputils versions.json)
-IPUTILS_SHA256  := $(shell jq -r .iputils_sha256 versions.json)
-export KUMA_VERSION KUMA_SHA256 IPUTILS_VERSION IPUTILS_SHA256
+# defaut ; `make build` passe chaque version par scripts/versions-build-args.py,
+# qui refuse une valeur absente, nulle ou vide.
 
 # Derriere un proxy qui dechiffre le TLS : `make build CA_CERTS=/chemin/ca.crt`.
 # La CA passe en secret BuildKit, jamais en couche ; le Dockerfile la declare
@@ -28,10 +24,9 @@ help:
 	@echo "  make clean   - Supprime volume + image"
 
 build:
-	@for v in "$(KUMA_VERSION)" "$(KUMA_SHA256)" "$(IPUTILS_VERSION)" "$(IPUTILS_SHA256)"; do \
-	  test -n "$$v" -a "$$v" != "null" || { echo "versions.json illisible"; exit 1; }; done
-	@echo "Build Uptime Kuma $(KUMA_VERSION) + iputils $(IPUTILS_VERSION) (versions.json)"
-	DOCKER_BUILDKIT=1 $(DC) build --pull
+	@args=$$(./scripts/versions-build-args.py --docker) \
+	  && echo "Build depuis versions.json : $$args" \
+	  && DOCKER_BUILDKIT=1 $(DC) build --pull $$args
 
 up:
 	$(DC) up -d
