@@ -37,7 +37,11 @@ jobs:
       # donc rien sur elles. Ce qui les garde a jour, c'est la reconstruction --
       # et du 2026-09-10 au 09-30 plus aucune n'aboutissait, en silence. Cette
       # etape verifie que le tag que main doit produire existe dans le registre.
+      # continue-on-error + id : un echec ici doit atteindre l'etape d'issue
+      # plus bas, sinon l'alerte ajoutee pour cet incident precis ne part pas.
       - name: main est publie
+        id: publie
+        continue-on-error: true
         run: |
           set -euo pipefail
           VERSION=$(jq -r '."uptime-kuma"' versions.json)
@@ -116,12 +120,13 @@ jobs:
       # rouge d'une semaine a l'autre. Une issue par semaine noierait la
       # seule qui compte -- on commente l'issue ouverte au lieu d'en creer une.
       - name: Open or update issue on failure
-        if: steps.grype.outcome == 'failure' || steps.trivy_gate.outcome == 'failure' || steps.verify.outcome == 'failure'
+        if: steps.publie.outcome == 'failure' || steps.grype.outcome == 'failure' || steps.trivy_gate.outcome == 'failure' || steps.verify.outcome == 'failure'
         uses: actions/github-script@v7
         with:
           script: |
             const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const failed = [
+              ['${{ steps.publie.outcome }}', 'tag attendu de main absent du registre'],
               ['${{ steps.trivy_gate.outcome }}', 'Trivy (CRITICAL/HIGH corrigeables)'],
               ['${{ steps.grype.outcome }}', 'Grype (high+ corrigeables)'],
               ['${{ steps.verify.outcome }}', 'signature cosign'],
