@@ -16,14 +16,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        # Lus depuis versions.json par `make build` -- jamais ecrits ici.
-        # `:-` et pas `:?` : compose interpole build.args meme pour `up
-        # --no-build`, `logs` et `down`. La garde est dans le Dockerfile.
-        KUMA_VERSION: ${KUMA_VERSION:-}
-        KUMA_SHA256: ${KUMA_SHA256:-}
-        IPUTILS_VERSION: ${IPUTILS_VERSION:-}
-        IPUTILS_SHA256: ${IPUTILS_SHA256:-}
+      # Pas de build.args : `make build` passe --build-arg depuis versions.json.
+      # Un `docker compose build` nu echoue au garde du Dockerfile.
       secrets:
         - ca-certs
     image: localhost/uptime-kuma-hardened:latest

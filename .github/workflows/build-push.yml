@@ -65,6 +65,13 @@ jobs:
       - name: Vendored scripts unchanged
         run: sha256sum -c scripts/VENDORED.sha256
 
+      # versions.json est la seule source des versions du build ; le test
+      # unitaire prouve que le controle attrape chaque derive.
+      - name: Versions -- source unique
+        run: |
+          python3 -m unittest discover -s scripts -p 'test_versions_build_args.py' -v
+          ./scripts/versions-build-args.py --check
+
       - uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
@@ -114,26 +121,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Resolve versions
-        id: versions
-        run: |
-          set -euo pipefail
-          KUMA_VER=$(jq -r '."uptime-kuma"' versions.json)
-          KUMA_SHA=$(jq -r '."uptime-kuma_sha256"' versions.json)
-          IPUTILS_VER=$(jq -r '.iputils' versions.json)
-          IPUTILS_SHA=$(jq -r '.iputils_sha256' versions.json)
-          ALPINE_VER=$(jq -r '.alpine' versions.json)
-          for v in "$KUMA_VER" "$KUMA_SHA" "$IPUTILS_VER" "$IPUTILS_SHA"; do
-            test -n "$v" -a "$v" != "null" \
-              || { echo "versions.json incomplet -- le build n'aurait pas de controle d'integrite" >&2; exit 1; }
-          done
-          {
-            echo "kuma=${KUMA_VER}"
-            echo "kuma_sha256=${KUMA_SHA}"
-            echo "iputils=${IPUTILS_VER}"
-            echo "iputils_sha256=${IPUTILS_SHA}"
-            echo "alpine=${ALPINE_VER}"
-          } >> "$GITHUB_OUTPUT"
+      # Build-args generes depuis versions.json (le controle tourne avec ; le
+      # generateur refuse une valeur absente, nulle ou vide, dont les sha256) :
+      # chaque docker/build-push-action du job doit les recevoir.
+      - name: Build-args depuis versions.json
+        id: build-args
+        uses: jbsky/hardened-ci/versions@f0388550f4514edb6352b3191206c5220efaa0ae # v0.5.0
 
       - name: Make room for local tarball export (PR only)
         if: env.PUBLISH != 'true'
@@ -149,12 +142,7 @@ jobs:
           tags: ${{ env.PUBLISH != 'true' && format('localhost/{0}:latest', env.IMAGE_NAME) || '' }}
           sbom: ${{ env.PUBLISH }}
           provenance: ${{ env.PUBLISH == 'true' && 'mode=max' || 'false' }}
-          build-args: |
-            KUMA_VERSION=${{ steps.versions.outputs.kuma }}
-            KUMA_SHA256=${{ steps.versions.outputs.kuma_sha256 }}
-            IPUTILS_VERSION=${{ steps.versions.outputs.iputils }}
-            IPUTILS_SHA256=${{ steps.versions.outputs.iputils_sha256 }}
-            ALPINE_VERSION=${{ steps.versions.outputs.alpine }}
+          build-args: ${{ steps.build-args.outputs.build-args }}
           cache-from: type=gha,scope=uptime-kuma
           cache-to: type=gha,mode=max,scope=uptime-kuma
           # `prep` porte les paquets Alpine qui finissent dans l'image. Servi
@@ -177,12 +165,7 @@ jobs:
           load: true
           tags: ${{ env.IMAGE_NAME }}-prep:scan
           no-cache-filters: prep
-          build-args: |
-            KUMA_VERSION=${{ steps.versions.outputs.kuma }}
-            KUMA_SHA256=${{ steps.versions.outputs.kuma_sha256 }}
-            IPUTILS_VERSION=${{ steps.versions.outputs.iputils }}
-            IPUTILS_SHA256=${{ steps.versions.outputs.iputils_sha256 }}
-            ALPINE_VERSION=${{ steps.versions.outputs.alpine }}
+          build-args: ${{ steps.build-args.outputs.build-args }}
           cache-from: type=gha,scope=uptime-kuma
 
       - name: Trivy scan prep stage (report CRITICAL+HIGH)

@@ -6,23 +6,23 @@
 # Pas de valeur par defaut, volontairement : versions.json est la seule source
 # de verite. Un defaut ici diverge en silence (varnish-hardened a construit
 # une 7.7.3 pendant des mois sous le nom d'une 8.0.0). Le Makefile et la CI
-# passent ces ARG ; un `docker build` nu echoue avec un message.
-ARG KUMA_VERSION
+# passent ces ARG par scripts/versions-build-args.py (cle `uptime-kuma` ->
+# UPTIME_KUMA_VERSION) ; un `docker build` nu echoue avec un message.
+ARG UPTIME_KUMA_VERSION
 # GitHub ne publie ni signature ni somme pour l'archive d'un tag : l'integrite
 # repose sur un sha256 epingle dans versions.json, recalcule dans le meme
 # commit que la version.
-ARG KUMA_SHA256
+ARG UPTIME_KUMA_SHA256
 ARG IPUTILS_VERSION
 ARG IPUTILS_SHA256
-# Documentation seulement : les FROM ci-dessous epinglent tag ET digest en
-# litteral, cet ARG ne pilote rien.
-ARG ALPINE_VERSION=3.24
+# Pas d'ARG ALPINE_VERSION : les FROM epinglent tag ET digest en litteral, et
+# scripts/versions-build-args.py --check compare ce tag a .alpine.
 
 # --- fetch : sources verifiees, rien d'autre ---------------------------
 FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS fetch
 
-ARG KUMA_VERSION
-ARG KUMA_SHA256
+ARG UPTIME_KUMA_VERSION
+ARG UPTIME_KUMA_SHA256
 ARG IPUTILS_VERSION
 ARG IPUTILS_SHA256
 # iputils signe ses archives (Petr Vorel, mainteneur). La cle est committee
@@ -32,9 +32,9 @@ ARG IPUTILS_SHA256
 # mainteneur (pevik).
 ARG IPUTILS_FPR=2016FEA4858B1C36B32E833AC0DEC2EE72F33A5F
 
-RUN test -n "${KUMA_VERSION}" -a -n "${KUMA_SHA256}" \
+RUN test -n "${UPTIME_KUMA_VERSION}" -a -n "${UPTIME_KUMA_SHA256}" \
          -a -n "${IPUTILS_VERSION}" -a -n "${IPUTILS_SHA256}" \
-    || { echo "KUMA_VERSION, KUMA_SHA256, IPUTILS_VERSION et IPUTILS_SHA256 sont requis : make build (lit versions.json)" >&2; exit 1; }
+    || { echo "UPTIME_KUMA_VERSION, UPTIME_KUMA_SHA256, IPUTILS_VERSION et IPUTILS_SHA256 sont requis : make build, ou docker build \$(scripts/versions-build-args.py --docker) ." >&2; exit 1; }
 
 # Proxy SSL-bump : depots apk en HTTP, CA interne en secret BuildKit (jamais
 # en couche de l'image finale ; ce stage n'est pas publie).
@@ -46,8 +46,8 @@ RUN --mount=type=secret,id=ca-certs,required=false \
  && apk add --no-cache curl gnupg
 
 WORKDIR /src
-RUN curl -fsSL "https://github.com/louislam/uptime-kuma/archive/refs/tags/${KUMA_VERSION}.tar.gz" -o kuma.tar.gz \
- && printf '%s  kuma.tar.gz\n' "${KUMA_SHA256}" > kuma.sha256 \
+RUN curl -fsSL "https://github.com/louislam/uptime-kuma/archive/refs/tags/${UPTIME_KUMA_VERSION}.tar.gz" -o kuma.tar.gz \
+ && printf '%s  kuma.tar.gz\n' "${UPTIME_KUMA_SHA256}" > kuma.sha256 \
  && sha256sum -c kuma.sha256 \
  && mkdir kuma \
  && tar -xzf kuma.tar.gz -C kuma --strip-components=1 \
@@ -269,19 +269,19 @@ RUN addon="$(find /stage/addons -name '*.node' -type f)" \
 # --- Final : FROM scratch -----------------------------------------------
 FROM scratch
 
-ARG KUMA_VERSION
+ARG UPTIME_KUMA_VERSION
 ARG IPUTILS_VERSION
 # image.licenses decrit le logiciel embarque : Uptime Kuma (MIT), Node.js
 # (MIT et ses dependances), iputils (GPL-2.0-or-later pour ping, BSD pour
 # certaines parties), tini (MIT). Ce depot lui-meme est en Apache-2.0.
 LABEL org.opencontainers.image.title="uptime-kuma-hardened" \
-      org.opencontainers.image.description="Uptime Kuma ${KUMA_VERSION} hardened (Tier Platine: FROM scratch, Go init, tini PID 1)" \
+      org.opencontainers.image.description="Uptime Kuma ${UPTIME_KUMA_VERSION} hardened (Tier Platine: FROM scratch, Go init, tini PID 1)" \
       org.opencontainers.image.vendor="jbsky" \
-      org.opencontainers.image.version="${KUMA_VERSION}" \
+      org.opencontainers.image.version="${UPTIME_KUMA_VERSION}" \
       org.opencontainers.image.source="https://github.com/jbsky/uptime-kuma-hardened" \
       org.opencontainers.image.licenses="MIT AND GPL-2.0-or-later AND BSD-3-Clause" \
       security.hardening.tier="platine" \
-      versions="uptime-kuma=${KUMA_VERSION},iputils=${IPUTILS_VERSION}"
+      versions="uptime-kuma=${UPTIME_KUMA_VERSION},iputils=${IPUTILS_VERSION}"
 
 # Runtime : node + ping + tini, leur cloture, ICU, CA, zoneinfo, passwd.
 COPY --link --from=prep /rootfs/ /
