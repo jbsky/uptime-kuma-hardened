@@ -39,7 +39,7 @@ du Dockerfile. **En production, epinglez le tag qui porte le compteur.**
 Images publiees sur `ghcr.io/jbsky/uptime-kuma-hardened` (signees par cosign,
 OIDC sans cle, avec attestation SLSA) et sur Docker Hub `jbsky/uptime-kuma-hardened`.
 Ce tableau, la version citee en tete et les tags des exemples sont rendus par
-`scripts/update-readme-tags.sh` apres chaque publication.
+`update-readme-tags.sh` (jbsky/hardened-ci) apres chaque publication.
 
 ```bash
 cosign verify ghcr.io/jbsky/uptime-kuma-hardened:latest \
