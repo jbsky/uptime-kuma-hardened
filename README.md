@@ -43,7 +43,8 @@ Ce tableau, la version citee en tete et les tags des exemples sont rendus par
 
 ```bash
 cosign verify ghcr.io/jbsky/uptime-kuma-hardened:latest \
-  --certificate-identity-regexp '^https://github.com/jbsky/uptime-kuma-hardened/' \
+  --certificate-identity-regexp '^https://github.com/(jbsky/uptime-kuma-hardened|jbsky/hardened-ci)/' \
+  --certificate-github-workflow-repository jbsky/uptime-kuma-hardened \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
 ```
 
