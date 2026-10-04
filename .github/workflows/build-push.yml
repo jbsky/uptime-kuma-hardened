@@ -60,10 +60,6 @@ jobs:
         with:
           scandir: ./scripts
 
-      # Les scripts partages du parc sont dupliques dans chaque depot : une
-      # edition locale d'un seul d'entre eux doit se voir dans le diff.
-      - name: Vendored scripts unchanged
-        run: sha256sum -c scripts/VENDORED.sha256
 
       # versions.json est la seule source des versions du build ; le test
       # unitaire prouve que le controle attrape chaque derive.
@@ -138,7 +134,7 @@ jobs:
       # chaque docker/build-push-action du job doit les recevoir.
       - name: Build-args depuis versions.json
         id: build-args
-        uses: jbsky/hardened-ci/versions@28bf7b0bb40bd7f8e2eaae64534b053e1976bae0 # v0.7.0
+        uses: jbsky/hardened-ci/versions@37f84a73b14b4da3f00004f94977d5f2f35d2635 # v0.8.0
 
       - name: Make room for local tarball export (PR only)
         if: env.PUBLISH != 'true'
@@ -247,6 +243,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # Scripts partages (build-revision, image-manifest, ...) : ceux de
+      # hardened-ci a la ref epinglee, plus aucune copie dans ce depot.
+      - name: Scripts partages de hardened-ci
+        id: hci
+        uses: jbsky/hardened-ci/tools@37f84a73b14b4da3f00004f94977d5f2f35d2635 # v0.8.0
+
       - name: Login ghcr.io
         if: env.PUBLISH == 'true'
         uses: docker/login-action@v4
@@ -325,12 +327,14 @@ jobs:
       # capacites de fichier, doublons de contenu. Toute derive echoue ; si
       # elle est voulue, regenerer le manifeste DANS LE MEME COMMIT.
       - name: Image manifest
-        run: ./scripts/image-manifest.py --check "${IMAGE}" -m image.manifest
+        run: |
+          "${{ steps.hci.outputs.dir }}/image-manifest.py" --check "${IMAGE}" -m image.manifest
 
       # lddtree sort en 0 sur une dependance introuvable : le vrai chargeur
       # musl, dans un chroot sur le filesystem de l'image, tranche.
       - name: Image closure
-        run: ./scripts/check-image-closure.sh "${IMAGE}"
+        run: |
+          "${{ steps.hci.outputs.dir }}/check-image-closure.sh" "${IMAGE}"
 
       # Lance l'image en lecture seule, cap_drop ALL, no-new-privileges :
       # base creee et migree, frontend, ping sans capacite, Intl, healthcheck,
@@ -369,12 +373,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Scripts partages (build-revision, image-manifest, ...) : ceux de
+      # hardened-ci a la ref epinglee, plus aucune copie dans ce depot.
+      - name: Scripts partages de hardened-ci
+        id: hci
+        uses: jbsky/hardened-ci/tools@37f84a73b14b4da3f00004f94977d5f2f35d2635 # v0.8.0
+
       - name: Compute build revision
         id: revision
         run: |
           set -euo pipefail
           VERSION=$(jq -r '."uptime-kuma"' versions.json)
-          REVISION=$(./scripts/build-revision.sh uptime-kuma Dockerfile init.go go.mod keys/ scripts/ versions.json)
+          REVISION=$("${{ steps.hci.outputs.dir }}/build-revision.sh" uptime-kuma Dockerfile init.go go.mod keys/ scripts/ versions.json)
           echo "tag=${VERSION}.${REVISION}" >> "$GITHUB_OUTPUT"
 
       - name: Is this tag already published?
@@ -583,12 +593,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Scripts partages (build-revision, image-manifest, ...) : ceux de
+      # hardened-ci a la ref epinglee, plus aucune copie dans ce depot.
+      - name: Scripts partages de hardened-ci
+        id: hci
+        uses: jbsky/hardened-ci/tools@37f84a73b14b4da3f00004f94977d5f2f35d2635 # v0.8.0
+
       - name: Rewrite tag block
         run: |
           set -euo pipefail
           VERSION=$(jq -r '."uptime-kuma"' versions.json)
-          REVISION=$(./scripts/build-revision.sh uptime-kuma Dockerfile init.go go.mod keys/ scripts/ versions.json)
-          ./scripts/update-readme-tags.sh "jbsky/uptime-kuma-hardened=${VERSION}=${VERSION}.${REVISION}"
+          REVISION=$("${{ steps.hci.outputs.dir }}/build-revision.sh" uptime-kuma Dockerfile init.go go.mod keys/ scripts/ versions.json)
+          "${{ steps.hci.outputs.dir }}/update-readme-tags.sh" "jbsky/uptime-kuma-hardened=${VERSION}=${VERSION}.${REVISION}"
 
       - name: Commit if changed
         run: |
@@ -616,7 +632,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: jbsky/hardened-ci/.github/workflows/registry-cleanup.yml@0910a8f8fcbacbbe655870a91bd0716d949a9c82 # v0.3.0
+    uses: jbsky/hardened-ci/.github/workflows/registry-cleanup.yml@37f84a73b14b4da3f00004f94977d5f2f35d2635 # v0.8.0
     with:
       images: '["uptime-kuma-hardened"]'
     # Explicites : `secrets: inherit` n'est pas garanti entre depots d'un
