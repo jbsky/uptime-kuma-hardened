@@ -106,7 +106,17 @@ ENV CFLAGS="-O2 -fstack-protector-strong -fstack-clash-protection -fPIC -D_FORTI
 
 WORKDIR /app
 COPY --from=fetch /src/kuma/package.json /src/kuma/package-lock.json /src/kuma/.npmrc ./
-RUN npm ci --omit=dev --no-audit --no-fund --ignore-scripts
+# Overrides de securite (npm-overrides.json, cf. SECURITY.md) : le lockfile de
+# l'amont est repris tel quel, seules les copies visees changent de version.
+# `npm install` et non `npm ci` : le lockfile ne correspond plus au
+# package.json. Le .npmrc de l'amont reste en vigueur (min-release-age=14 :
+# aucune version publiee depuis moins de 14 jours). apply refuse un override
+# devenu inutile ; verify refuse un arbre ou une copie visee lui echappe.
+COPY npm-overrides.json scripts/npm-overrides.js /tmp/overrides/
+RUN node /tmp/overrides/npm-overrides.js apply . /tmp/overrides/npm-overrides.json \
+ && npm install --omit=dev --no-audit --no-fund --ignore-scripts \
+ && node /tmp/overrides/npm-overrides.js verify . /tmp/overrides/npm-overrides.json \
+ && rm -rf /tmp/overrides
 
 # @louislam/sqlite3 telecharge par defaut un binaire precompile depuis GitHub,
 # qui embarque SQLite 3.41.1 (mars 2023). Il est ici compile depuis ses

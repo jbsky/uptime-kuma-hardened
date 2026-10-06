@@ -16,26 +16,45 @@ corrigee ici par une montee de version dans `versions.json`.
 | Paquets Alpine copies dans l'image (node, OpenSSL, SQLite, ICU...) | Trivy sur le stage `prep`, a chaque build | **bloque** sur un CRITICAL corrigeable |
 | Dependances npm de Kuma (`/app/node_modules`) | Trivy sur l'image finale a chaque publication ; Trivy + Grype chaque mardi | rapport SARIF + une issue tenue a jour |
 
-## Exception connue : les dependances npm d'Uptime Kuma
+## Dependances npm d'Uptime Kuma : overrides et derogations
 
-**Releve du 2026-09-19** (Trivy, CRITICAL+HIGH) :
+**Decision du 2026-10-06**, qui renverse celle du 2026-09-19 (« seule une
+montee de Kuma corrige ») : en 2.5.5, derniere version de l'amont, l'audit
+restait rouge sur 42 alertes HIGH/CRITICAL corrigeables, toutes dans le
+`package-lock.json` d'Uptime Kuma (issue #8). Attendre l'amont laissait des
+correctifs publies hors de l'image pendant des semaines.
 
-| Perimetre | CRITICAL | HIGH | Corrigeables en amont |
-|---|--:|--:|--:|
-| Stage `prep` (Alpine) | 0 | 0 | -- |
-| Image Kuma 2.2.1 | 7 | 68 | 74 |
-| **Image Kuma 2.5.5** | **2** | **28** | **30** |
+### Overrides (`npm-overrides.json`)
 
-Toutes viennent du `package-lock.json` d'Uptime Kuma : ce sont les memes que
-dans l'image officielle, qui installe le meme lockfile. CRITICAL restants en
-2.5.5 : `protobufjs`, `tar` (en 2.2.1 s'y ajoutaient `fast-xml-parser`,
-`jsonata`, `liquidjs`).
+Le stage `deps` reprend le lockfile de l'amont, puis force une version
+corrigee pour chaque paquet liste, dans la **meme majeure** (correctif ou
+mineure). Chaque entree nomme les avis qu'elle corrige. Deux gardes, au build
+(`scripts/npm-overrides.js`) :
 
-Elles ne bloquent pas la publication, volontairement : le seul correctif est une
-montee de Kuma, et une montee de Kuma applique des migrations de base sans
-retour arriere -- elle se decide et se teste, elle ne se declenche pas sur un
-scan. Reecrire le lockfile (`overrides` npm) ferait tourner Kuma sur un arbre
-de dependances que l'amont n'a jamais teste.
+- `apply` echoue si l'amont a rattrape la version epinglee (ou si le paquet a
+  disparu) : l'override se retire, il ne retrograde jamais ;
+- `verify` echoue si une copie visee n'est pas a la version epinglee apres
+  `npm install`.
 
-Correctif : montee de version, suivie par la veille de versions (issue
-« [Veille] Version amont disponible »).
+Le `.npmrc` de l'amont reste en vigueur : `min-release-age=14`, aucune version
+publiee depuis moins de 14 jours n'entre dans l'image. Ecart le plus large :
+`mysql2` 3.11 -> 3.24 (stockage MariaDB seulement ; en SQLite il n'est pas
+charge).
+
+Le prix accepte : Kuma tourne sur un arbre de dependances que l'amont n'a pas
+teste tel quel. `scripts/test.sh` et le deploiement le valident ici.
+
+### Derogations (`.trivyignore`, `.grype.yaml`)
+
+Ce qui n'a de correctif que dans une nouvelle majeure n'est pas force :
+
+| Paquet | Correctif | Pourquoi la derogation |
+|---|---|---|
+| `tar` 6.2.1 | 7.x | jamais charge par le serveur : seuls `extra/download-dist.js` (absent de l'image) et node-gyp au build l'utilisent |
+| `nodemailer` 7.0.13 | 8.x a 10.x | charge (notifications et sonde SMTP), mais Kuma n'utilise ni l'option `raw` ni OAuth2, et les adresses analysees viennent de la configuration admin |
+
+Les entrees de `.trivyignore` expirent le **2027-01-06** : passe cette date,
+l'audit redevient rouge et la derogation se rejustifie ou tombe. Grype n'a
+pas d'expiration ; les deux listes se retirent ensemble. Toute alerte
+nouvelle sur ces paquets reste visible (derogation par identifiant, pas par
+paquet).

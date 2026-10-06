@@ -1,0 +1,27 @@
+# Derogations de l'audit (Trivy), cf. SECURITY.md « Derogations ».
+# Chacune expire : passe la date, l'audit redevient rouge et la derogation se
+# rejustifie ou tombe. Les overrides npm (npm-overrides.json) ne couvrent pas
+# ces paquets : leur correctif est une nouvelle majeure, jamais testee par
+# Uptime Kuma.
+
+# tar 6.2.1 -- correctif en 7.x. Jamais charge par le serveur : seuls
+# extra/download-dist.js (absent de l'image) et node-gyp/node-pre-gyp (build
+# de sqlite3, sur les sources du stage deps) l'utilisent.
+CVE-2026-59873 exp:2027-01-06
+CVE-2026-23745 exp:2027-01-06
+CVE-2026-23950 exp:2027-01-06
+CVE-2026-24842 exp:2027-01-06
+CVE-2026-26960 exp:2027-01-06
+CVE-2026-29786 exp:2027-01-06
+CVE-2026-31802 exp:2027-01-06
+CVE-2026-59874 exp:2027-01-06
+CVE-2026-73566 exp:2027-01-06
+
+# nodemailer 7.0.13 -- correctif en 8.x a 10.x. Charge (notifications et
+# sonde SMTP), mais hors des chemins vulnerables : ni option `raw`
+# (CVE-2026-82659), ni OAuth2 (CVE-2026-82662) ; les adresses analysees
+# (GHSA-2x7j, GHSA-v53p) viennent de la configuration saisie par l'admin.
+CVE-2026-82659 exp:2027-01-06
+CVE-2026-82662 exp:2027-01-06
+GHSA-2x7j-588g-ccc2 exp:2027-01-06
+GHSA-v53p-9fqp-m79j exp:2027-01-06
