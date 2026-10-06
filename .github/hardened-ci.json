@@ -1,7 +1,7 @@
 {
   "image": "uptime-kuma-hardened",
   "version": {"key": "uptime-kuma"},
-  "revision": ["uptime-kuma", "Dockerfile", "init.go", "go.mod", "keys/", "scripts/", "versions.json"],
+  "revision": ["uptime-kuma", "Dockerfile", "init.go", "go.mod", "keys/", "npm-overrides.json", "scripts/", "versions.json"],
   "platforms": ["linux/amd64"],
   "compose_service": "uptime-kuma",
   "probes": [

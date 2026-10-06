@@ -20,6 +20,7 @@ on:
       - 'go.mod'
       - 'keys/**'
       - 'scripts/**'
+      - 'npm-overrides.json'
       # versions.json porte les build-args et le tag ; docker-compose.yml et
       # le Makefile portent le chemin de build local. Un fichier absent de
       # ce filtre est un fichier dont le changement n'est jamais construit.

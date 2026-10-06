@@ -55,10 +55,11 @@ count 9 app/node_modules/@aws/
 count 55 app/node_modules/@azure-rest/
 count 2689 app/node_modules/@azure/
 count 5 app/node_modules/@gar/
-count 245 app/node_modules/@grpc/
+count 251 app/node_modules/@grpc/
 count 15 app/node_modules/@hey-api/
 count 46 app/node_modules/@isaacs/
 count 92 app/node_modules/@js-joda/
+count 14 app/node_modules/@js-sdsl/
 count 21 app/node_modules/@louislam/ping/
 count 57 app/node_modules/@mapbox/
 count 15 app/node_modules/@mongodb-js/
@@ -66,7 +67,7 @@ count 277 app/node_modules/@noble/
 count 9 app/node_modules/@nodable/
 count 34 app/node_modules/@npmcli/
 count 20 app/node_modules/@pkgjs/
-count 90 app/node_modules/@protobufjs/
+count 77 app/node_modules/@protobufjs/
 count 609 app/node_modules/@redis/
 count 122 app/node_modules/@scure/
 count 7 app/node_modules/@sindresorhus/
@@ -99,7 +100,7 @@ count 12 app/node_modules/asn1/
 count 21 app/node_modules/asynckit/
 count 7 app/node_modules/await-lock/
 count 11 app/node_modules/aws-ssl-profiles/
-count 88 app/node_modules/axios/
+count 89 app/node_modules/axios/
 count 11 app/node_modules/badge-maker/
 count 6 app/node_modules/balanced-match/
 count 15 app/node_modules/barse/
@@ -148,7 +149,7 @@ count 14 app/node_modules/commander/
 count 7 app/node_modules/commist/
 count 5 app/node_modules/compare-versions/
 count 5 app/node_modules/compressible/
-count 30 app/node_modules/compression/
+count 29 app/node_modules/compression/
 count 9 app/node_modules/concat-map/
 count 40 app/node_modules/concat-stream/
 count 5 app/node_modules/console-control-strings/
@@ -174,7 +175,6 @@ count 5 app/node_modules/default-browser/
 count 6 app/node_modules/defer-to-connect/
 count 7 app/node_modules/delayed-stream/
 count 9 app/node_modules/delegates/
-count 5 app/node_modules/denque/
 count 8 app/node_modules/depd/
 count 4 app/node_modules/destroy/
 count 8 app/node_modules/detect-libc/
@@ -195,9 +195,9 @@ count 4 app/node_modules/encodeurl/
 count 13 app/node_modules/encoding-sniffer/
 count 9 app/node_modules/encoding/
 count 4 app/node_modules/end-of-stream/
-count 96 app/node_modules/engine.io-client/
+count 74 app/node_modules/engine.io-client/
 count 24 app/node_modules/engine.io-parser/
-count 47 app/node_modules/engine.io/
+count 28 app/node_modules/engine.io/
 count 24 app/node_modules/entities/
 count 4 app/node_modules/env-paths/
 count 11 app/node_modules/err-code/
@@ -339,7 +339,7 @@ count 232 app/node_modules/mongodb/
 count 124 app/node_modules/mqtt/
 count 4 app/node_modules/ms/
 count 55 app/node_modules/mssql/
-count 107 app/node_modules/mysql2/
+count 151 app/node_modules/mysql2/
 count 4 app/node_modules/named-placeholders/
 count 54 app/node_modules/nan/
 count 25 app/node_modules/nanoid/
@@ -372,6 +372,7 @@ count 35 app/node_modules/openid-client/
 count 134 app/node_modules/oracledb/
 count 4 app/node_modules/p-cancelable/
 count 4 app/node_modules/p-map/
+count 10 app/node_modules/package-json-from-dist/
 count 8 app/node_modules/parse5-htmlparser2-tree-adapter/
 count 8 app/node_modules/parse5-parser-stream/
 count 91 app/node_modules/parse5/
@@ -404,7 +405,7 @@ count 27 app/node_modules/prometheus-api-metrics/
 count 4 app/node_modules/promise-inflight/
 count 9 app/node_modules/promise-retry/
 count 6 app/node_modules/promisify-child-process/
-count 80 app/node_modules/protobufjs/
+count 82 app/node_modules/protobufjs/
 count 5 app/node_modules/proxy-addr/
 count 7 app/node_modules/proxy-from-env/
 count 16 app/node_modules/psl/
@@ -418,7 +419,7 @@ count 5 app/node_modules/range-parser/
 count 34 app/node_modules/raw-body/
 count 15 app/node_modules/readable-stream/
 count 9 app/node_modules/rechoir/
-count 1438 app/node_modules/redbean-node/
+count 385 app/node_modules/redbean-node/
 count 4 app/node_modules/redis/
 count 8 app/node_modules/reinterval/
 count 7 app/node_modules/require-directory/
@@ -436,7 +437,6 @@ count 5 app/node_modules/sax/
 count 19 app/node_modules/seek-bzip/
 count 56 app/node_modules/semver/
 count 32 app/node_modules/send/
-count 13 app/node_modules/seq-queue/
 count 5 app/node_modules/serve-static/
 count 5 app/node_modules/set-blocking/
 count 6 app/node_modules/setprototypeof/
@@ -448,7 +448,7 @@ count 13 app/node_modules/side-channel-weakmap/
 count 13 app/node_modules/side-channel/
 count 5 app/node_modules/signal-exit/
 count 13 app/node_modules/smart-buffer/
-count 31 app/node_modules/socket.io-adapter/
+count 9 app/node_modules/socket.io-adapter/
 count 38 app/node_modules/socket.io-client/
 count 19 app/node_modules/socket.io-parser/
 count 19 app/node_modules/socket.io/
@@ -457,6 +457,7 @@ count 30 app/node_modules/socks/
 count 7 app/node_modules/sparse-bitfield/
 count 42 app/node_modules/split2/
 count 11 app/node_modules/sprintf-js/
+count 7 app/node_modules/sql-escaper/
 count 7 app/node_modules/sqlstring/
 count 8 app/node_modules/ssh2-sftp-client/
 count 161 app/node_modules/ssh2/
@@ -761,8 +762,9 @@ dup 2 11784 app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/di
 dup 2 2664 app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/dist-browser/utils/ProtocolUtils.mjs app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/dist/utils/ProtocolUtils.mjs
 dup 2 2123 app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/dist-browser/utils/StringUtils.mjs app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/dist/utils/StringUtils.mjs
 dup 2 2442 app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/dist-browser/utils/TimeUtils.mjs app/node_modules/@azure/msal-node/node_modules/@azure/msal-common/dist/utils/TimeUtils.mjs
-dup 4 11357 app/node_modules/@grpc/grpc-js/LICENSE app/node_modules/@grpc/proto-loader/LICENSE app/node_modules/args-parser/LICENSE app/node_modules/detect-libc/LICENSE
+dup 3 11357 app/node_modules/@grpc/proto-loader/LICENSE app/node_modules/args-parser/LICENSE app/node_modules/detect-libc/LICENSE
 dup 4 1077 app/node_modules/@isaacs/cliui/node_modules/emoji-regex/LICENSE-MIT.txt app/node_modules/emoji-regex/LICENSE-MIT.txt app/node_modules/jsesc/LICENSE-MIT.txt app/node_modules/punycode/LICENSE-MIT.txt
+dup 2 1067 app/node_modules/@js-sdsl/ordered-map/LICENSE app/node_modules/js-sdsl/LICENSE
 dup 2 5056 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/README.md app/node_modules/make-fetch-happen/node_modules/agent-base/README.md
 dup 2 7910 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/dist/src/index.js app/node_modules/make-fetch-happen/node_modules/agent-base/dist/src/index.js
 dup 2 1635 app/node_modules/@mapbox/node-pre-gyp/node_modules/agent-base/package.json app/node_modules/make-fetch-happen/node_modules/agent-base/package.json
@@ -800,7 +802,7 @@ dup 2 2101 app/node_modules/@noble/curves/src/p384.ts app/node_modules/@scure/bi
 dup 2 2494 app/node_modules/@noble/curves/src/p521.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/p521.ts
 dup 2 11964 app/node_modules/@noble/curves/src/secp256k1.ts app/node_modules/@scure/bip32/node_modules/@noble/curves/src/secp256k1.ts
 dup 3 11357 app/node_modules/@pkgjs/parseargs/LICENSE app/node_modules/bson/LICENSE.md app/node_modules/prometheus-api-metrics/LICENSE
-dup 10 1505 app/node_modules/@protobufjs/aspromise/LICENSE app/node_modules/@protobufjs/base64/LICENSE app/node_modules/@protobufjs/codegen/LICENSE app/node_modules/@protobufjs/eventemitter/LICENSE app/node_modules/@protobufjs/fetch/LICENSE app/node_modules/@protobufjs/float/LICENSE app/node_modules/@protobufjs/inquire/LICENSE app/node_modules/@protobufjs/path/LICENSE app/node_modules/@protobufjs/pool/LICENSE app/node_modules/@protobufjs/utf8/LICENSE
+dup 9 1505 app/node_modules/@protobufjs/aspromise/LICENSE app/node_modules/@protobufjs/base64/LICENSE app/node_modules/@protobufjs/codegen/LICENSE app/node_modules/@protobufjs/eventemitter/LICENSE app/node_modules/@protobufjs/fetch/LICENSE app/node_modules/@protobufjs/float/LICENSE app/node_modules/@protobufjs/path/LICENSE app/node_modules/@protobufjs/pool/LICENSE app/node_modules/@protobufjs/utf8/LICENSE
 dup 2 1122 app/node_modules/@scure/bip32/LICENSE app/node_modules/@scure/bip39/LICENSE
 dup 2 49733 app/node_modules/@smithy/core/dist-cjs/submodules/serde/index.browser.js app/node_modules/@smithy/core/dist-cjs/submodules/serde/index.native.js
 dup 3 1071 app/node_modules/@szmarczak/http-timer/LICENSE app/node_modules/defer-to-connect/LICENSE app/node_modules/http2-wrapper/LICENSE
@@ -882,22 +884,22 @@ dup 5 4734 app/node_modules/body-parser/node_modules/debug/src/browser.js app/no
 dup 5 4394 app/node_modules/body-parser/node_modules/debug/src/debug.js app/node_modules/compression/node_modules/debug/src/debug.js app/node_modules/express/node_modules/debug/src/debug.js app/node_modules/finalhandler/node_modules/debug/src/debug.js app/node_modules/send/node_modules/debug/src/debug.js
 dup 5 6015 app/node_modules/body-parser/node_modules/debug/src/node.js app/node_modules/compression/node_modules/debug/src/node.js app/node_modules/express/node_modules/debug/src/node.js app/node_modules/finalhandler/node_modules/debug/src/node.js app/node_modules/send/node_modules/debug/src/node.js
 dup 2 4342 app/node_modules/body-parser/node_modules/iconv-lite/Changelog.md app/node_modules/raw-body/node_modules/iconv-lite/Changelog.md
-dup 5 1064 app/node_modules/body-parser/node_modules/iconv-lite/LICENSE app/node_modules/gamedig/node_modules/iconv-lite/LICENSE app/node_modules/iconv-lite/LICENSE app/node_modules/raw-body/node_modules/iconv-lite/LICENSE app/node_modules/tedious/node_modules/iconv-lite/LICENSE
+dup 6 1064 app/node_modules/body-parser/node_modules/iconv-lite/LICENSE app/node_modules/gamedig/node_modules/iconv-lite/LICENSE app/node_modules/iconv-lite/LICENSE app/node_modules/mysql2/node_modules/iconv-lite/LICENSE app/node_modules/raw-body/node_modules/iconv-lite/LICENSE app/node_modules/tedious/node_modules/iconv-lite/LICENSE
 dup 2 6534 app/node_modules/body-parser/node_modules/iconv-lite/README.md app/node_modules/raw-body/node_modules/iconv-lite/README.md
 dup 2 21415 app/node_modules/body-parser/node_modules/iconv-lite/encodings/dbcs-codec.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/dbcs-codec.js
 dup 2 8291 app/node_modules/body-parser/node_modules/iconv-lite/encodings/dbcs-data.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/dbcs-data.js
 dup 2 6115 app/node_modules/body-parser/node_modules/iconv-lite/encodings/internal.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/internal.js
 dup 3 2191 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-codec.js
-dup 5 32034 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-data-generated.js
+dup 6 32034 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-data-generated.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-data-generated.js
 dup 2 4686 app/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-data.js
-dup 5 17717 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/big5-added.json
-dup 5 47320 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp936.json
-dup 5 38122 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp949.json
-dup 5 42356 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp950.json
-dup 5 41064 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/eucjp.json
-dup 5 2216 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json
+dup 6 17717 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/big5-added.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/big5-added.json
+dup 6 47320 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp936.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp936.json
+dup 6 38122 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp949.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp949.json
+dup 6 42356 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/cp950.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/cp950.json
+dup 6 41064 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/eucjp.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/eucjp.json
+dup 6 2216 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json
 dup 2 1227 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/gbk-added.json
-dup 5 23782 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/shiftjis.json
+dup 6 23782 app/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/raw-body/node_modules/iconv-lite/encodings/tables/shiftjis.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/shiftjis.json
 dup 2 5011 app/node_modules/body-parser/node_modules/iconv-lite/encodings/utf16.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/utf16.js
 dup 2 9215 app/node_modules/body-parser/node_modules/iconv-lite/encodings/utf7.js app/node_modules/raw-body/node_modules/iconv-lite/encodings/utf7.js
 dup 3 1109 app/node_modules/body-parser/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/raw-body/node_modules/iconv-lite/lib/bom-handling.js
@@ -960,34 +962,19 @@ dup 2 2634 app/node_modules/engine.io-client/build/esm-debug/globals.node.js app
 dup 2 1875 app/node_modules/engine.io-client/build/esm-debug/transports/polling-fetch.js app/node_modules/engine.io-client/build/esm/transports/polling-fetch.js
 dup 2 1446 app/node_modules/engine.io-client/build/esm-debug/transports/websocket.node.js app/node_modules/engine.io-client/build/esm/transports/websocket.node.js
 dup 2 1845 app/node_modules/engine.io-client/build/esm-debug/util.js app/node_modules/engine.io-client/build/esm/util.js
-dup 4 1183 app/node_modules/engine.io-client/node_modules/ws/LICENSE app/node_modules/engine.io/node_modules/ws/LICENSE app/node_modules/socket.io-adapter/node_modules/ws/LICENSE app/node_modules/ws/LICENSE
-dup 4 15306 app/node_modules/engine.io-client/node_modules/ws/README.md app/node_modules/engine.io/node_modules/ws/README.md app/node_modules/socket.io-adapter/node_modules/ws/README.md app/node_modules/ws/README.md
-dup 4 3056 app/node_modules/engine.io-client/node_modules/ws/lib/buffer-util.js app/node_modules/engine.io/node_modules/ws/lib/buffer-util.js app/node_modules/socket.io-adapter/node_modules/ws/lib/buffer-util.js app/node_modules/ws/lib/buffer-util.js
-dup 4 7321 app/node_modules/engine.io-client/node_modules/ws/lib/event-target.js app/node_modules/engine.io/node_modules/ws/lib/event-target.js app/node_modules/socket.io-adapter/node_modules/ws/lib/event-target.js app/node_modules/ws/lib/event-target.js
-dup 4 6183 app/node_modules/engine.io-client/node_modules/ws/lib/extension.js app/node_modules/engine.io/node_modules/ws/lib/extension.js app/node_modules/socket.io-adapter/node_modules/ws/lib/extension.js app/node_modules/ws/lib/extension.js
-dup 5 1034 app/node_modules/engine.io-client/node_modules/ws/lib/limiter.js app/node_modules/engine.io/node_modules/ws/lib/limiter.js app/node_modules/mqtt/node_modules/ws/lib/limiter.js app/node_modules/socket.io-adapter/node_modules/ws/lib/limiter.js app/node_modules/ws/lib/limiter.js
-dup 3 14669 app/node_modules/engine.io-client/node_modules/ws/lib/permessage-deflate.js app/node_modules/engine.io/node_modules/ws/lib/permessage-deflate.js app/node_modules/socket.io-adapter/node_modules/ws/lib/permessage-deflate.js
-dup 3 17439 app/node_modules/engine.io-client/node_modules/ws/lib/receiver.js app/node_modules/engine.io/node_modules/ws/lib/receiver.js app/node_modules/socket.io-adapter/node_modules/ws/lib/receiver.js
-dup 3 16886 app/node_modules/engine.io-client/node_modules/ws/lib/sender.js app/node_modules/engine.io/node_modules/ws/lib/sender.js app/node_modules/socket.io-adapter/node_modules/ws/lib/sender.js
-dup 4 4204 app/node_modules/engine.io-client/node_modules/ws/lib/stream.js app/node_modules/engine.io/node_modules/ws/lib/stream.js app/node_modules/socket.io-adapter/node_modules/ws/lib/stream.js app/node_modules/ws/lib/stream.js
-dup 4 1498 app/node_modules/engine.io-client/node_modules/ws/lib/subprotocol.js app/node_modules/engine.io/node_modules/ws/lib/subprotocol.js app/node_modules/socket.io-adapter/node_modules/ws/lib/subprotocol.js app/node_modules/ws/lib/subprotocol.js
-dup 4 3903 app/node_modules/engine.io-client/node_modules/ws/lib/validation.js app/node_modules/engine.io/node_modules/ws/lib/validation.js app/node_modules/socket.io-adapter/node_modules/ws/lib/validation.js app/node_modules/ws/lib/validation.js
-dup 3 17022 app/node_modules/engine.io-client/node_modules/ws/lib/websocket-server.js app/node_modules/engine.io/node_modules/ws/lib/websocket-server.js app/node_modules/socket.io-adapter/node_modules/ws/lib/websocket-server.js
-dup 3 37367 app/node_modules/engine.io-client/node_modules/ws/lib/websocket.js app/node_modules/engine.io/node_modules/ws/lib/websocket.js app/node_modules/socket.io-adapter/node_modules/ws/lib/websocket.js
-dup 3 1829 app/node_modules/engine.io-client/node_modules/ws/package.json app/node_modules/engine.io/node_modules/ws/package.json app/node_modules/socket.io-adapter/node_modules/ws/package.json
 dup 2 1094 app/node_modules/etag/LICENSE app/node_modules/proxy-addr/LICENSE
 dup 2 1118 app/node_modules/form-data/License app/node_modules/sqlstring/LICENSE
-dup 2 6587 app/node_modules/gamedig/node_modules/iconv-lite/README.md app/node_modules/tedious/node_modules/iconv-lite/README.md
-dup 2 20464 app/node_modules/gamedig/node_modules/iconv-lite/encodings/dbcs-codec.js app/node_modules/tedious/node_modules/iconv-lite/encodings/dbcs-codec.js
-dup 2 8881 app/node_modules/gamedig/node_modules/iconv-lite/encodings/dbcs-data.js app/node_modules/tedious/node_modules/iconv-lite/encodings/dbcs-data.js
-dup 2 6560 app/node_modules/gamedig/node_modules/iconv-lite/encodings/internal.js app/node_modules/tedious/node_modules/iconv-lite/encodings/internal.js
-dup 2 2114 app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-codec.js
-dup 3 1247 app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/gbk-added.json
-dup 2 5097 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf16.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf16.js
-dup 2 8580 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf7.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf7.js
-dup 2 1035 app/node_modules/gamedig/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/tedious/node_modules/iconv-lite/lib/bom-handling.js
-dup 2 6711 app/node_modules/gamedig/node_modules/iconv-lite/lib/index.js app/node_modules/tedious/node_modules/iconv-lite/lib/index.js
-dup 2 2979 app/node_modules/gamedig/node_modules/iconv-lite/lib/streams.js app/node_modules/tedious/node_modules/iconv-lite/lib/streams.js
+dup 3 6587 app/node_modules/gamedig/node_modules/iconv-lite/README.md app/node_modules/mysql2/node_modules/iconv-lite/README.md app/node_modules/tedious/node_modules/iconv-lite/README.md
+dup 3 20464 app/node_modules/gamedig/node_modules/iconv-lite/encodings/dbcs-codec.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/dbcs-codec.js app/node_modules/tedious/node_modules/iconv-lite/encodings/dbcs-codec.js
+dup 3 8881 app/node_modules/gamedig/node_modules/iconv-lite/encodings/dbcs-data.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/dbcs-data.js app/node_modules/tedious/node_modules/iconv-lite/encodings/dbcs-data.js
+dup 3 6560 app/node_modules/gamedig/node_modules/iconv-lite/encodings/internal.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/internal.js app/node_modules/tedious/node_modules/iconv-lite/encodings/internal.js
+dup 3 2114 app/node_modules/gamedig/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/sbcs-codec.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-codec.js
+dup 4 1247 app/node_modules/gamedig/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/mysql2/node_modules/iconv-lite/encodings/tables/gbk-added.json app/node_modules/tedious/node_modules/iconv-lite/encodings/tables/gbk-added.json
+dup 3 5097 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf16.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/utf16.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf16.js
+dup 3 8580 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf7.js app/node_modules/mysql2/node_modules/iconv-lite/encodings/utf7.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf7.js
+dup 3 1035 app/node_modules/gamedig/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/mysql2/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/tedious/node_modules/iconv-lite/lib/bom-handling.js
+dup 3 6711 app/node_modules/gamedig/node_modules/iconv-lite/lib/index.js app/node_modules/mysql2/node_modules/iconv-lite/lib/index.js app/node_modules/tedious/node_modules/iconv-lite/lib/index.js
+dup 3 2979 app/node_modules/gamedig/node_modules/iconv-lite/lib/streams.js app/node_modules/mysql2/node_modules/iconv-lite/lib/streams.js app/node_modules/tedious/node_modules/iconv-lite/lib/streams.js
 dup 2 1072 app/node_modules/jose/dist/browser/jwe/compact/decrypt.js app/node_modules/jose/dist/node/esm/jwe/compact/decrypt.js
 dup 2 7068 app/node_modules/jose/dist/browser/jwe/flattened/encrypt.js app/node_modules/jose/dist/node/esm/jwe/flattened/encrypt.js
 dup 2 7813 app/node_modules/jose/dist/browser/jwe/general/encrypt.js app/node_modules/jose/dist/node/esm/jwe/general/encrypt.js
@@ -1097,191 +1084,13 @@ dup 2 2807 app/node_modules/knex/scripts/update_gitignore_for_tsc_output.js app/
 dup 3 1119 app/node_modules/leven/license app/node_modules/object-assign/license app/node_modules/path-is-absolute/license
 dup 6 1951 app/node_modules/lodash.camelcase/LICENSE app/node_modules/lodash.get/LICENSE app/node_modules/lodash.includes/LICENSE app/node_modules/lodash.isinteger/LICENSE app/node_modules/lodash.isplainobject/LICENSE app/node_modules/lodash.once/LICENSE
 dup 3 1233 app/node_modules/lodash.isboolean/LICENSE app/node_modules/lodash.isnumber/LICENSE app/node_modules/lodash.isstring/LICENSE
-dup 2 1952 app/node_modules/lodash/LICENSE app/node_modules/redbean-node/node_modules/lodash/LICENSE
-dup 2 1778 app/node_modules/lodash/_arrayLikeKeys.js app/node_modules/redbean-node/node_modules/lodash/_arrayLikeKeys.js
-dup 2 5609 app/node_modules/lodash/_baseClone.js app/node_modules/redbean-node/node_modules/lodash/_baseClone.js
-dup 2 1917 app/node_modules/lodash/_baseDifference.js app/node_modules/redbean-node/node_modules/lodash/_baseDifference.js
-dup 2 1201 app/node_modules/lodash/_baseFlatten.js app/node_modules/redbean-node/node_modules/lodash/_baseFlatten.js
-dup 2 2262 app/node_modules/lodash/_baseIntersection.js app/node_modules/redbean-node/node_modules/lodash/_baseIntersection.js
-dup 2 3010 app/node_modules/lodash/_baseIsEqualDeep.js app/node_modules/redbean-node/node_modules/lodash/_baseIsEqualDeep.js
-dup 2 1765 app/node_modules/lodash/_baseIsMatch.js app/node_modules/redbean-node/node_modules/lodash/_baseIsMatch.js
-dup 2 1417 app/node_modules/lodash/_baseIsNative.js app/node_modules/redbean-node/node_modules/lodash/_baseIsNative.js
-dup 2 2222 app/node_modules/lodash/_baseIsTypedArray.js app/node_modules/redbean-node/node_modules/lodash/_baseIsTypedArray.js
-dup 2 1129 app/node_modules/lodash/_baseMatchesProperty.js app/node_modules/redbean-node/node_modules/lodash/_baseMatchesProperty.js
-dup 2 1328 app/node_modules/lodash/_baseMerge.js app/node_modules/redbean-node/node_modules/lodash/_baseMerge.js
-dup 2 3069 app/node_modules/lodash/_baseMergeDeep.js app/node_modules/redbean-node/node_modules/lodash/_baseMergeDeep.js
-dup 2 1459 app/node_modules/lodash/_basePullAll.js app/node_modules/redbean-node/node_modules/lodash/_basePullAll.js
-dup 2 1385 app/node_modules/lodash/_baseSet.js app/node_modules/redbean-node/node_modules/lodash/_baseSet.js
-dup 2 1429 app/node_modules/lodash/_baseSortedIndex.js app/node_modules/redbean-node/node_modules/lodash/_baseSortedIndex.js
-dup 2 2259 app/node_modules/lodash/_baseSortedIndexBy.js app/node_modules/redbean-node/node_modules/lodash/_baseSortedIndexBy.js
-dup 2 1154 app/node_modules/lodash/_baseToString.js app/node_modules/redbean-node/node_modules/lodash/_baseToString.js
-dup 2 1909 app/node_modules/lodash/_baseUniq.js app/node_modules/redbean-node/node_modules/lodash/_baseUniq.js
-dup 2 1099 app/node_modules/lodash/_baseXor.js app/node_modules/redbean-node/node_modules/lodash/_baseXor.js
-dup 2 1056 app/node_modules/lodash/_cloneBuffer.js app/node_modules/redbean-node/node_modules/lodash/_cloneBuffer.js
-dup 2 1343 app/node_modules/lodash/_compareAscending.js app/node_modules/redbean-node/node_modules/lodash/_compareAscending.js
-dup 2 1599 app/node_modules/lodash/_compareMultiple.js app/node_modules/redbean-node/node_modules/lodash/_compareMultiple.js
-dup 2 1323 app/node_modules/lodash/_composeArgs.js app/node_modules/redbean-node/node_modules/lodash/_composeArgs.js
-dup 2 1388 app/node_modules/lodash/_composeArgsRight.js app/node_modules/redbean-node/node_modules/lodash/_composeArgsRight.js
-dup 2 1044 app/node_modules/lodash/_copyObject.js app/node_modules/redbean-node/node_modules/lodash/_copyObject.js
-dup 2 1042 app/node_modules/lodash/_createAssigner.js app/node_modules/redbean-node/node_modules/lodash/_createAssigner.js
-dup 2 1482 app/node_modules/lodash/_createCtor.js app/node_modules/redbean-node/node_modules/lodash/_createCtor.js
-dup 2 1447 app/node_modules/lodash/_createCurry.js app/node_modules/redbean-node/node_modules/lodash/_createCurry.js
-dup 2 2249 app/node_modules/lodash/_createFlow.js app/node_modules/redbean-node/node_modules/lodash/_createFlow.js
-dup 2 3252 app/node_modules/lodash/_createHybrid.js app/node_modules/redbean-node/node_modules/lodash/_createHybrid.js
-dup 2 1104 app/node_modules/lodash/_createMathOperation.js app/node_modules/redbean-node/node_modules/lodash/_createMathOperation.js
-dup 2 1153 app/node_modules/lodash/_createPadding.js app/node_modules/redbean-node/node_modules/lodash/_createPadding.js
-dup 2 1382 app/node_modules/lodash/_createPartial.js app/node_modules/redbean-node/node_modules/lodash/_createPartial.js
-dup 2 2117 app/node_modules/lodash/_createRecurry.js app/node_modules/redbean-node/node_modules/lodash/_createRecurry.js
-dup 2 1193 app/node_modules/lodash/_createRound.js app/node_modules/redbean-node/node_modules/lodash/_createRound.js
-dup 2 3714 app/node_modules/lodash/_createWrap.js app/node_modules/redbean-node/node_modules/lodash/_createWrap.js
-dup 2 1049 app/node_modules/lodash/_customDefaultsMerge.js app/node_modules/redbean-node/node_modules/lodash/_customDefaultsMerge.js
-dup 2 3411 app/node_modules/lodash/_deburrLetter.js app/node_modules/redbean-node/node_modules/lodash/_deburrLetter.js
-dup 2 2662 app/node_modules/lodash/_equalArrays.js app/node_modules/redbean-node/node_modules/lodash/_equalArrays.js
-dup 2 3746 app/node_modules/lodash/_equalByTag.js app/node_modules/redbean-node/node_modules/lodash/_equalByTag.js
-dup 2 2971 app/node_modules/lodash/_equalObjects.js app/node_modules/redbean-node/node_modules/lodash/_equalObjects.js
-dup 2 1139 app/node_modules/lodash/_getRawTag.js app/node_modules/redbean-node/node_modules/lodash/_getRawTag.js
-dup 2 1838 app/node_modules/lodash/_getTag.js app/node_modules/redbean-node/node_modules/lodash/_getTag.js
-dup 2 1024 app/node_modules/lodash/_getView.js app/node_modules/redbean-node/node_modules/lodash/_getView.js
-dup 2 1085 app/node_modules/lodash/_hasPath.js app/node_modules/redbean-node/node_modules/lodash/_hasPath.js
-dup 2 2261 app/node_modules/lodash/_initCloneByTag.js app/node_modules/redbean-node/node_modules/lodash/_initCloneByTag.js
-dup 2 1790 app/node_modules/lodash/_lazyValue.js app/node_modules/redbean-node/node_modules/lodash/_lazyValue.js
-dup 2 3135 app/node_modules/lodash/_mergeData.js app/node_modules/redbean-node/node_modules/lodash/_mergeData.js
-dup 2 1096 app/node_modules/lodash/_overRest.js app/node_modules/redbean-node/node_modules/lodash/_overRest.js
-dup 2 1642 app/node_modules/lodash/_unicodeSize.js app/node_modules/redbean-node/node_modules/lodash/_unicodeSize.js
-dup 2 1588 app/node_modules/lodash/_unicodeToArray.js app/node_modules/redbean-node/node_modules/lodash/_unicodeToArray.js
-dup 2 3060 app/node_modules/lodash/_unicodeWords.js app/node_modules/redbean-node/node_modules/lodash/_unicodeWords.js
-dup 2 1310 app/node_modules/lodash/_updateWrapDetails.js app/node_modules/redbean-node/node_modules/lodash/_updateWrapDetails.js
-dup 2 1060 app/node_modules/lodash/after.js app/node_modules/redbean-node/node_modules/lodash/after.js
-dup 2 2490 app/node_modules/lodash/array.js app/node_modules/redbean-node/node_modules/lodash/array.js
-dup 2 1566 app/node_modules/lodash/assign.js app/node_modules/redbean-node/node_modules/lodash/assign.js
-dup 2 1256 app/node_modules/lodash/assignInWith.js app/node_modules/redbean-node/node_modules/lodash/assignInWith.js
-dup 2 1223 app/node_modules/lodash/assignWith.js app/node_modules/redbean-node/node_modules/lodash/assignWith.js
-dup 2 1090 app/node_modules/lodash/before.js app/node_modules/redbean-node/node_modules/lodash/before.js
-dup 2 1694 app/node_modules/lodash/bind.js app/node_modules/redbean-node/node_modules/lodash/bind.js
-dup 2 1125 app/node_modules/lodash/bindAll.js app/node_modules/redbean-node/node_modules/lodash/bindAll.js
-dup 2 2071 app/node_modules/lodash/bindKey.js app/node_modules/redbean-node/node_modules/lodash/bindKey.js
-dup 2 1411 app/node_modules/lodash/chunk.js app/node_modules/redbean-node/node_modules/lodash/chunk.js
-dup 2 1065 app/node_modules/lodash/clone.js app/node_modules/redbean-node/node_modules/lodash/clone.js
-dup 2 1046 app/node_modules/lodash/cloneDeepWith.js app/node_modules/redbean-node/node_modules/lodash/cloneDeepWith.js
-dup 2 1194 app/node_modules/lodash/cloneWith.js app/node_modules/redbean-node/node_modules/lodash/cloneWith.js
-dup 2 1613 app/node_modules/lodash/cond.js app/node_modules/redbean-node/node_modules/lodash/cond.js
-dup 2 1262 app/node_modules/lodash/countBy.js app/node_modules/redbean-node/node_modules/lodash/countBy.js
-dup 2 1032 app/node_modules/lodash/create.js app/node_modules/redbean-node/node_modules/lodash/create.js
-dup 2 1644 app/node_modules/lodash/curry.js app/node_modules/redbean-node/node_modules/lodash/curry.js
-dup 2 1499 app/node_modules/lodash/curryRight.js app/node_modules/redbean-node/node_modules/lodash/curryRight.js
-dup 2 6100 app/node_modules/lodash/debounce.js app/node_modules/redbean-node/node_modules/lodash/debounce.js
-dup 2 1617 app/node_modules/lodash/deburr.js app/node_modules/redbean-node/node_modules/lodash/deburr.js
-dup 2 1754 app/node_modules/lodash/defaults.js app/node_modules/redbean-node/node_modules/lodash/defaults.js
-dup 2 1063 app/node_modules/lodash/difference.js app/node_modules/redbean-node/node_modules/lodash/difference.js
-dup 2 1527 app/node_modules/lodash/differenceBy.js app/node_modules/redbean-node/node_modules/lodash/differenceBy.js
-dup 2 1395 app/node_modules/lodash/differenceWith.js app/node_modules/redbean-node/node_modules/lodash/differenceWith.js
-dup 2 1412 app/node_modules/lodash/dropRightWhile.js app/node_modules/redbean-node/node_modules/lodash/dropRightWhile.js
-dup 2 1384 app/node_modules/lodash/dropWhile.js app/node_modules/redbean-node/node_modules/lodash/dropWhile.js
-dup 2 1098 app/node_modules/lodash/endsWith.js app/node_modules/redbean-node/node_modules/lodash/endsWith.js
-dup 2 1444 app/node_modules/lodash/escape.js app/node_modules/redbean-node/node_modules/lodash/escape.js
-dup 2 1869 app/node_modules/lodash/every.js app/node_modules/redbean-node/node_modules/lodash/every.js
-dup 2 1081 app/node_modules/lodash/fill.js app/node_modules/redbean-node/node_modules/lodash/fill.js
-dup 2 1683 app/node_modules/lodash/filter.js app/node_modules/redbean-node/node_modules/lodash/filter.js
-dup 2 1304 app/node_modules/lodash/find.js app/node_modules/redbean-node/node_modules/lodash/find.js
-dup 2 1654 app/node_modules/lodash/findIndex.js app/node_modules/redbean-node/node_modules/lodash/findIndex.js
-dup 2 1329 app/node_modules/lodash/findKey.js app/node_modules/redbean-node/node_modules/lodash/findKey.js
-dup 2 1761 app/node_modules/lodash/findLastIndex.js app/node_modules/redbean-node/node_modules/lodash/findLastIndex.js
-dup 2 1346 app/node_modules/lodash/findLastKey.js app/node_modules/redbean-node/node_modules/lodash/findLastKey.js
-dup 2 1355 app/node_modules/lodash/forEach.js app/node_modules/redbean-node/node_modules/lodash/forEach.js
-dup 2 1065 app/node_modules/lodash/forIn.js app/node_modules/redbean-node/node_modules/lodash/forIn.js
-dup 2 16414 app/node_modules/lodash/fp/_baseConvert.js app/node_modules/redbean-node/node_modules/lodash/fp/_baseConvert.js
-dup 2 9955 app/node_modules/lodash/fp/_mapping.js app/node_modules/redbean-node/node_modules/lodash/fp/_mapping.js
-dup 2 1399 app/node_modules/lodash/groupBy.js app/node_modules/redbean-node/node_modules/lodash/groupBy.js
-dup 2 1245 app/node_modules/lodash/inRange.js app/node_modules/redbean-node/node_modules/lodash/inRange.js
-dup 2 1772 app/node_modules/lodash/includes.js app/node_modules/redbean-node/node_modules/lodash/includes.js
-dup 2 1240 app/node_modules/lodash/indexOf.js app/node_modules/redbean-node/node_modules/lodash/indexOf.js
-dup 2 1467 app/node_modules/lodash/intersectionBy.js app/node_modules/redbean-node/node_modules/lodash/intersectionBy.js
-dup 2 1388 app/node_modules/lodash/intersectionWith.js app/node_modules/redbean-node/node_modules/lodash/intersectionWith.js
-dup 2 1128 app/node_modules/lodash/invert.js app/node_modules/redbean-node/node_modules/lodash/invert.js
-dup 2 1651 app/node_modules/lodash/invertBy.js app/node_modules/redbean-node/node_modules/lodash/invertBy.js
-dup 2 1440 app/node_modules/lodash/invokeMap.js app/node_modules/redbean-node/node_modules/lodash/invokeMap.js
-dup 2 1026 app/node_modules/lodash/isArguments.js app/node_modules/redbean-node/node_modules/lodash/isArguments.js
-dup 2 1114 app/node_modules/lodash/isBuffer.js app/node_modules/redbean-node/node_modules/lodash/isBuffer.js
-dup 2 2000 app/node_modules/lodash/isEmpty.js app/node_modules/redbean-node/node_modules/lodash/isEmpty.js
-dup 2 1352 app/node_modules/lodash/isEqualWith.js app/node_modules/redbean-node/node_modules/lodash/isEqualWith.js
-dup 2 1078 app/node_modules/lodash/isMatch.js app/node_modules/redbean-node/node_modules/lodash/isMatch.js
-dup 2 1329 app/node_modules/lodash/isMatchWith.js app/node_modules/redbean-node/node_modules/lodash/isMatchWith.js
-dup 2 1221 app/node_modules/lodash/isNative.js app/node_modules/redbean-node/node_modules/lodash/isNative.js
-dup 2 1650 app/node_modules/lodash/isPlainObject.js app/node_modules/redbean-node/node_modules/lodash/isPlainObject.js
-dup 2 1700 app/node_modules/lodash/iteratee.js app/node_modules/redbean-node/node_modules/lodash/iteratee.js
-dup 2 1194 app/node_modules/lodash/keyBy.js app/node_modules/redbean-node/node_modules/lodash/keyBy.js
-dup 2 2137 app/node_modules/lodash/lang.js app/node_modules/redbean-node/node_modules/lodash/lang.js
-dup 2 1358 app/node_modules/lodash/lastIndexOf.js app/node_modules/redbean-node/node_modules/lodash/lastIndexOf.js
-dup 2 1621 app/node_modules/lodash/map.js app/node_modules/redbean-node/node_modules/lodash/map.js
-dup 2 1097 app/node_modules/lodash/mapKeys.js app/node_modules/redbean-node/node_modules/lodash/mapKeys.js
-dup 2 1338 app/node_modules/lodash/mapValues.js app/node_modules/redbean-node/node_modules/lodash/mapValues.js
-dup 2 1441 app/node_modules/lodash/matches.js app/node_modules/redbean-node/node_modules/lodash/matches.js
-dup 2 1454 app/node_modules/lodash/matchesProperty.js app/node_modules/redbean-node/node_modules/lodash/matchesProperty.js
-dup 2 2224 app/node_modules/lodash/memoize.js app/node_modules/redbean-node/node_modules/lodash/memoize.js
-dup 2 1220 app/node_modules/lodash/merge.js app/node_modules/redbean-node/node_modules/lodash/merge.js
-dup 2 1247 app/node_modules/lodash/mergeWith.js app/node_modules/redbean-node/node_modules/lodash/mergeWith.js
-dup 2 2236 app/node_modules/lodash/mixin.js app/node_modules/redbean-node/node_modules/lodash/mixin.js
-dup 2 1079 app/node_modules/lodash/negate.js app/node_modules/redbean-node/node_modules/lodash/negate.js
-dup 2 1674 app/node_modules/lodash/object.js app/node_modules/redbean-node/node_modules/lodash/object.js
-dup 2 1629 app/node_modules/lodash/omit.js app/node_modules/redbean-node/node_modules/lodash/omit.js
-dup 2 1620 app/node_modules/lodash/orderBy.js app/node_modules/redbean-node/node_modules/lodash/orderBy.js
-dup 2 1620 app/node_modules/lodash/overArgs.js app/node_modules/redbean-node/node_modules/lodash/overArgs.js
-dup 2 1036 app/node_modules/lodash/overSome.js app/node_modules/redbean-node/node_modules/lodash/overSome.js
-dup 2 1289 app/node_modules/lodash/pad.js app/node_modules/redbean-node/node_modules/lodash/pad.js
-dup 2 1026 app/node_modules/lodash/padStart.js app/node_modules/redbean-node/node_modules/lodash/padStart.js
-dup 2 1256 app/node_modules/lodash/parseInt.js app/node_modules/redbean-node/node_modules/lodash/parseInt.js
-dup 2 1566 app/node_modules/lodash/partial.js app/node_modules/redbean-node/node_modules/lodash/partial.js
-dup 2 1552 app/node_modules/lodash/partialRight.js app/node_modules/redbean-node/node_modules/lodash/partialRight.js
-dup 2 1518 app/node_modules/lodash/partition.js app/node_modules/redbean-node/node_modules/lodash/partition.js
-dup 2 1032 app/node_modules/lodash/pickBy.js app/node_modules/redbean-node/node_modules/lodash/pickBy.js
-dup 2 1071 app/node_modules/lodash/pullAllBy.js app/node_modules/redbean-node/node_modules/lodash/pullAllBy.js
-dup 2 1029 app/node_modules/lodash/pullAllWith.js app/node_modules/redbean-node/node_modules/lodash/pullAllWith.js
-dup 2 1182 app/node_modules/lodash/pullAt.js app/node_modules/redbean-node/node_modules/lodash/pullAt.js
-dup 2 1151 app/node_modules/lodash/range.js app/node_modules/redbean-node/node_modules/lodash/range.js
-dup 2 1806 app/node_modules/lodash/reduce.js app/node_modules/redbean-node/node_modules/lodash/reduce.js
-dup 2 1156 app/node_modules/lodash/reduceRight.js app/node_modules/redbean-node/node_modules/lodash/reduceRight.js
-dup 2 1417 app/node_modules/lodash/reject.js app/node_modules/redbean-node/node_modules/lodash/reject.js
-dup 2 1332 app/node_modules/lodash/remove.js app/node_modules/redbean-node/node_modules/lodash/remove.js
-dup 2 1182 app/node_modules/lodash/rest.js app/node_modules/redbean-node/node_modules/lodash/rest.js
-dup 2 1464 app/node_modules/lodash/result.js app/node_modules/redbean-node/node_modules/lodash/result.js
-dup 2 1068 app/node_modules/lodash/sampleSize.js app/node_modules/redbean-node/node_modules/lodash/sampleSize.js
-dup 2 1055 app/node_modules/lodash/setWith.js app/node_modules/redbean-node/node_modules/lodash/setWith.js
-dup 2 1137 app/node_modules/lodash/size.js app/node_modules/redbean-node/node_modules/lodash/size.js
-dup 2 1032 app/node_modules/lodash/slice.js app/node_modules/redbean-node/node_modules/lodash/slice.js
-dup 2 1608 app/node_modules/lodash/some.js app/node_modules/redbean-node/node_modules/lodash/some.js
-dup 2 1668 app/node_modules/lodash/sortBy.js app/node_modules/redbean-node/node_modules/lodash/sortBy.js
-dup 2 1060 app/node_modules/lodash/sortedIndexBy.js app/node_modules/redbean-node/node_modules/lodash/sortedIndexBy.js
-dup 2 1086 app/node_modules/lodash/sortedLastIndexBy.js app/node_modules/redbean-node/node_modules/lodash/sortedLastIndexBy.js
-dup 2 1550 app/node_modules/lodash/split.js app/node_modules/redbean-node/node_modules/lodash/split.js
-dup 2 1734 app/node_modules/lodash/spread.js app/node_modules/redbean-node/node_modules/lodash/spread.js
-dup 2 1168 app/node_modules/lodash/string.js app/node_modules/redbean-node/node_modules/lodash/string.js
-dup 2 1376 app/node_modules/lodash/takeRightWhile.js app/node_modules/redbean-node/node_modules/lodash/takeRightWhile.js
-dup 2 1335 app/node_modules/lodash/takeWhile.js app/node_modules/redbean-node/node_modules/lodash/takeWhile.js
-dup 2 2709 app/node_modules/lodash/throttle.js app/node_modules/redbean-node/node_modules/lodash/throttle.js
-dup 2 1367 app/node_modules/lodash/times.js app/node_modules/redbean-node/node_modules/lodash/times.js
-dup 2 1406 app/node_modules/lodash/toArray.js app/node_modules/redbean-node/node_modules/lodash/toArray.js
-dup 2 1519 app/node_modules/lodash/toNumber.js app/node_modules/redbean-node/node_modules/lodash/toNumber.js
-dup 2 2280 app/node_modules/lodash/transform.js app/node_modules/redbean-node/node_modules/lodash/transform.js
-dup 2 1381 app/node_modules/lodash/trim.js app/node_modules/redbean-node/node_modules/lodash/trim.js
-dup 2 1216 app/node_modules/lodash/trimEnd.js app/node_modules/redbean-node/node_modules/lodash/trimEnd.js
-dup 2 1228 app/node_modules/lodash/trimStart.js app/node_modules/redbean-node/node_modules/lodash/trimStart.js
-dup 2 3357 app/node_modules/lodash/truncate.js app/node_modules/redbean-node/node_modules/lodash/truncate.js
-dup 2 1056 app/node_modules/lodash/unescape.js app/node_modules/redbean-node/node_modules/lodash/unescape.js
-dup 2 1320 app/node_modules/lodash/unionBy.js app/node_modules/redbean-node/node_modules/lodash/unionBy.js
-dup 2 1255 app/node_modules/lodash/unionWith.js app/node_modules/redbean-node/node_modules/lodash/unionWith.js
-dup 2 1282 app/node_modules/lodash/unzip.js app/node_modules/redbean-node/node_modules/lodash/unzip.js
-dup 2 1049 app/node_modules/lodash/unzipWith.js app/node_modules/redbean-node/node_modules/lodash/unzipWith.js
-dup 2 1076 app/node_modules/lodash/update.js app/node_modules/redbean-node/node_modules/lodash/update.js
-dup 2 1187 app/node_modules/lodash/updateWith.js app/node_modules/redbean-node/node_modules/lodash/updateWith.js
-dup 2 1177 app/node_modules/lodash/util.js app/node_modules/redbean-node/node_modules/lodash/util.js
-dup 2 1031 app/node_modules/lodash/words.js app/node_modules/redbean-node/node_modules/lodash/words.js
-dup 2 1341 app/node_modules/lodash/wrapperAt.js app/node_modules/redbean-node/node_modules/lodash/wrapperAt.js
-dup 2 6942 app/node_modules/lodash/wrapperLodash.js app/node_modules/redbean-node/node_modules/lodash/wrapperLodash.js
-dup 2 1301 app/node_modules/lodash/xorBy.js app/node_modules/redbean-node/node_modules/lodash/xorBy.js
-dup 2 1222 app/node_modules/lodash/xorWith.js app/node_modules/redbean-node/node_modules/lodash/xorWith.js
 dup 2 1089 app/node_modules/media-typer/LICENSE app/node_modules/on-headers/LICENSE
 dup 2 1172 app/node_modules/mime-db/LICENSE app/node_modules/mime-types/node_modules/mime-db/LICENSE
 dup 4 1552 app/node_modules/minipass-flush/LICENSE.md app/node_modules/path-scurry/LICENSE.md app/node_modules/path-scurry/node_modules/minipass/LICENSE.md app/node_modules/redbean-node/node_modules/minipass/LICENSE.md
+dup 2 1034 app/node_modules/mqtt/node_modules/ws/lib/limiter.js app/node_modules/ws/lib/limiter.js
+dup 2 4577 app/node_modules/mysql2/node_modules/iconv-lite/encodings/sbcs-data.js app/node_modules/tedious/node_modules/iconv-lite/encodings/sbcs-data.js
+dup 2 9531 app/node_modules/mysql2/node_modules/iconv-lite/encodings/utf32.js app/node_modules/tedious/node_modules/iconv-lite/encodings/utf32.js
+dup 2 2260 app/node_modules/mysql2/node_modules/iconv-lite/package.json app/node_modules/tedious/node_modules/iconv-lite/package.json
 dup 2 1323 app/node_modules/node-fetch/node_modules/webidl-conversions/LICENSE.md app/node_modules/webidl-conversions/LICENSE.md
 dup 2 5983 app/node_modules/node-gyp/node_modules/npmlog/README.md app/node_modules/npmlog/README.md
 dup 3 1109 app/node_modules/parse5-htmlparser2-tree-adapter/LICENSE app/node_modules/parse5-parser-stream/LICENSE app/node_modules/parse5/LICENSE

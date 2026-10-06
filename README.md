@@ -52,7 +52,7 @@ cosign verify ghcr.io/jbsky/uptime-kuma-hardened:latest \
 
 | Composant | Origine | Verification |
 |---|---|---|
-| Uptime Kuma (serveur + frontend) | archive du tag GitHub, construite ici (`npm ci` sur le lockfile, `vite build`) | sha256 epingle dans `versions.json` |
+| Uptime Kuma (serveur + frontend) | archive du tag GitHub, construite ici (`npm ci` sur le lockfile, `vite build` ; overrides de securite en production, cf. `SECURITY.md`) | sha256 epingle dans `versions.json` |
 | `@louislam/sqlite3` | compile depuis ses sources, lie au SQLite du systeme | le build echoue si le module ne reference pas `libsqlite3.so` ou n'est pas en BIND_NOW |
 | `ping` (iputils) | compile depuis les sources, sans libcap, sans setuid | signature GPG, empreinte epinglee dans le Dockerfile |
 | Node.js | paquet Alpine `nodejs` (plancher, comme musl) | voir ci-dessous |
