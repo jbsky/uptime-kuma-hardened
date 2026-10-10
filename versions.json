@@ -1,6 +1,6 @@
 {
-  "uptime-kuma": "2.5.5",
-  "uptime-kuma_sha256": "ce47ce2d70049fa4ee2da67303fd3f35a3a68522bba17f046b29bcfe38d8d0c0",
+  "uptime-kuma": "2.5.6",
+  "uptime-kuma_sha256": "a7b5f425f6b8b7e541e79f6ff71642af45f25bd3f5d97574441a2b9b6c78e408",
   "iputils": "20250605",
   "iputils_sha256": "6f213700dbf96b5cc4499ca70cb15ecd69c09f405b06785bb4a1a10b572b6276",
   "alpine": "3.24"

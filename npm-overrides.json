@@ -1,17 +1,11 @@
 {
     "@grpc/grpc-js": { "version": "1.13.6", "fixes": ["GHSA-m9gg-hp2v-232j", "GHSA-5375-pq7m-f5r2", "GHSA-99f4-grh7-6pcq"] },
     "axios": { "version": "0.34.0", "fixes": ["GHSA-gcfj-64vw-6mp9", "GHSA-x97p-jq2g-jp4f"] },
-    "brace-expansion@1": { "version": "1.1.21", "fixes": ["GHSA-6j4f-fj2g-mc7p", "GHSA-qhr7-859c-m2p7"] },
-    "brace-expansion@2": { "version": "2.1.7", "fixes": ["GHSA-6j4f-fj2g-mc7p", "GHSA-qhr7-859c-m2p7"] },
-    "compression": { "version": "1.8.2", "fixes": ["GHSA-vc2v-76pw-4v95"] },
-    "engine.io": { "version": "6.6.10", "fixes": ["GHSA-2gc4-cqfq-p2gv"] },
     "glob@10": { "version": "10.5.0", "fixes": ["GHSA-5j98-mcp5-4vw2"] },
     "liquidjs": { "version": "10.29.0", "fixes": ["GHSA-g357-x5c3-c72p", "GHSA-m7fp-h3p4-hr49", "GHSA-4r6h-5v86-94p3"] },
     "lodash": { "version": "4.18.1", "fixes": ["GHSA-r5fr-rjxr-66jc"] },
     "minimatch@9": { "version": "9.0.9", "fixes": ["GHSA-3ppc-4f35-3m26", "GHSA-23c5-xmqv-rm74", "GHSA-7r86-cg39-jmmj"] },
     "mysql2": { "version": "3.24.4", "fixes": ["GHSA-3f6p-5ww8-9rcr"] },
     "protobufjs": { "version": "7.6.6", "fixes": ["GHSA-xq3m-2v4x-88gg", "GHSA-66ff-xgx4-vchm", "GHSA-685m-2w69-288q", "GHSA-75px-5xx7-5xc7", "GHSA-jvwf-75h9-cwgg", "GHSA-wcpc-wj8m-hjx6"] },
-    "proxy-addr": { "version": "2.0.8", "fixes": ["GHSA-jqcg-44mw-7w3h"] },
-    "undici@6": { "version": "6.28.1", "fixes": ["GHSA-rfgv-xxqx-mfg5"] },
     "ws@8": { "version": "8.21.3", "fixes": ["GHSA-96hv-2xvq-fx4p"] }
 }
