@@ -194,7 +194,7 @@ RUN meson setup build --buildtype=plain -Db_pie=true \
  && rm /tmp/ping.dyn
 
 # --- gobuilder : init statique (entrypoint + healthcheck + setup-dirs) -
-FROM --platform=$BUILDPLATFORM golang:1.27-alpine@sha256:738d1cf061836894ff6bb8c33881080ac66de8cf0586615012a0c8f592649cfa AS gobuilder
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine@sha256:f92b6ef800e499660581efdabdf25d9d817a9d124eaf900924f0504e7e27e12d AS gobuilder
 ARG TARGETOS
 ARG TARGETARCH
 WORKDIR /src
