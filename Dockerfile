@@ -19,7 +19,7 @@ ARG IPUTILS_SHA256
 # scripts/versions-build-args.py --check compare ce tag a .alpine.
 
 # --- fetch : sources verifiees, rien d'autre ---------------------------
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS fetch
+FROM alpine:3.24@sha256:71e9b7bae160ba167fa17414401b94cbcdaf3c32feeab9298bd794a2a0614c35 AS fetch
 
 ARG UPTIME_KUMA_VERSION
 ARG UPTIME_KUMA_SHA256
@@ -73,7 +73,7 @@ RUN base="https://github.com/iputils/iputils/releases/download/${IPUTILS_VERSION
 # L'image officielle ne compile pas dist/ : elle le recoit tout fait du
 # processus de release. Ici vite tourne sur les sources du tag, avec les
 # devDependencies du lockfile, dans un stage qui n'est pas publie.
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS web
+FROM alpine:3.24@sha256:71e9b7bae160ba167fa17414401b94cbcdaf3c32feeab9298bd794a2a0614c35 AS web
 
 RUN sed -i 's|https://|http://|g' /etc/apk/repositories
 RUN --mount=type=secret,id=ca-certs,required=false \
@@ -91,7 +91,7 @@ RUN npm ci --no-audit --no-fund --ignore-scripts \
  && test -s dist/index.html
 
 # --- deps : node_modules de production, module natif compile ici -------
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS deps
+FROM alpine:3.24@sha256:71e9b7bae160ba167fa17414401b94cbcdaf3c32feeab9298bd794a2a0614c35 AS deps
 
 RUN sed -i 's|https://|http://|g' /etc/apk/repositories
 RUN --mount=type=secret,id=ca-certs,required=false \
@@ -169,7 +169,7 @@ RUN find node_modules -type f \
 # net.ipv4.ping_group_range (cf. README). Alpine applique un seul correctif
 # (getopt_long, pour les options placees apres l'hote) : pas un correctif de
 # securite, et @louislam/ping met l'hote en dernier.
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS ping
+FROM alpine:3.24@sha256:71e9b7bae160ba167fa17414401b94cbcdaf3c32feeab9298bd794a2a0614c35 AS ping
 
 RUN sed -i 's|https://|http://|g' /etc/apk/repositories \
  && apk add --no-cache build-base meson linux-headers
@@ -194,7 +194,7 @@ RUN meson setup build --buildtype=plain -Db_pie=true \
  && rm /tmp/ping.dyn
 
 # --- gobuilder : init statique (entrypoint + healthcheck + setup-dirs) -
-FROM --platform=$BUILDPLATFORM golang:1.27-alpine@sha256:f2c872bcee949b7be9c490efd02b48a8a2fbf947cdf533f1c58525ec9d8170fd AS gobuilder
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine@sha256:d530cf60723abf1ffae0cd16bb546b379ec0550d2f3815e5b16ed69dbc00fba4 AS gobuilder
 ARG TARGETOS
 ARG TARGETARCH
 WORKDIR /src
@@ -209,7 +209,7 @@ RUN CGO_ENABLED=0 GOOS="${TARGETOS}" GOARCH="${TARGETARCH}" \
 # Full RELRO, BIND_NOW, NX, canari, -O2 et LTO -- recompiler n'apporte aucun
 # flag, grossit le binaire (OpenSSL et ICU embarques) et lie les correctifs
 # OpenSSL au rythme des releases Node au lieu de celui d'Alpine.
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS prep
+FROM alpine:3.24@sha256:71e9b7bae160ba167fa17414401b94cbcdaf3c32feeab9298bd794a2a0614c35 AS prep
 
 RUN sed -i 's|https://|http://|g' /etc/apk/repositories \
  && apk upgrade --no-cache \
