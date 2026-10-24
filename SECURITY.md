@@ -52,6 +52,8 @@ Ce qui n'a de correctif que dans une nouvelle majeure n'est pas force :
 |---|---|---|
 | `tar` 6.2.1 | 7.x | jamais charge par le serveur : seuls `extra/download-dist.js` (absent de l'image) et node-gyp au build l'utilisent |
 | `nodemailer` 7.0.13 | 8.x a 10.x | charge (notifications et sonde SMTP), mais Kuma n'utilise ni l'option `raw` ni OAuth2, et les adresses analysees viennent de la configuration admin |
+| `@azure/msal-node` 5.6.0 | 7.1.0 | tire par `@azure/identity` (authentification AAD de mssql). L'avis porte sur le flux « authorization code » ; Kuma ne fait aucune redirection navigateur, donc jamais ce flux |
+| `@tootallnate/once` 1.1.2 | 2.0.1 | tire par `http-proxy-agent`, utilise seulement par les moniteurs passant par un proxy. Avis LOW (CVSS 3.3) |
 
 Les entrees de `.trivyignore` expirent le **2027-01-06** : passe cette date,
 l'audit redevient rouge et la derogation se rejustifie ou tombe. Grype n'a

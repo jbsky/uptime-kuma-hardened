@@ -141,7 +141,21 @@ RUN npm_config_build_from_source=true npm_config_sqlite=/usr npm_config_nodedir=
 # binaires sont retires, pas recompiles. ssh2 et cpu-features ne construisent
 # leurs modules natifs optionnels que dans leur script d'installation, jamais
 # lance ici (--ignore-scripts) : ssh2 retombe sur sa crypto JavaScript.
-RUN rm -rf node_modules/oracledb/build
+# cpu-features/deps est la copie vendue des sources C de cpu_features, lue par
+# binding.gyp et buildcheck.js seulement -- donc jamais ici ; au runtime
+# lib/index.js ne demande que build/Release/cpufeatures.node, qui n'existe
+# pas. Ces 128 entrees portaient les trois seuls Dockerfile de l'image (la CI
+# de l'amont de cpu_features), soit dix constats de mauvaise configuration
+# dans le SARIF de l'audit : du bruit qui noie les constats reels.
+RUN rm -rf node_modules/oracledb/build node_modules/cpu-features/deps
+
+# Plus aucun Dockerfile dans l'arbre : ceux qu'un paquet npm vend avec les
+# sources de son amont ne sont jamais construits ici, mais Trivy les scanne
+# dans l'image publiee. Un nouveau paquet qui en livre se tranche ici, il ne
+# repart pas en alerte.
+RUN found="$(find node_modules -iname 'Dockerfile*' -type f)"; \
+    test -z "${found}" \
+ || { echo "Dockerfile(s) livres par un paquet npm, a trancher : ${found}" >&2; exit 1; }
 
 # Aucun autre .node que celui compile ci-dessus : un binaire precompile
 # (glibc, autre architecture) passerait sinon dans l'image sans que personne

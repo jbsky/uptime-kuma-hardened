@@ -13,8 +13,30 @@ ignore:
   - { vulnerability: GHSA-r6q2-hw4h-h46w, package: { name: tar, version: 6.2.1, type: npm } }
   - { vulnerability: GHSA-34x7-hfp2-rc4v, package: { name: tar, version: 6.2.1, type: npm } }
   - { vulnerability: GHSA-83g3-92jg-28cx, package: { name: tar, version: 6.2.1, type: npm } }
+  # tar 6.2.1 -- les trois MEDIUM du meme paquet (sous le seuil de la porte)
+  - { vulnerability: GHSA-vmf3-w455-68vh, package: { name: tar, version: 6.2.1, type: npm } }
+  - { vulnerability: GHSA-w8wr-v893-vjvp, package: { name: tar, version: 6.2.1, type: npm } }
+  - { vulnerability: GHSA-gvwx-54wh-qm9j, package: { name: tar, version: 6.2.1, type: npm } }
   # nodemailer 7.0.13 -- ni `raw`, ni OAuth2, adresses saisies par l'admin
   - { vulnerability: GHSA-p6gq-j5cr-w38f, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-r7g4-qg5f-qqm2, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-2x7j-588g-ccc2, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-v53p-9fqp-m79j, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  # nodemailer 7.0.13 -- les treize autres avis, meme raison
+  - { vulnerability: GHSA-m943-m63m-w62w, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-8c8m-p3m8-cjg8, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-85x2-q946-cp5h, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-cc9r-2j5m-2m83, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-wmmp-3585-3rmp, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-268h-hp4c-crq3, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-vvjj-xcjg-gr5g, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-c7w3-x93f-qmm8, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-wqvq-jvpq-h66f, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-8m3c-c648-2xjj, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-8vvx-rff5-p5rq, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-39m8-27wv-hr27, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-6vj9-mwq6-2f5v, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  # @azure/msal-node 5.6.0 -- flux « authorization code », jamais utilise ici
+  - { vulnerability: GHSA-xcx6-jx8p-x3h5, package: { name: "@azure/msal-node", version: 5.6.0, type: npm } }
+  # @tootallnate/once 1.1.2 -- via http-proxy-agent, avis LOW
+  - { vulnerability: GHSA-vpq2-c234-7xj6, package: { name: "@tootallnate/once", version: 1.1.2, type: npm } }
