@@ -8,5 +8,6 @@
     "minimatch@9": { "version": "9.0.9", "fixes": ["GHSA-3ppc-4f35-3m26", "GHSA-23c5-xmqv-rm74", "GHSA-7r86-cg39-jmmj"] },
     "mysql2": { "version": "3.24.4", "fixes": ["GHSA-3f6p-5ww8-9rcr"] },
     "protobufjs": { "version": "7.6.6", "fixes": ["GHSA-xq3m-2v4x-88gg", "GHSA-66ff-xgx4-vchm", "GHSA-685m-2w69-288q", "GHSA-75px-5xx7-5xc7", "GHSA-jvwf-75h9-cwgg", "GHSA-wcpc-wj8m-hjx6"] },
+    "qs": { "version": "6.16.0", "fixes": ["GHSA-q8mj-m7cp-5q26", "GHSA-4mjr-xmp4-gh2g", "GHSA-x5fp-wj9c-mxmx"] },
     "ws@8": { "version": "8.21.3", "fixes": ["GHSA-96hv-2xvq-fx4p"] }
 }
