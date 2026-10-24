@@ -11,8 +11,8 @@ f 0755 0:0 elf lib/ld-musl-x86_64.so.1
 l lib/libc.musl-x86_64.so.1 -> ld-musl-x86_64.so.1
 f 0755 0:0 elf sbin/tini
 f 0755 0:0 elf usr/bin/node
-l usr/lib/libada.so.3 -> libada.so.3.<version>
-f 0755 0:0 elf usr/lib/libada.so.3.<version>
+l usr/lib/libada.so.4 -> libada.so.4.<version>
+f 0755 0:0 elf usr/lib/libada.so.4.<version>
 l usr/lib/libbrotlicommon.so.1 -> libbrotlicommon.so.1.<version>
 f 0755 0:0 elf usr/lib/libbrotlicommon.so.1.<version>
 l usr/lib/libbrotlidec.so.1 -> libbrotlidec.so.1.<version>
