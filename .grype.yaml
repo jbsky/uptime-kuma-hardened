@@ -36,3 +36,7 @@ ignore:
   - { vulnerability: GHSA-8vvx-rff5-p5rq, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-39m8-27wv-hr27, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-6vj9-mwq6-2f5v, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  # @azure/msal-node 5.6.0 -- flux « authorization code », jamais utilise ici
+  - { vulnerability: GHSA-xcx6-jx8p-x3h5, package: { name: "@azure/msal-node", version: 5.6.0, type: npm } }
+  # @tootallnate/once 1.1.2 -- via http-proxy-agent, avis LOW
+  - { vulnerability: GHSA-vpq2-c234-7xj6, package: { name: "@tootallnate/once", version: 1.1.2, type: npm } }
