@@ -160,7 +160,7 @@ count 5 app/node_modules/cookie/
 count 5 app/node_modules/core-util-is/
 count 5 app/node_modules/cors/
 count 7 app/node_modules/country-flag-emoji-polyfill/
-count 143 app/node_modules/cpu-features/
+count 16 app/node_modules/cpu-features/
 count 8 app/node_modules/croner/
 count 11 app/node_modules/cross-spawn/
 count 19 app/node_modules/css-color-converter/
