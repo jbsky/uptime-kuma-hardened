@@ -17,6 +17,14 @@ CVE-2026-31802 exp:2027-01-06
 CVE-2026-59874 exp:2027-01-06
 CVE-2026-73566 exp:2027-01-06
 
+# tar 6.2.1 -- les trois constats MEDIUM du meme paquet, meme raison et meme
+# correctif en 7.x. Ils n'ont jamais fait virer la porte au rouge (elle
+# n'examine que CRITICAL/HIGH) mais restaient ouverts en code scanning, ou le
+# SARIF de l'audit descend jusqu'a MEDIUM.
+CVE-2026-53655 exp:2027-01-06
+CVE-2026-59871 exp:2027-01-06
+CVE-2026-59875 exp:2027-01-06
+
 # nodemailer 7.0.13 -- correctif en 8.x a 10.x. Charge (notifications et
 # sonde SMTP), mais hors des chemins vulnerables : ni option `raw`
 # (CVE-2026-82659), ni OAuth2 (CVE-2026-82662) ; les adresses analysees
