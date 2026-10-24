@@ -22,3 +22,17 @@ ignore:
   - { vulnerability: GHSA-r7g4-qg5f-qqm2, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-2x7j-588g-ccc2, package: { name: nodemailer, version: 7.0.13, type: npm } }
   - { vulnerability: GHSA-v53p-9fqp-m79j, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  # nodemailer 7.0.13 -- les treize autres avis, meme raison
+  - { vulnerability: GHSA-m943-m63m-w62w, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-8c8m-p3m8-cjg8, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-85x2-q946-cp5h, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-cc9r-2j5m-2m83, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-wmmp-3585-3rmp, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-268h-hp4c-crq3, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-vvjj-xcjg-gr5g, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-c7w3-x93f-qmm8, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-wqvq-jvpq-h66f, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-8m3c-c648-2xjj, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-8vvx-rff5-p5rq, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-39m8-27wv-hr27, package: { name: nodemailer, version: 7.0.13, type: npm } }
+  - { vulnerability: GHSA-6vj9-mwq6-2f5v, package: { name: nodemailer, version: 7.0.13, type: npm } }

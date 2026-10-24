@@ -33,3 +33,27 @@ CVE-2026-82659 exp:2027-01-06
 CVE-2026-82662 exp:2027-01-06
 GHSA-2x7j-588g-ccc2 exp:2027-01-06
 GHSA-v53p-9fqp-m79j exp:2027-01-06
+
+# nodemailer 7.0.13 -- les treize autres avis du meme paquet, meme raison :
+# tout ce qu'ils exploitent est saisi par l'admin dans la configuration des
+# notifications (nom de transport, envelope.size, adresses, chemins et URL de
+# pieces jointes) ou impose par le serveur SMTP qu'il a choisi. Correctif en
+# 8.x a 10.x, donc hors du champ des overrides (meme majeure).
+# analyse d'adresses -- un recipient que l'en-tete ne nomme pas
+GHSA-m943-m63m-w62w exp:2027-01-06
+GHSA-8c8m-p3m8-cjg8 exp:2027-01-06
+GHSA-85x2-q946-cp5h exp:2027-01-06
+GHSA-cc9r-2j5m-2m83 exp:2027-01-06
+GHSA-wmmp-3585-3rmp exp:2027-01-06
+# injection CRLF dans les en-tetes et les commandes SMTP
+GHSA-268h-hp4c-crq3 exp:2027-01-06
+GHSA-vvjj-xcjg-gr5g exp:2027-01-06
+GHSA-c7w3-x93f-qmm8 exp:2027-01-06
+# disableFileAccess / disableUrlAccess contournes
+GHSA-wqvq-jvpq-h66f exp:2027-01-06
+GHSA-8m3c-c648-2xjj exp:2027-01-06
+# deni de service a l'emission (profondeur de recursion, depliage DKIM)
+GHSA-8vvx-rff5-p5rq exp:2027-01-06
+CVE-2026-110871 exp:2027-01-06
+# cache DNS global : servername TLS reutilise entre transports
+GHSA-6vj9-mwq6-2f5v exp:2027-01-06
