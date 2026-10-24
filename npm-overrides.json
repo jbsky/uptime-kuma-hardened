@@ -1,6 +1,7 @@
 {
     "@grpc/grpc-js": { "version": "1.13.6", "fixes": ["GHSA-m9gg-hp2v-232j", "GHSA-5375-pq7m-f5r2", "GHSA-99f4-grh7-6pcq"] },
     "axios": { "version": "0.34.0", "fixes": ["GHSA-gcfj-64vw-6mp9", "GHSA-x97p-jq2g-jp4f"] },
+    "follow-redirects": { "version": "1.16.1", "fixes": ["GHSA-8r9p-f939-6h3c", "GHSA-q3jh-wrc6-jgq8"] },
     "glob@10": { "version": "10.5.0", "fixes": ["GHSA-5j98-mcp5-4vw2"] },
     "liquidjs": { "version": "10.29.0", "fixes": ["GHSA-g357-x5c3-c72p", "GHSA-m7fp-h3p4-hr49", "GHSA-4r6h-5v86-94p3"] },
     "lodash": { "version": "4.18.1", "fixes": ["GHSA-r5fr-rjxr-66jc"] },
