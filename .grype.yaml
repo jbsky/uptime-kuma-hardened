@@ -40,3 +40,8 @@ ignore:
   - { vulnerability: GHSA-xcx6-jx8p-x3h5, package: { name: "@azure/msal-node", version: 5.6.0, type: npm } }
   # @tootallnate/once 1.1.2 -- via http-proxy-agent, avis LOW
   - { vulnerability: GHSA-vpq2-c234-7xj6, package: { name: "@tootallnate/once", version: 1.1.2, type: npm } }
+  # body-parser 1.20.8 / undici 6.28.1 -- correctif trop recent (min-release-age=14),
+  # cf. .trivyignore. A retirer avec lui une fois l'override repose.
+  - { vulnerability: GHSA-27r3-jxmh-p828, package: { name: body-parser, version: 1.20.8, type: npm } }
+  - { vulnerability: GHSA-xjj6-f33q-929c, package: { name: undici, version: 6.28.1, type: npm } }
+  - { vulnerability: GHSA-4qv8-2p9j-2685, package: { name: undici, version: 6.28.1, type: npm } }
