@@ -60,3 +60,17 @@ l'audit redevient rouge et la derogation se rejustifie ou tombe. Grype n'a
 pas d'expiration ; les deux listes se retirent ensemble. Toute alerte
 nouvelle sur ces paquets reste visible (derogation par identifiant, pas par
 paquet).
+
+### Derogation courte : correctif trop recent pour `min-release-age`
+
+Le `.npmrc` de l'amont impose `min-release-age=14`. Quand le correctif d'une
+CVE vient de sortir, l'override `npm-overrides.json` echoue au build
+(`ETARGET`) tant que la fenetre n'est pas passee -- ce n'est pas qu'il
+n'existe pas, juste qu'il n'est pas encore pris. Derogation a echeance
+courte (la date d'ouverture de la fenetre, pas 2027-01-06), le temps de
+reposer l'override :
+
+| CVE | Paquet | Correctif | Publie le | Repasser l'override apres |
+|---|---|---|---|---|
+| CVE-2026-111181 | `body-parser` 1.20.8 | 1.20.9 | 2026-10-22 | 2026-11-05 |
+| CVE-2026-109869 | `undici@6` 6.28.1 | 6.29.1 | 2026-10-15 | 2026-10-29 |
