@@ -73,11 +73,9 @@
         ]
     },
     "qs": {
-        "version": "6.16.0",
+        "version": "6.16.1",
         "fixes": [
-            "GHSA-q8mj-m7cp-5q26",
-            "GHSA-4mjr-xmp4-gh2g",
-            "GHSA-x5fp-wj9c-mxmx"
+            "CVE-2026-110816"
         ]
     },
     "ws@8": {
