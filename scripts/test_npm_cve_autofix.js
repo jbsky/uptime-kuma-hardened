@@ -97,6 +97,37 @@ t('date de publication inconnue -> skip, jamais de devinette', () => {
   assert.strictEqual(d.action, 'skip');
 });
 
+// --- decide : precision a l'instant pres, pas seulement au jour pres ------
+// qs 6.16.0 -> 6.16.1 (CVE-2026-110816, releve reel) : publie le
+// 2026-10-14T22:06:17Z, min-release-age=14. Verifie le 2026-10-28T13:21:02Z
+// (13 j 15 h apres publication, pas 14 j) : `npm install` l'a refuse en
+// ETARGET (issue #50, run 40695431424) alors qu'une comparaison au jour pres
+// (10-14 + 14 j = 10-28, "aujourd'hui" tronque a 10-28 aussi) le laissait
+// passer en override. C'est ce commit, deja pousse sur main, qui a casse le
+// build-push.
+const QS = {
+  pkg: 'qs', installedVersion: '6.16.0', fixedVersionsCsv: '6.16.1',
+  overrideVersion: null, derogationExpiry: null,
+  publishDate: '2026-10-14T22:06:17.002Z', minReleaseAgeDays: 14,
+};
+
+t('horodatage complet : correctif publie tard le jour J, verifie le jour J+14 avant l\'heure -> derogation, pas override', () => {
+  const d = decide({ ...QS, today: '2026-10-28T13:21:02.000Z' });
+  assert.strictEqual(d.action, 'derogate', 'npm (meme min-release-age, horodatage precis) l\'a refuse en ETARGET');
+  assert.strictEqual(d.version, '6.16.1');
+});
+
+t('horodatage complet : meme correctif, verifie apres l\'heure de publication au jour J+14 -> override', () => {
+  const d = decide({ ...QS, today: '2026-10-28T22:06:18.000Z' });
+  assert.strictEqual(d.action, 'override');
+  assert.strictEqual(d.version, '6.16.1');
+});
+
+t('horodatage complet : largement apres la fenetre -> override (etat reel au 2026-10-29)', () => {
+  const d = decide({ ...QS, today: '2026-10-29T06:34:18.000Z' });
+  assert.strictEqual(d.action, 'override');
+});
+
 // --- cmp (ordre semver simplifie, memes regles que npm-overrides.js) -------
 
 t('cmp : ordre simple', () => {
