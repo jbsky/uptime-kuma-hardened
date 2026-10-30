@@ -133,7 +133,7 @@ count 7 app/node_modules/char-width-table-consumer/
 count 16 app/node_modules/chardet/
 count 7 app/node_modules/check-password-strength/
 count 12 app/node_modules/cheerio-select/
-count 266 app/node_modules/cheerio/
+count 105 app/node_modules/cheerio/
 count 4 app/node_modules/chownr/
 count 129 app/node_modules/chroma-js/
 count 4 app/node_modules/clean-stack/
@@ -491,6 +491,7 @@ count 5 app/node_modules/type-is/
 count 11 app/node_modules/typedarray/
 count 500 app/node_modules/underscore/
 count 3 app/node_modules/undici-types/
+count 159 app/node_modules/undici/
 count 19 app/node_modules/unique-filename/
 count 7 app/node_modules/unique-slug/
 count 4 app/node_modules/universalify/
@@ -928,7 +929,6 @@ dup 2 2223 app/node_modules/cheerio/dist/browser/parse.js app/node_modules/cheer
 dup 2 1963 app/node_modules/cheerio/dist/browser/parsers/parse5-adapter.js app/node_modules/cheerio/dist/esm/parsers/parse5-adapter.js
 dup 2 6131 app/node_modules/cheerio/dist/browser/static.js app/node_modules/cheerio/dist/esm/static.js
 dup 2 2531 app/node_modules/cheerio/dist/browser/utils.js app/node_modules/cheerio/dist/esm/utils.js
-dup 2 1090 app/node_modules/cheerio/node_modules/undici/LICENSE app/node_modules/undici-types/LICENSE
 dup 2 1080 app/node_modules/colorette/LICENSE.md app/node_modules/getopts/LICENSE.md
 dup 2 1085 app/node_modules/combined-stream/License app/node_modules/delayed-stream/License
 dup 4 1098 app/node_modules/commander/LICENSE app/node_modules/mssql/node_modules/commander/LICENSE app/node_modules/redbean-node/node_modules/commander/LICENSE app/node_modules/seek-bzip/node_modules/commander/LICENSE
@@ -1109,6 +1109,7 @@ dup 2 1599 app/node_modules/strip-ansi-cjs/readme.md app/node_modules/strip-ansi
 dup 2 1078 app/node_modules/tldts-core/LICENSE app/node_modules/tldts/LICENSE
 dup 2 19668 app/node_modules/underscore/underscore-min.js app/node_modules/underscore/underscore-umd-min.js
 dup 2 68916 app/node_modules/underscore/underscore-umd.js app/node_modules/underscore/underscore.js
+dup 2 1090 app/node_modules/undici-types/LICENSE app/node_modules/undici/LICENSE
 dup 2 1069 app/node_modules/whatwg-encoding/LICENSE.txt app/node_modules/whatwg-mimetype/LICENSE.txt
 dup 2 5772 app/node_modules/wrap-ansi-cjs/index.js app/node_modules/wrap-ansi/index.js
 dup 2 2745 app/node_modules/wrap-ansi-cjs/readme.md app/node_modules/wrap-ansi/readme.md
