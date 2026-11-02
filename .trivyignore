@@ -76,14 +76,6 @@ CVE-2026-3449 exp:2027-01-06
 # l'override en npm-overrides.json une fois la fenetre passee.
 CVE-2026-111181 exp:2026-11-06
 
-# undici@6 6.28.1 -- correctif 6.29.1 (meme majeure) publie le 2026-10-15,
-# meme blocage min-release-age=14 (fenetre ouverte a partir du 2026-10-29).
-# Le second avis (MEDIUM, sous le seuil de la porte Trivy) est le meme
-# paquet/correctif : il descend au SARIF (severite MEDIUM comprise), deroge
-# avec la meme echeance.
-CVE-2026-109869 exp:2026-10-30
-GHSA-4qv8-2p9j-2685 exp:2026-10-30
-
 # follow-redirects 1.16.1 -- correctif 1.16.2 (meme majeure) publie le
 # 2026-10-25, refuse par le `min-release-age=14` de l'amont (npm-overrides.js
 # echoue sur ETARGET avant le 2026-11-08). Pas une derogation definitive :
