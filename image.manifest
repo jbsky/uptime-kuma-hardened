@@ -1,5 +1,5 @@
 # image-manifest v3
-# image : jbsky/uptime-kuma-hardened:latest
+# image : localhost/uptime-kuma-hardened:latest
 # genere par scripts/image-manifest.py -- ne pas editer a la main
 
 f 0755 0:0 elf app/node_modules/@louislam/sqlite3/lib/binding/napi-v6-linux-x64/node_sqlite3.node
@@ -53,7 +53,7 @@ count 32 app/node_modules/.bin/
 count 729 app/node_modules/@aws-sdk/
 count 9 app/node_modules/@aws/
 count 55 app/node_modules/@azure-rest/
-count 2694 app/node_modules/@azure/
+count 2869 app/node_modules/@azure/
 count 5 app/node_modules/@gar/
 count 251 app/node_modules/@grpc/
 count 15 app/node_modules/@hey-api/
@@ -71,7 +71,7 @@ count 77 app/node_modules/@protobufjs/
 count 609 app/node_modules/@redis/
 count 122 app/node_modules/@scure/
 count 7 app/node_modules/@sindresorhus/
-count 890 app/node_modules/@smithy/
+count 918 app/node_modules/@smithy/
 count 11 app/node_modules/@socket.io/
 count 7 app/node_modules/@szmarczak/
 count 11 app/node_modules/@tediousjs/
@@ -105,13 +105,12 @@ count 11 app/node_modules/badge-maker/
 count 6 app/node_modules/balanced-match/
 count 15 app/node_modules/barse/
 count 5 app/node_modules/base64-js/
-count 6 app/node_modules/base64id/
 count 11 app/node_modules/basic-auth/
 count 5 app/node_modules/bcrypt-pbkdf/
 count 37 app/node_modules/bcryptjs/
 count 5 app/node_modules/binary-search/
 count 31 app/node_modules/bintrees/
-count 70 app/node_modules/bl/
+count 72 app/node_modules/bl/
 count 8 app/node_modules/bn.js/
 count 66 app/node_modules/body-parser/
 count 3 app/node_modules/boolbase/
@@ -133,7 +132,7 @@ count 7 app/node_modules/char-width-table-consumer/
 count 16 app/node_modules/chardet/
 count 7 app/node_modules/check-password-strength/
 count 12 app/node_modules/cheerio-select/
-count 105 app/node_modules/cheerio/
+count 266 app/node_modules/cheerio/
 count 4 app/node_modules/chownr/
 count 129 app/node_modules/chroma-js/
 count 4 app/node_modules/clean-stack/
@@ -425,7 +424,7 @@ count 8 app/node_modules/reinterval/
 count 7 app/node_modules/require-directory/
 count 7 app/node_modules/requires-port/
 count 4 app/node_modules/resolve-alpn/
-count 161 app/node_modules/resolve/
+count 158 app/node_modules/resolve/
 count 4 app/node_modules/responselike/
 count 21 app/node_modules/retry/
 count 11 app/node_modules/rfdc/
@@ -451,7 +450,7 @@ count 13 app/node_modules/smart-buffer/
 count 9 app/node_modules/socket.io-adapter/
 count 38 app/node_modules/socket.io-client/
 count 19 app/node_modules/socket.io-parser/
-count 19 app/node_modules/socket.io/
+count 21 app/node_modules/socket.io/
 count 5 app/node_modules/socks-proxy-agent/
 count 29 app/node_modules/socks/
 count 7 app/node_modules/sparse-bitfield/
@@ -491,7 +490,6 @@ count 5 app/node_modules/type-is/
 count 11 app/node_modules/typedarray/
 count 500 app/node_modules/underscore/
 count 3 app/node_modules/undici-types/
-count 159 app/node_modules/undici/
 count 19 app/node_modules/unique-filename/
 count 7 app/node_modules/unique-slug/
 count 4 app/node_modules/universalify/
@@ -523,11 +521,15 @@ count 7 app/node_modules/xtend/
 count 12 app/node_modules/y18n/
 count 5 app/node_modules/yallist/
 count 86 app/node_modules/yargs/
-count 233 app/server/
+count 230 app/server/
 count 1 app/src/
 count 3 etc/ssl/
 count 627 usr/share/
 
+dup 2 3212 app/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/codec-v2/JsonBytesStringAdapter.js app/node_modules/@smithy/core/dist-es/submodules/protocols/json/codec-v2/JsonBytesStringAdapter.js
+dup 2 1569 app/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReplacer.js app/node_modules/@smithy/core/dist-es/submodules/protocols/json/jsonReplacer.js
+dup 2 3994 app/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/jsonReviver.js app/node_modules/@smithy/core/dist-es/submodules/protocols/json/jsonReviver.js
+dup 2 1163 app/node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/needsReviver.js app/node_modules/@smithy/core/dist-es/submodules/protocols/json/needsReviver.js
 dup 11 11357 app/node_modules/@aws-sdk/credential-provider-env/LICENSE app/node_modules/@aws-sdk/credential-provider-ini/LICENSE app/node_modules/@aws-sdk/credential-provider-node/LICENSE app/node_modules/@aws-sdk/credential-providers/LICENSE app/node_modules/@aws-sdk/token-providers/LICENSE app/node_modules/@aws-sdk/types/LICENSE app/node_modules/@aws-sdk/xml-builder/LICENSE app/node_modules/@smithy/credential-provider-imds/LICENSE app/node_modules/@smithy/fetch-http-handler/LICENSE app/node_modules/@smithy/node-http-handler/LICENSE app/node_modules/@smithy/signature-v4/LICENSE
 dup 3 11352 app/node_modules/@aws-sdk/credential-provider-process/LICENSE app/node_modules/@aws-sdk/credential-provider-sso/LICENSE app/node_modules/@aws-sdk/credential-provider-web-identity/LICENSE
 dup 5 1338 app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/cognito-identity/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/signin/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso-oidc/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sso/auth/httpAuthExtensionConfiguration.js app/node_modules/@aws-sdk/nested-clients/dist-es/submodules/sts/auth/httpAuthExtensionConfiguration.js
@@ -929,6 +931,7 @@ dup 2 2223 app/node_modules/cheerio/dist/browser/parse.js app/node_modules/cheer
 dup 2 1963 app/node_modules/cheerio/dist/browser/parsers/parse5-adapter.js app/node_modules/cheerio/dist/esm/parsers/parse5-adapter.js
 dup 2 6131 app/node_modules/cheerio/dist/browser/static.js app/node_modules/cheerio/dist/esm/static.js
 dup 2 2531 app/node_modules/cheerio/dist/browser/utils.js app/node_modules/cheerio/dist/esm/utils.js
+dup 2 1090 app/node_modules/cheerio/node_modules/undici/LICENSE app/node_modules/undici-types/LICENSE
 dup 2 1080 app/node_modules/colorette/LICENSE.md app/node_modules/getopts/LICENSE.md
 dup 2 1085 app/node_modules/combined-stream/License app/node_modules/delayed-stream/License
 dup 4 1098 app/node_modules/commander/LICENSE app/node_modules/mssql/node_modules/commander/LICENSE app/node_modules/redbean-node/node_modules/commander/LICENSE app/node_modules/seek-bzip/node_modules/commander/LICENSE
@@ -961,6 +964,7 @@ dup 3 8580 app/node_modules/gamedig/node_modules/iconv-lite/encodings/utf7.js ap
 dup 3 1035 app/node_modules/gamedig/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/mysql2/node_modules/iconv-lite/lib/bom-handling.js app/node_modules/tedious/node_modules/iconv-lite/lib/bom-handling.js
 dup 3 6711 app/node_modules/gamedig/node_modules/iconv-lite/lib/index.js app/node_modules/mysql2/node_modules/iconv-lite/lib/index.js app/node_modules/tedious/node_modules/iconv-lite/lib/index.js
 dup 3 2979 app/node_modules/gamedig/node_modules/iconv-lite/lib/streams.js app/node_modules/mysql2/node_modules/iconv-lite/lib/streams.js app/node_modules/tedious/node_modules/iconv-lite/lib/streams.js
+dup 2 6073 app/node_modules/is-core-module/core.json app/node_modules/resolve/lib/core.json
 dup 2 1072 app/node_modules/jose/dist/browser/jwe/compact/decrypt.js app/node_modules/jose/dist/node/esm/jwe/compact/decrypt.js
 dup 2 7068 app/node_modules/jose/dist/browser/jwe/flattened/encrypt.js app/node_modules/jose/dist/node/esm/jwe/flattened/encrypt.js
 dup 2 7813 app/node_modules/jose/dist/browser/jwe/general/encrypt.js app/node_modules/jose/dist/node/esm/jwe/general/encrypt.js
@@ -1095,10 +1099,10 @@ dup 2 1677 app/node_modules/redbean-node/dist/lazy-load-array.js app/node_module
 dup 2 1071 app/node_modules/side-channel-weakmap/LICENSE app/node_modules/side-channel/LICENSE
 dup 2 1113 app/node_modules/socket.io-adapter/LICENSE app/node_modules/socket.io-parser/LICENSE
 dup 2 1384 app/node_modules/socket.io-client/build/esm-debug/contrib/backo2.js app/node_modules/socket.io-client/build/esm/contrib/backo2.js
-dup 2 40435 app/node_modules/socket.io-client/dist/socket.io.esm.min.js app/node_modules/socket.io/client-dist/socket.io.esm.min.js
-dup 2 155836 app/node_modules/socket.io-client/dist/socket.io.js app/node_modules/socket.io/client-dist/socket.io.js
-dup 2 46822 app/node_modules/socket.io-client/dist/socket.io.min.js app/node_modules/socket.io/client-dist/socket.io.min.js
-dup 2 50368 app/node_modules/socket.io-client/dist/socket.io.msgpack.min.js app/node_modules/socket.io/client-dist/socket.io.msgpack.min.js
+dup 2 40759 app/node_modules/socket.io-client/dist/socket.io.esm.min.js app/node_modules/socket.io/client-dist/socket.io.esm.min.js
+dup 2 153519 app/node_modules/socket.io-client/dist/socket.io.js app/node_modules/socket.io/client-dist/socket.io.js
+dup 2 47295 app/node_modules/socket.io-client/dist/socket.io.min.js app/node_modules/socket.io/client-dist/socket.io.min.js
+dup 2 50630 app/node_modules/socket.io-client/dist/socket.io.msgpack.min.js app/node_modules/socket.io/client-dist/socket.io.msgpack.min.js
 dup 2 2905 app/node_modules/socket.io-parser/build/esm-debug/binary.js app/node_modules/socket.io-parser/build/esm/binary.js
 dup 2 1576 app/node_modules/socket.io-parser/build/esm-debug/is-binary.js app/node_modules/socket.io-parser/build/esm/is-binary.js
 dup 2 1079 app/node_modules/sparse-bitfield/LICENSE app/node_modules/stream-shift/LICENSE
@@ -1109,7 +1113,6 @@ dup 2 1599 app/node_modules/strip-ansi-cjs/readme.md app/node_modules/strip-ansi
 dup 2 1078 app/node_modules/tldts-core/LICENSE app/node_modules/tldts/LICENSE
 dup 2 19668 app/node_modules/underscore/underscore-min.js app/node_modules/underscore/underscore-umd-min.js
 dup 2 68916 app/node_modules/underscore/underscore-umd.js app/node_modules/underscore/underscore.js
-dup 2 1090 app/node_modules/undici-types/LICENSE app/node_modules/undici/LICENSE
 dup 2 1069 app/node_modules/whatwg-encoding/LICENSE.txt app/node_modules/whatwg-mimetype/LICENSE.txt
 dup 2 5772 app/node_modules/wrap-ansi-cjs/index.js app/node_modules/wrap-ansi/index.js
 dup 2 2745 app/node_modules/wrap-ansi-cjs/readme.md app/node_modules/wrap-ansi/readme.md
