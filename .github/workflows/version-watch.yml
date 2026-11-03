@@ -1,12 +1,24 @@
 # =====================================================================
-#  Version Watch – Uptime Kuma Hardened
-#  Quotidien : signale une version amont plus recente, NE LA POSE PAS.
+#  Version Watch -- Uptime Kuma Hardened
+#  Quotidien : monte versions.json vers l'amont et republie -- plus de main
+#  humaine (garde-fou retire sur demande explicite, les sauvegardes
+#  couvrent le risque residuel, y compris celui des migrations knex).
 #
-#  Ecart volontaire au reste du parc, ou la veille reecrit versions.json et
-#  relance le build : une version de Kuma applique des migrations de base
-#  knex sans retour arriere, et chaque montee peut ajouter des modules natifs
-#  que le Dockerfile refuse tant qu'ils n'ont pas ete tranches (voir le garde
-#  des .node). Une montee se fait a la main, testee sur une copie de base.
+#  Meme chaine que base-watch, qui l'a eprouvee : bump -> commit -> push ->
+#  dispatch de build-push. Un push fait avec GITHUB_TOKEN ne declenche aucun
+#  `on: push` (garde anti-recursion de GitHub), d'ou le dispatch explicite.
+#
+#  uptime-kuma n'a pas de signature amont (sha256 pin seulement, comme le
+#  Dockerfile) ; iputils en a une (cle committee a cote du Dockerfile) --
+#  verifiee ICI aussi, jamais seulement au build : un sha256 recalcule sur
+#  un tarball non authentifie ne protegerait de rien.
+#
+#  Risque residuel documente a la pose de la veille d'origine (migrations
+#  knex sans retour arriere, modules natifs nouveaux que le Dockerfile peut
+#  refuser) : le Dockerfile refuse tout seul une dependance native non
+#  tranchee (build rouge, rien de promu) ; une migration qui echoue
+#  n'apparaitrait qu'au test fonctionnel (le conteneur doit devenir
+#  `healthy`), donc avant promotion aussi.
 # =====================================================================
 name: version-watch
 
@@ -14,6 +26,11 @@ on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Relever l'ecart et s'arreter la (ni commit, ni push, ni publication)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -21,70 +38,186 @@ permissions:
 
 jobs:
   check:
-    name: Check upstream versions
+    name: Monter vers l'amont
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      actions: write
     steps:
       - uses: actions/checkout@v7
 
-      - name: Compare with upstream releases
-        id: compare
+      - name: Monter uptime-kuma si besoin
+        id: kuma
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          report=""
-          check() {  # <cle versions.json> <depot amont> <nom>
-            local current latest
-            current=$(jq -r --arg k "$1" '.[$k]' versions.json)
-            latest=$(gh api "repos/$2/releases/latest" --jq .tag_name)
-            test -n "$latest" || { echo "::error::aucune release lue sur $2"; exit 1; }
-            if [ "$current" != "$latest" ]; then
-              report="${report}- $3 : ${current} -> ${latest} (https://github.com/$2/releases/tag/${latest})"$'\n'
-            fi
-            echo "- $3 : versions.json ${current}, amont ${latest}" >> "$GITHUB_STEP_SUMMARY"
-          }
-          check uptime-kuma louislam/uptime-kuma "Uptime Kuma"
-          check iputils iputils/iputils "iputils"
-          {
-            echo "report<<EOF"
-            printf '%s' "$report"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          current=$(jq -r '.["uptime-kuma"]' versions.json)
+          latest=$(gh api "repos/louislam/uptime-kuma/releases/latest" --jq .tag_name)
+          test -n "$latest" || { echo "::error::aucune release lue sur louislam/uptime-kuma"; exit 1; }
+          echo "- Uptime Kuma : versions.json ${current}, amont ${latest}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${current}" = "${latest}" ]; then
+            echo "change=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "change=true" >> "$GITHUB_OUTPUT"
+          echo "cible=${latest}" >> "$GITHUB_OUTPUT"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "--dry-run : ${current} -> ${latest}, rien ecrit."
+            exit 0
+          fi
+          tarball="${RUNNER_TEMP}/kuma.tar.gz"
+          curl -fsSL "https://github.com/louislam/uptime-kuma/archive/refs/tags/${latest}.tar.gz" -o "$tarball"
+          sha256=$(sha256sum "$tarball" | cut -d' ' -f1)
+          jq --arg v "${latest}" --arg h "${sha256}" \
+            '.["uptime-kuma"] = $v | .["uptime-kuma_sha256"] = $h' versions.json > "${RUNNER_TEMP}/versions.json"
+          mv "${RUNNER_TEMP}/versions.json" versions.json
 
-      # Un seul chemin pour les deux cas : la veille OUVRE quand il y a un
-      # ecart, et FERME quand il n'y en a plus. Sans la fermeture, l'issue
-      # survit a la montee qu'elle demandait et le depot garde une issue
-      # ouverte qui ment (constate le 2026-10-24 : #38 toujours ouverte sur
-      # une branche deja passee en 2.5.7, qu'elle reclamait).
-      - name: Open, update or close the issue
+          # Un override devenu inutile avec la CIBLE casserait `apply` au
+          # build (il refuse de retrograder, donc il erreur et rien n'est
+          # promu) -- le retirer ici, dans le MEME commit que la montee,
+          # contre le lockfile reel de la cible extrait du tarball deja
+          # verifie (jamais un second telechargement non authentifie).
+          tar -xzf "$tarball" --wildcards -O '*/package-lock.json' > "${RUNNER_TEMP}/package-lock.json"
+          node scripts/npm-overrides.js prune npm-overrides.json "${RUNNER_TEMP}/package-lock.json" | tee "${RUNNER_TEMP}/prune-kuma.txt"
+
+      - name: Monter iputils si besoin
+        id: iputils
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          IPUTILS_FPR: 2016FEA4858B1C36B32E833AC0DEC2EE72F33A5F
+        run: |
+          set -euo pipefail
+          current=$(jq -r '.iputils' versions.json)
+          latest=$(gh api "repos/iputils/iputils/releases/latest" --jq .tag_name)
+          test -n "$latest" || { echo "::error::aucune release lue sur iputils/iputils"; exit 1; }
+          echo "- iputils : versions.json ${current}, amont ${latest}" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${current}" = "${latest}" ]; then
+            echo "change=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "change=true" >> "$GITHUB_OUTPUT"
+          echo "cible=${latest}" >> "$GITHUB_OUTPUT"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "--dry-run : ${current} -> ${latest}, rien ecrit."
+            exit 0
+          fi
+          base="https://github.com/iputils/iputils/releases/download/${latest}/iputils-${latest}.tar.xz"
+          tarball="${RUNNER_TEMP}/iputils.tar.xz"
+          curl -fsSL "${base}" -o "$tarball"
+          curl -fsSL "${base}.asc" -o "${tarball}.asc"
+          # La signature amont est le VRAI ancrage de confiance (comme au
+          # build) : jamais un sha256 recalcule sur un tarball non
+          # authentifie. Le sha256 pin n'est qu'une redondance, posee APRES.
+          GNUPGHOME="$(mktemp -d)"
+          export GNUPGHOME
+          gpg --batch --import "keys/iputils-${IPUTILS_FPR}.asc"
+          gpg --batch --status-file "${RUNNER_TEMP}/gpg.status" --verify "${tarball}.asc" "$tarball"
+          grep -q "^\[GNUPG:\] VALIDSIG .* ${IPUTILS_FPR}\$" "${RUNNER_TEMP}/gpg.status"
+          gpgconf --kill gpg-agent
+          rm -rf "$GNUPGHOME" "${RUNNER_TEMP}/gpg.status"
+          sha256=$(sha256sum "$tarball" | cut -d' ' -f1)
+          jq --arg v "${latest}" --arg h "${sha256}" \
+            '.iputils = $v | .iputils_sha256 = $h' versions.json > "${RUNNER_TEMP}/versions.json"
+          mv "${RUNNER_TEMP}/versions.json" versions.json
+
+      # Cette image embarque node_modules en clair (pas un binaire statique
+      # comme traefik-hardened) : une montee de version y deplace presque
+      # toujours des comptes de fichiers / empreintes de doublons -- le job
+      # `Functional tests` de build-push le REFUSE sinon (ECHEC constate en
+      # PR sur la cible 2.5.9 : @azure, cheerio, socket.io... tous deplaces).
+      # Le regenerer ici, AVANT le commit, c'est exactement la procedure
+      # manuelle documentee ("make build" + "image-manifest.py --generate"),
+      # juste jouee par la veille au lieu d'un humain. image-manifest.py vit
+      # dans jbsky/hardened-ci (outillage partage), jamais dans ce depot --
+      # meme pin que build-push.yml : si ce pin bouge, celui-ci doit suivre
+      # dans le MEME commit, sinon les deux manifestes divergent en silence.
+      - name: hardened-ci a la ref de build-push.yml
+        if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
+        uses: actions/checkout@v7
+        with:
+          repository: jbsky/hardened-ci
+          ref: 6ace661b63b5fc0f82bbf930037851c64e5af9e8 # v1.4.7, memo que build-push.yml
+          path: .hardened-ci
+
+      - name: Reconstruire et regenerer le manifeste si besoin
+        if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
+        run: |
+          set -euo pipefail
+          # Le mode bake de ce `docker compose` exige un `--allow` explicite
+          # pour toute source de secret HORS du contexte de build -- vu avec
+          # /dev/null ET avec un fichier sous RUNNER_TEMP (jamais en local,
+          # aucune CI n'avait encore appele `make build`). Un fichier vide
+          # DANS le depot (donc dans le contexte) ne le demande pas.
+          CA_CERTS="$(pwd)/.ca-vide.crt"
+          : > "$CA_CERTS"
+          export CA_CERTS
+          make build
+          rm -f "$CA_CERTS"
+          python3 .hardened-ci/scripts/image-manifest.py --generate localhost/uptime-kuma-hardened:latest -o image.manifest
+          rm -rf .hardened-ci
+
+      - name: Commit, push et dispatch
+        if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          sujet=""
+          corps=""
+          if [ "${{ steps.kuma.outputs.change }}" = "true" ]; then
+            sujet="uptime-kuma ${{ steps.kuma.outputs.cible }}"
+            corps="${corps}uptime-kuma : $(jq -r '.["uptime-kuma"]' versions.json) (montee automatique)"$'\n'
+            if [ -s "${RUNNER_TEMP}/prune-kuma.txt" ] && ! grep -q "aucun override" "${RUNNER_TEMP}/prune-kuma.txt"; then
+              corps="${corps}Overrides npm retires (devenus inutiles) :"$'\n'"$(cat "${RUNNER_TEMP}/prune-kuma.txt")"$'\n'
+            fi
+          fi
+          if [ "${{ steps.iputils.outputs.change }}" = "true" ]; then
+            sujet="${sujet:+${sujet}, }iputils ${{ steps.iputils.outputs.cible }}"
+            corps="${corps}iputils : $(jq -r '.iputils' versions.json) (montee automatique, signature GPG verifiee)"$'\n'
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add versions.json npm-overrides.json image.manifest
+          git commit -m "build(deps): ${sujet}" -m "${corps}Montee automatique (version-watch)."
+          pousse=false
+          for essai in 1 2 3; do
+            if git push; then pousse=true; break; fi
+            echo "push refuse (essai ${essai}) -- rebase sur l'origine"
+            git pull --rebase --autostash
+          done
+          if [ "$pousse" != true ]; then
+            echo "::error::push impossible apres 3 essais"
+            exit 1
+          fi
+          gh workflow run build-push.yml --ref main -R "$GITHUB_REPOSITORY"
+
+      # Un seul chemin pour les deux cas : la veille ferme l'issue si elle
+      # vient de monter (ou si l'ecart a disparu sans elle), et n'en ouvre
+      # plus jamais une qui demanderait une action humaine deja faite.
+      - name: Fermer l'issue de veille si elle est encore ouverte
+        if: inputs.dry_run != true
         uses: actions/github-script@v9
         env:
-          REPORT: ${{ steps.compare.outputs.report }}
+          KUMA_CHANGE: ${{ steps.kuma.outputs.change }}
+          IPUTILS_CHANGE: ${{ steps.iputils.outputs.change }}
+          KUMA_CIBLE: ${{ steps.kuma.outputs.cible }}
+          IPUTILS_CIBLE: ${{ steps.iputils.outputs.cible }}
         with:
           script: |
             const title = '[Veille] Version amont disponible';
-            const report = process.env.REPORT;
             const open = await github.rest.issues.listForRepo({
               owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 50,
             });
             const existing = open.data.find(i => i.title === title);
+            if (!existing) return;
             const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            if (!report) {
-              if (existing) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number,
-                  body: `versions.json est a jour : plus aucun ecart avec l'amont.\n\n[Execution](${run})`,
-                });
-                await github.rest.issues.update({
-                  owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, state: 'closed',
-                });
-              }
-              return;
-            }
-            const body = `${report}\nMontee manuelle : versions.json (version + sha256 dans le meme commit), `
-              + `build, scripts/test.sh, essai sur une copie de base avant publication.`;
-            if (!existing) {
-              await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body });
-            } else if (existing.body !== body) {
-              await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, body });
-            }
+            const monte = [];
+            if (process.env.KUMA_CHANGE === 'true') monte.push(`Uptime Kuma -> ${process.env.KUMA_CIBLE}`);
+            if (process.env.IPUTILS_CHANGE === 'true') monte.push(`iputils -> ${process.env.IPUTILS_CIBLE}`);
+            const body = monte.length
+              ? `Montee automatique declenchee : ${monte.join(', ')}.\n\n[Execution](${run})`
+              : `versions.json est a jour : plus aucun ecart avec l'amont.\n\n[Execution](${run})`;
+            await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, body });
+            await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, state: 'closed' });
