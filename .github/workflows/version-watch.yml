@@ -122,6 +122,33 @@ jobs:
             '.iputils = $v | .iputils_sha256 = $h' versions.json > "${RUNNER_TEMP}/versions.json"
           mv "${RUNNER_TEMP}/versions.json" versions.json
 
+      # Cette image embarque node_modules en clair (pas un binaire statique
+      # comme traefik-hardened) : une montee de version y deplace presque
+      # toujours des comptes de fichiers / empreintes de doublons -- le job
+      # `Functional tests` de build-push le REFUSE sinon (ECHEC constate en
+      # PR sur la cible 2.5.9 : @azure, cheerio, socket.io... tous deplaces).
+      # Le regenerer ici, AVANT le commit, c'est exactement la procedure
+      # manuelle documentee ("make build" + "image-manifest.py --generate"),
+      # juste jouee par la veille au lieu d'un humain. image-manifest.py vit
+      # dans jbsky/hardened-ci (outillage partage), jamais dans ce depot --
+      # meme pin que build-push.yml : si ce pin bouge, celui-ci doit suivre
+      # dans le MEME commit, sinon les deux manifestes divergent en silence.
+      - name: hardened-ci a la ref de build-push.yml
+        if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
+        uses: actions/checkout@v7
+        with:
+          repository: jbsky/hardened-ci
+          ref: 6ace661b63b5fc0f82bbf930037851c64e5af9e8 # v1.4.7, memo que build-push.yml
+          path: .hardened-ci
+
+      - name: Reconstruire et regenerer le manifeste si besoin
+        if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
+        run: |
+          set -euo pipefail
+          make build
+          python3 .hardened-ci/scripts/image-manifest.py --generate localhost/uptime-kuma-hardened:latest -o image.manifest
+          rm -rf .hardened-ci
+
       - name: Commit, push et dispatch
         if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
         env:
@@ -143,7 +170,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add versions.json npm-overrides.json
+          git add versions.json npm-overrides.json image.manifest
           git commit -m "build(deps): ${sujet}" -m "${corps}Montee automatique (version-watch)."
           pousse=false
           for essai in 1 2 3; do
