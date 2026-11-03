@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 // Overrides npm de securite, appliques au stage `deps` (cf. SECURITY.md).
 //
-//   npm-overrides.js apply  <dir> <npm-overrides.json>   avant `npm install`
-//   npm-overrides.js verify <dir> <npm-overrides.json>   apres
+//   npm-overrides.js apply  <dir> <npm-overrides.json>              avant `npm install`
+//   npm-overrides.js verify <dir> <npm-overrides.json>              apres
+//   npm-overrides.js prune  <npm-overrides.json> <package-lock.json>
 //
 // Une cle vaut `nom` (toutes les copies) ou `nom@majeure` (les copies de
 // cette majeure seulement : brace-expansion 1 et 2 cohabitent dans l'arbre).
@@ -11,11 +12,50 @@
 // amont deja a la version epinglee ou au-dela : l'appliquer quand meme
 // retrograderait. La liste ne garde ainsi que ce que l'amont n'a pas corrige.
 // verify refuse un arbre ou une copie visee n'est pas a la version epinglee.
+//
+// prune retire du fichier les entrees devenues inutiles au lieu de les
+// signaler en erreur -- a lancer AVANT `apply`, par version-watch.yml,
+// contre le lockfile de la CIBLE d'une montee automatique (une montee
+// manuelle de versions.json qui oublierait de retirer l'entree casserait
+// sinon `apply` au prochain build, sans rien committer de faux entre-temps :
+// meme risque documente dans le SECURITY.md de traefik-hardened pour
+// go-overrides.json).
 "use strict";
 const fs = require("fs");
 const path = require("path");
 
-const [mode, dir, ovPath] = process.argv.slice(2);
+const [mode, ...rest] = process.argv.slice(2);
+if (mode === "prune") {
+    const [ovPath, lockPath] = rest;
+    if (!ovPath || !lockPath) {
+        console.error("usage : npm-overrides.js prune <npm-overrides.json> <package-lock.json>");
+        process.exit(2);
+    }
+    const overrides = JSON.parse(fs.readFileSync(ovPath, "utf8"));
+    const lock = JSON.parse(fs.readFileSync(lockPath, "utf8")).packages;
+    const restantes = {};
+    const retirees = [];
+    for (const [key, entry] of Object.entries(overrides)) {
+        const sel = parseKey(key);
+        const locked = Object.entries(lock)
+            .filter(([p, v]) => p && !v.dev && matches(sel, p.split("node_modules/").pop(), v.version))
+            .map(([, v]) => v.version);
+        if (locked.length && locked.every((v) => cmp(v, entry.version) >= 0)) {
+            retirees.push(`${key} : l'amont fournit deja ${[...new Set(locked)].join(", ")} (>= ${entry.version})`);
+            continue;
+        }
+        restantes[key] = entry;
+    }
+    if (retirees.length) {
+        fs.writeFileSync(ovPath, JSON.stringify(restantes, null, 4) + "\n");
+        console.log(retirees.join("\n"));
+    } else {
+        console.log("prune : aucun override devenu inutile.");
+    }
+    process.exit(0);
+}
+
+const [dir, ovPath] = rest;
 if (!["apply", "verify"].includes(mode) || !dir || !ovPath) {
     console.error("usage : npm-overrides.js apply|verify <dir> <npm-overrides.json>");
     process.exit(2);
