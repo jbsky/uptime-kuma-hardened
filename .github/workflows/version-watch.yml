@@ -145,6 +145,14 @@ jobs:
         if: (steps.kuma.outputs.change == 'true' || steps.iputils.outputs.change == 'true') && inputs.dry_run != true
         run: |
           set -euo pipefail
+          # Le defaut du compose (CA_CERTS:-/dev/null, pour un proxy qui
+          # dechiffre le TLS en local) fait refuser le secret par BuildKit
+          # sur ce runner ("additional privileges requested" -- jamais vu en
+          # local, aucune CI n'avait encore appele `make build`) : un
+          # fichier vide reel, jamais /dev/null.
+          CA_CERTS="${RUNNER_TEMP}/ca-vide.crt"
+          : > "$CA_CERTS"
+          export CA_CERTS
           make build
           python3 .hardened-ci/scripts/image-manifest.py --generate localhost/uptime-kuma-hardened:latest -o image.manifest
           rm -rf .hardened-ci
