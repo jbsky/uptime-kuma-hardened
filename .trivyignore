@@ -45,6 +45,7 @@ GHSA-8c8m-p3m8-cjg8 exp:2027-01-06
 GHSA-85x2-q946-cp5h exp:2027-01-06
 GHSA-cc9r-2j5m-2m83 exp:2027-01-06
 GHSA-wmmp-3585-3rmp exp:2027-01-06
+GHSA-g73g-hqqh-jr95 exp:2027-01-06
 # injection CRLF dans les en-tetes et les commandes SMTP
 GHSA-268h-hp4c-crq3 exp:2027-01-06
 GHSA-vvjj-xcjg-gr5g exp:2027-01-06
@@ -75,3 +76,16 @@ CVE-2026-3449 exp:2027-01-06
 # echoue sur ETARGET avant le 2026-11-08). Pas une derogation definitive :
 # repasser l'override en npm-overrides.json une fois la fenetre passee.
 CVE-2026-116689 exp:2026-11-09
+
+# minimatch 9.0.9 (sous redbean-node/glob@10) -- correctif en 11.x, deux
+# majeures. Verifie sur le code reel de redbean-node (lib/redbean-node.ts,
+# tag 2.5.9) : seul appel `glob.sync(dir + "/*" + ext)`, sur un chemin de
+# modele local fixe -- jamais un pattern fourni par un attaquant. L'avis
+# (amplification de pattern -> DoS) exige un pattern controle, absent ici.
+CVE-2026-118764 exp:2027-01-06
+
+# glob 10.5.0 (nested sous redbean-node) -- correctif en 14.x, quatre
+# majeures. Meme appel que ci-dessus (`glob.sync`, sans 2e argument) :
+# l'avis (contournement d'AbortSignal apres timeout) exige que l'appelant
+# passe une option `signal`, jamais le cas ici.
+CVE-2026-118773 exp:2027-01-06
