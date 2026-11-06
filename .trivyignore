@@ -70,12 +70,6 @@ CVE-2026-109461 exp:2027-01-06
 # Avis LOW (CVSS 3.3), portee de flux de controle incorrecte.
 CVE-2026-3449 exp:2027-01-06
 
-# body-parser 1.20.8 -- correctif 1.20.9 (meme majeure) publie le 2026-10-22,
-# refuse par le `min-release-age=14` de l'amont (npm-overrides.js echoue sur
-# ETARGET avant le 2026-11-05). Pas une derogation definitive : repasser
-# l'override en npm-overrides.json une fois la fenetre passee.
-CVE-2026-111181 exp:2026-11-06
-
 # follow-redirects 1.16.1 -- correctif 1.16.2 (meme majeure) publie le
 # 2026-10-25, refuse par le `min-release-age=14` de l'amont (npm-overrides.js
 # echoue sur ETARGET avant le 2026-11-08). Pas une derogation definitive :
