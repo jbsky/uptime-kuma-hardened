@@ -14,6 +14,12 @@
             "GHSA-x97p-jq2g-jp4f"
         ]
     },
+    "body-parser": {
+        "version": "1.20.9",
+        "fixes": [
+            "CVE-2026-111181"
+        ]
+    },
     "glob@10": {
         "version": "10.5.0",
         "fixes": [
