@@ -41,9 +41,6 @@ ignore:
   - { vulnerability: GHSA-xcx6-jx8p-x3h5, package: { name: "@azure/msal-node", version: 5.6.0, type: npm } }
   # @tootallnate/once 1.1.2 -- via http-proxy-agent, avis LOW
   - { vulnerability: GHSA-vpq2-c234-7xj6, package: { name: "@tootallnate/once", version: 1.1.2, type: npm } }
-  # follow-redirects 1.16.1 -- correctif trop recent (min-release-age=14),
-  # cf. .trivyignore. A retirer avec lui une fois l'override repose.
-  - { vulnerability: GHSA-mrwp-f3q8-3g9p, package: { name: follow-redirects, version: 1.16.1, type: npm } }
   # minimatch 9.0.9 / glob 10.5.0 (sous redbean-node) -- glob.sync() appele
   # sur un chemin local fixe, sans pattern attaquant ni option `signal`,
   # cf. .trivyignore.
