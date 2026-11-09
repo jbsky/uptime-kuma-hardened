@@ -20,6 +20,12 @@
             "CVE-2026-111181"
         ]
     },
+    "follow-redirects": {
+        "version": "1.16.2",
+        "fixes": [
+            "CVE-2026-116689"
+        ]
+    },
     "glob@10": {
         "version": "10.5.0",
         "fixes": [
