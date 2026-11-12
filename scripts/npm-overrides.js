@@ -11,7 +11,12 @@
 // apply refuse un override devenu inutile -- paquet absent du lockfile, ou
 // amont deja a la version epinglee ou au-dela : l'appliquer quand meme
 // retrograderait. La liste ne garde ainsi que ce que l'amont n'a pas corrige.
-// verify refuse un arbre ou une copie visee n'est pas a la version epinglee.
+// Quand les copies d'un meme paquet ne sont pas toutes au meme niveau (qs 6.16.2
+// sous express, 6.14.3 a la racine), apply epingle la plus haute entre
+// l'override et ce que l'amont fournit deja : epingler la version de
+// l'override ferait redescendre les copies saines, et npm ne le fait pas.
+// verify refuse un arbre ou une copie visee est SOUS la version de l'override
+// (au-dessus, c'est un correctif plus recent : sain, jamais un echec).
 //
 // prune retire du fichier les entrees devenues inutiles au lieu de les
 // signaler en erreur -- a lancer AVANT `apply`, par version-watch.yml,
@@ -106,13 +111,15 @@ if (mode === "apply") {
             errors.push(`${key} : l'amont fournit deja ${[...new Set(locked)].join(", ")} (>= ${version}), override a retirer`);
             continue;
         }
+        // Jamais en dessous de ce que l'amont fournit deja sur une copie.
+        const pin = locked.reduce((hi, v) => (cmp(v, hi) > 0 ? v : hi), version);
         // npm refuse un override sur une dependance directe dont la
         // declaration ne correspond pas : la declaration suit l'override.
         if (pkg.dependencies && pkg.dependencies[sel.name]) {
-            pkg.dependencies[sel.name] = version;
+            pkg.dependencies[sel.name] = pin;
         }
-        pkg.overrides[key] = version;
-        console.log(`${key} : ${[...new Set(locked)].join(", ")} -> ${version}`);
+        pkg.overrides[key] = pin;
+        console.log(`${key} : ${[...new Set(locked)].join(", ")} -> ${pin}`);
     }
     if (errors.length === 0) {
         fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 4) + "\n");
@@ -144,8 +151,8 @@ if (mode === "apply") {
         if (copies.length === 0) {
             errors.push(`${key} : aucune copie installee`);
         }
-        for (const c of copies.filter((c) => c.version !== version)) {
-            errors.push(`${key} : ${c.where} est en ${c.version}, attendu ${version}`);
+        for (const c of copies.filter((c) => cmp(c.version, version) < 0)) {
+            errors.push(`${key} : ${c.where} est en ${c.version}, attendu >= ${version}`);
         }
     }
     if (errors.length === 0) {
