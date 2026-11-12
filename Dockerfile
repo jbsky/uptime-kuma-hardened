@@ -345,3 +345,4 @@ HEALTHCHECK --interval=60s --timeout=30s --start-period=180s --retries=5 \
     CMD ["/usr/local/bin/init", "--healthcheck"]
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/init"]
+# cve-rebuild 2026-11-12 CVE-2026-123863, CVE-2026-123864, CVE-2026-123865, CVE-2026-123866, CVE-2026-123872, CVE-2026-123874 (+1) -- paquets Alpine corriges, pris par apk upgrade du stage prep (cve-watch run 43232099473)
