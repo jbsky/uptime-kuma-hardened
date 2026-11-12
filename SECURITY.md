@@ -33,8 +33,15 @@ mineure). Chaque entree nomme les avis qu'elle corrige. Deux gardes, au build
 
 - `apply` echoue si l'amont a rattrape la version epinglee (ou si le paquet a
   disparu) : l'override se retire, il ne retrograde jamais ;
-- `verify` echoue si une copie visee n'est pas a la version epinglee apres
-  `npm install`.
+- `verify` echoue si une copie visee est **sous** la version de l'override
+  apres `npm install` (au-dessus : correctif plus recent, sain).
+
+Quand les copies d'un meme paquet ne sont pas au meme niveau dans le lockfile
+de l'amont (2.5.11 : `qs` 6.16.2 sous `express`, 6.14.3 a la racine, correctif
+6.16.1), `apply` epingle la **plus haute** des deux : epingler 6.16.1 aurait
+fait redescendre les copies saines, que npm laisse en place, et l'ancien
+`verify` (egalite stricte) cassait le build. Teste par
+`scripts/test_npm_overrides.js`.
 
 Le `.npmrc` de l'amont reste en vigueur : `min-release-age=14`, aucune version
 publiee depuis moins de 14 jours n'entre dans l'image. Ecart le plus large :
