@@ -1,34 +1,94 @@
 # Uptime Kuma Hardened
 
 [![Build](https://github.com/jbsky/uptime-kuma-hardened/actions/workflows/build-push.yml/badge.svg)](https://github.com/jbsky/uptime-kuma-hardened/actions/workflows/build-push.yml)
-[![Hardening](https://img.shields.io/badge/hardening-platine-blueviolet)](#ce-qui-est-embarque-et-dou-ca-vient)
+[![Docker Hub](https://img.shields.io/docker/v/jbsky/uptime-kuma-hardened?sort=semver&label=Docker%20Hub)](https://hub.docker.com/r/jbsky/uptime-kuma-hardened)
+[![Hardening](https://img.shields.io/badge/hardening-platine-blueviolet)](https://github.com/jbsky/uptime-kuma-hardened#hardening)
 
-Image [Uptime Kuma](https://github.com/louislam/uptime-kuma) <!--v:uptime-kuma-hardened-->2.5.12<!--/v-->
-durcie : `FROM scratch`, init Go statique, tini en PID 1, aucun shell, aucun
-gestionnaire de paquets. Pensee pour un deploiement Podman sur VyOS.
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) <!--v:uptime-kuma-hardened-->2.5.12<!--/v-->
+in a `FROM scratch` image: static Go init, `tini` as PID 1, no shell, no
+package manager. Meant for a Podman deployment on VyOS.
 
-|  | Image officielle `louislam/uptime-kuma:2` | Cette image |
+| | Official `louislam/uptime-kuma:2` image | This image |
 |---|---|---|
-| Taille | 1,73 Go | **188 Mo** |
+| Size | 1.73 GB | **188 MB** |
 | Base | Debian bookworm | `FROM scratch` |
-| Shell, apt, sudo | oui | non |
-| Utilisateur | root | `3001:3001` |
-| Teste sous `cap_drop: ALL`, lecture seule, `no-new-privileges` | -- | oui (`scripts/test.sh`) |
-| SQLite embarque par le module natif | 3.41.1 (mars 2023, binaire precompile) | 3.53.4 (Alpine, lie dynamiquement) |
-| Frontend `dist/` | fourni tout fait par la release | reconstruit depuis le tag |
+| Shell, apt, sudo | yes | no |
+| User | root | `3001:3001` |
+| Tested under `cap_drop: ALL`, read-only, `no-new-privileges` | -- | yes (`scripts/test.sh`) |
+| SQLite embedded by the native module | 3.41.1 (March 2023, prebuilt binary) | 3.53.4 (Alpine, dynamically linked) |
+| Frontend `dist/` | shipped prebuilt by the release | rebuilt from the tag |
 
-Essai sur une copie d'une base de production (64 sondes, meme version) : chaque
-type de sonde utilise -- http, keyword, dns, ping, port -- remonte au vert, et
-chaque ecart avec l'instance d'origine s'explique par la position reseau du banc
-(la meme cible est injoignable depuis un conteneur Alpine nu sur le meme pont).
-Memoire residente : ~300 Mio apres cinq minutes.
+Trial on a copy of a production database (64 monitors, same version): every
+monitor type in use -- http, keyword, dns, ping, port -- comes back green, and
+every difference with the original instance is explained by the network
+position of the test bench (the same target is unreachable from a bare Alpine
+container on the same bridge). Resident memory: ~300 MiB after five minutes.
+
+## What is built
+
+| Component | Origin | Verification |
+|---|---|---|
+| Uptime Kuma (server + frontend) | archive of the GitHub tag, built here (`npm ci` on the lockfile, `vite build`; security overrides in production, see `SECURITY.md`) | sha256 pinned in `versions.json` |
+| `@louislam/sqlite3` | built from its sources, linked to the system SQLite | the build fails if the module does not reference `libsqlite3.so` or is not BIND_NOW |
+| `ping` (iputils) | built from source, without libcap, without setuid | GPG signature, fingerprint pinned in the Dockerfile |
+| Node.js | Alpine `nodejs` package (a floor, like musl) | see below |
+| init | static Go, `CGO_ENABLED=0` | `go vet` + `go test` |
+
+**Why Node is not recompiled.** Measured on the Alpine 24.18.1 package: PIE,
+full RELRO, BIND_NOW, NX stack, canary, `-O2`, LTO. Those are the flags we
+would apply: recompiling adds none of them, grows the binary (OpenSSL and ICU
+embedded instead of shared) and makes OpenSSL fixes wait for a Node release
+rather than for Alpine. Alpine shipped the 24.18.1 security release two days
+after upstream.
+
+Libraries are copied from a closure resolved at build time (`lddtree`), never
+`/lib` or `/usr/lib` wholesale. What no closure sees is copied by name: the
+ICU data (read by path), OpenSSL's CA store, `zoneinfo`. The `prep` stage runs
+node, Intl with a time zone, the sqlite3 module and ping **inside the final
+rootfs** before publishing it.
+
+`node_modules` is upstream's, with no package pruning: only source maps and
+TypeScript declarations are removed (62 MB, never read at runtime). npm
+dependencies with a known fix are forced through
+[`npm-overrides.json`](npm-overrides.json), maintained by `npm-cve-watch`.
+
+### What is left out
+
+| Removed | Consequence |
+|---|---|
+| Chromium | no local "Real Browser" monitor -- a Remote Browser still works |
+| Embedded MariaDB | `embedded-mariadb` is refused at startup; SQLite or an external MariaDB |
+| apprise | no Apprise notification; the others (SMTP, Home Assistant, webhook...) are JavaScript |
+| cloudflared | no built-in Cloudflare tunnel |
+| tailscale, sip | monitors hidden in the interface (`UPTIME_KUMA_IS_CONTAINER=1`) |
+| shell, sudo, nscd | Kuma logs "Failed to start nscd" at startup: harmless |
+
+## Hardening
+
+Tier **platine** (OCI label `security.hardening.tier`): a `FROM scratch` image
+with no shell and no package manager, a non-root user, a static Go init behind
+`tini` as PID 1, and binaries built with hardening flags.
+
+- Non-root user `3001:3001`; tested under `cap_drop: ALL`, read-only rootfs
+  and `no-new-privileges`.
+- `ping` has **no capability** and no setuid bit: it opens an ICMP datagram
+  socket, allowed by `net.ipv4.ping_group_range` (see [Usage](#usage)).
+- Native code (sqlite3 module, iputils) built with `-fstack-protector-strong`,
+  `-fstack-clash-protection`, `_FORTIFY_SOURCE=2`, full RELRO; the build fails
+  if the sqlite3 module is not BIND_NOW.
+- Libraries copied from a dependency closure resolved at build time
+  (`lddtree`), never `/lib` or `/usr/lib` wholesale.
+- The init checks with a real write that the data directory belongs to
+  `3001:3001`, and refuses to start otherwise, with the fix in the message.
 
 ## Tags
 
-Trois tags : `latest` (dernier build de `main`), la version amont seule, et la
-version amont suffixee d'un **compteur de revision**. Les deux premiers sont
-**reecrits en place** a chaque rebuild -- mise a jour Alpine, correctif, changement
-du Dockerfile. **En production, epinglez le tag qui porte le compteur.**
+Every image is published under three tags: `latest` (last build of `main`),
+the upstream version alone, and the upstream version followed by a **revision
+counter**. The first two are **overwritten in place** on every rebuild (Alpine
+update, CVE fix, configuration change), and the build they pointed to can no
+longer be pulled by them. **In production, pin the tag that carries the
+counter.**
 
 <!-- BEGIN:tags (genere par la CI -- ne pas editer a la main) -->
 | Image | Version amont | Tag immuable a epingler |
@@ -36,62 +96,30 @@ du Dockerfile. **En production, epinglez le tag qui porte le compteur.**
 | `jbsky/uptime-kuma-hardened` | `2.5.12` | `2.5.12.0` |
 <!-- END:tags -->
 
-Images publiees sur `ghcr.io/jbsky/uptime-kuma-hardened` (signees par cosign,
-OIDC sans cle, avec attestation SLSA) et sur Docker Hub `jbsky/uptime-kuma-hardened`.
-Ce tableau, la version citee en tete et les tags des exemples sont rendus par
-`update-readme-tags.sh` (jbsky/hardened-ci) apres chaque publication.
+This table, the versions quoted in the text and the tags in the examples are
+rendered by `update-readme-tags.sh` ([hardened-ci](https://github.com/jbsky/hardened-ci))
+after each publication: do not edit them by hand.
 
-```bash
-cosign verify ghcr.io/jbsky/uptime-kuma-hardened:latest \
-  --certificate-identity-regexp '^https://github.com/(jbsky/uptime-kuma-hardened|jbsky/hardened-ci)/' \
-  --certificate-github-workflow-repository jbsky/uptime-kuma-hardened \
-  --certificate-oidc-issuer https://token.actions.githubusercontent.com
-```
+The counter counts the commits that touch the image inputs (the `revision`
+list of [`.github/hardened-ci.json`](.github/hardened-ci.json)) since the last
+upstream version change, and restarts at `0` with each new upstream version. A
+commit that only touches `.github/` does not increment it.
 
-## Ce qui est embarque, et d'ou ca vient
+`docker.io` and `ghcr.io` publish the same tags with the same digest, for
+`linux/amd64` only for now. Each registry keeps the last six immutable tags of
+an image, so that superseded builds do not stay pullable: move your pin
+forward.
 
-| Composant | Origine | Verification |
-|---|---|---|
-| Uptime Kuma (serveur + frontend) | archive du tag GitHub, construite ici (`npm ci` sur le lockfile, `vite build` ; overrides de securite en production, cf. `SECURITY.md`) | sha256 epingle dans `versions.json` |
-| `@louislam/sqlite3` | compile depuis ses sources, lie au SQLite du systeme | le build echoue si le module ne reference pas `libsqlite3.so` ou n'est pas en BIND_NOW |
-| `ping` (iputils) | compile depuis les sources, sans libcap, sans setuid | signature GPG, empreinte epinglee dans le Dockerfile |
-| Node.js | paquet Alpine `nodejs` (plancher, comme musl) | voir ci-dessous |
-| init | Go statique, `CGO_ENABLED=0` | `go vet` + `go test` |
+`version-watch` checks upstream daily, bumps `versions.json` and republishes,
+with no manual step: backups cover the residual risk, knex migrations
+included.
 
-**Pourquoi Node n'est pas recompile.** Mesure faite sur le paquet Alpine 24.18.1 :
-PIE, Full RELRO, BIND_NOW, pile NX, canari, `-O2`, LTO. Ce sont les flags qu'on
-appliquerait : recompiler n'en ajoute aucun, grossit le binaire (OpenSSL et ICU
-embarques au lieu de partages) et fait attendre les correctifs OpenSSL d'une
-release Node plutot que d'Alpine. Alpine a publie la release de securite 24.18.1
-deux jours apres l'amont.
-
-Les bibliotheques sont copiees depuis une cloture resolue au build (`lddtree`),
-jamais `/lib` ni `/usr/lib` en bloc. Ce qu'aucune cloture ne voit est copie
-nommement : les donnees ICU (lues par chemin), le magasin de CA d'OpenSSL,
-`zoneinfo`. Le stage `prep` execute node, Intl avec un fuseau horaire, le module
-sqlite3 et ping **dans le rootfs final** avant de le publier.
-
-`node_modules` est celui de l'amont, sans elagage de paquets : seuls les source
-maps et les declarations TypeScript sont retires (62 Mo, jamais lus a
-l'execution).
-
-## Ce qui n'y est pas
-
-| Retire | Consequence |
-|---|---|
-| Chromium | pas de sonde « Real Browser » locale -- un navigateur distant (Remote Browser) reste utilisable |
-| MariaDB embarque | `embedded-mariadb` refuse au demarrage ; SQLite ou MariaDB externe |
-| apprise | pas de notification de type Apprise ; les autres (SMTP, Home Assistant, webhook...) sont en JavaScript |
-| cloudflared | pas de tunnel Cloudflare integre |
-| tailscale, sip | sondes masquees dans l'interface (`UPTIME_KUMA_IS_CONTAINER=1`) |
-| shell, sudo, nscd | Kuma journalise « Failed to start nscd » au demarrage : sans effet |
-
-## Execution
+## Usage
 
 ```yaml
 services:
   uptime-kuma:
-    image: jbsky/uptime-kuma-hardened:latest
+    image: jbsky/uptime-kuma-hardened:2.5.12.0
     read_only: true
     security_opt: [no-new-privileges:true]
     cap_drop: [ALL]
@@ -105,17 +133,17 @@ services:
       - "3001:3001"
 ```
 
-Deux points qui ne se devinent pas :
+Two things you cannot guess:
 
-- **Le repertoire de donnees doit appartenir a `3001:3001`.** L'image officielle
-  tourne en root ; une base qu'elle a ecrite est en `root`. Faire
-  `chown -R 3001:3001 <repertoire>` avant la bascule. L'init le verifie par une
-  ecriture reelle et refuse de demarrer sinon, avec le correctif dans le message.
-- **`ping` n'a aucune capacite.** Il ouvre un socket ICMP datagramme, que le noyau
-  n'accorde qu'aux groupes couverts par `net.ipv4.ping_group_range`. Docker
-  l'ouvre a tous par defaut ; **Podman le restreint au groupe 0**, d'ou le
-  sysctl. Sans lui, les autres sondes marchent et l'init journalise un
-  avertissement au demarrage.
+- **The data directory must belong to `3001:3001`.** The official image runs
+  as root; a database it wrote is owned by `root`. Run
+  `chown -R 3001:3001 <directory>` before switching. The init checks it with a
+  real write and refuses to start otherwise, with the fix in the message.
+- **`ping` has no capability.** It opens an ICMP datagram socket, which the
+  kernel only grants to the groups covered by `net.ipv4.ping_group_range`.
+  Docker opens it to everyone by default; **Podman restricts it to group 0**,
+  hence the sysctl. Without it, the other monitors work and the init logs a
+  warning at startup.
 
 ### VyOS
 
@@ -127,43 +155,86 @@ set container name uptime-kuma volume uptime-data source '/config/containers/upt
 set container name uptime-kuma volume uptime-data destination '/app/data'
 ```
 
-La capacite `net-raw` de l'image officielle n'est plus necessaire. Le repertoire
-de donnees doit etre passe en `3001:3001` avant le premier demarrage.
+The official image's `net-raw` capability is no longer needed. The data
+directory must be moved to `3001:3001` before the first start.
 
-## Administration sans shell
+## Running without a shell
 
-- **Mot de passe perdu** : `podman exec -it uptime-kuma /usr/bin/node extra/reset-password.js`
-  (`extra/remove-2fa.js` pour la double authentification).
-- **Modifier la base a la main** : il n'y a plus de `sqlite3` dans le conteneur.
-  Arreter le conteneur, travailler sur `kuma.db` depuis l'hote, redemarrer.
+- **Lost password**: `podman exec -it uptime-kuma /usr/bin/node extra/reset-password.js`
+  (`extra/remove-2fa.js` for two-factor authentication).
+- **Editing the database by hand**: there is no `sqlite3` in the container
+  any more. Stop the container, work on `kuma.db` from the host, restart.
 
-## Construire et tester
+## Known upstream bug
+
+A ping monitor whose "timeout" is 0 in the database (met on an existing
+database: all its ping monitors were in that case) gets
+`interval * 1000 * 0.8` -- **milliseconds** -- passed to `ping -w`, which
+expects **seconds**: `ping -w 48000` for a 60 s interval. A target that stops
+answering *without* sending back ICMP (packet dropped by a firewall) then
+blocks the monitor for 13 hours instead of marking it DOWN. Present in 2.2.1
+as in 2.5.5 (`server/model/monitor.js`), independent of the image. Workaround: <!-- version-fixe -->
+open each ping monitor in edit mode and save it as is -- the interface
+replaces a zero timeout with 10 s (`src/pages/EditMonitor.vue`).
+
+## Build and test
 
 ```bash
-make build   # lit versions.json, aucune version n'est ecrite ailleurs
-make test    # lance l'image en lecture seule, cap_drop ALL, no-new-privileges
+make build   # build args come from versions.json
+make test    # scripts/test.sh: read-only, cap_drop ALL, no-new-privileges
+make scan    # Trivy, HIGH and CRITICAL
 ```
 
-`scripts/test.sh` verifie l'absence de shell, l'utilisateur, la resolution de
-chaque `require()` du serveur, la creation de la base et toutes les migrations
-knex, le frontend, `/metrics` protege, ping sans
-capacite, Intl avec fuseaux et le healthcheck.
+`scripts/test.sh` checks the absence of shell, the user, that every
+`require()` of the server resolves, the database creation and every knex
+migration, the frontend, a protected `/metrics`, ping without capability,
+Intl with time zones, and the healthcheck.
 
-Architecture : `linux/amd64` seulement pour l'instant.
+Versions live only in [`versions.json`](versions.json): the Dockerfile has no
+defaults, `make build` and CI pass them through `scripts/versions-build-args.py`,
+and a bare `docker build` stops at the guard.
 
-## Un defaut amont a connaitre
+## Verification
 
-Une sonde ping dont le « timeout » vaut 0 en base (rencontre sur une base
-existante : toutes ses sondes ping etaient dans ce cas) recoit
-`interval * 1000 * 0.8` -- des **millisecondes** -- passe a `ping -w`, qui
-attend des **secondes** : `ping -w 48000` pour un intervalle de 60 s. Une cible qui cesse de repondre *sans* renvoyer d'ICMP (paquet jete par un
-pare-feu) bloque alors la sonde 13 heures au lieu de la passer DOWN.
-Present en 2.2.1 comme en 2.5.5 (`server/model/monitor.js`), independant de <!-- version-fixe -->
-l'image. Contournement : ouvrir chaque sonde ping en edition et l'enregistrer
-telle quelle -- l'interface remplace un timeout nul par 10 s
-(`src/pages/EditMonitor.vue`).
+Images are signed with [cosign](https://github.com/sigstore/cosign) (keyless,
+GitHub OIDC) by the shared [hardened-ci](https://github.com/jbsky/hardened-ci)
+pipeline. The certificate names that workflow and, in an extension, this
+repository: the commands below require both.
 
-## Licence
+```bash
+# ghcr.io
+cosign verify ghcr.io/jbsky/uptime-kuma-hardened:2.5.12.0 \
+  --certificate-identity-regexp '^https://github.com/(jbsky/uptime-kuma-hardened|jbsky/hardened-ci)/' \
+  --certificate-github-workflow-repository jbsky/uptime-kuma-hardened \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com
 
-Ce depot est sous Apache-2.0. L'image embarque Uptime Kuma (MIT), Node.js (MIT),
-iputils (GPL-2.0-or-later / BSD-3-Clause) et tini (MIT).
+# Docker Hub (the signature is stored on ghcr.io)
+COSIGN_REPOSITORY=ghcr.io/jbsky/uptime-kuma-hardened \
+  cosign verify docker.io/jbsky/uptime-kuma-hardened:2.5.12.0 \
+  --certificate-identity-regexp '^https://github.com/(jbsky/uptime-kuma-hardened|jbsky/hardened-ci)/' \
+  --certificate-github-workflow-repository jbsky/uptime-kuma-hardened \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com
+```
+
+Each published digest also carries a CycloneDX SBOM (the `prep` stage the
+image is assembled from, plus its Go binaries), attested with cosign, and a
+GitHub SLSA build provenance attestation. The pipeline lints, builds, scans the
+`prep` stage with Trivy, tests the exact digest it is about to publish (image
+manifest, dependency closure, functional tests), then promotes and signs it.
+Base image digests follow upstream daily (`base-watch`), a fixable Alpine
+package CVE triggers a rebuild (`cve-watch`), and the published image is
+audited weekly (`security-audit`: Trivy, Grype, cosign). Audit status and
+documented exceptions: [`SECURITY.md`](SECURITY.md).
+
+## License
+
+The contents of this repository (Dockerfile, `init.go`, scripts and CI) are
+licensed under **Apache-2.0**, see [`LICENSE`](LICENSE). Copyright 2026 jbsky.
+
+The software shipped in the image keeps its own license: **Uptime Kuma is
+under MIT**, as are Node.js and tini; iputils is under GPL-2.0-or-later /
+BSD-3-Clause. The two never mix: `init.go` is a separate program that executes
+Node.js without being linked to it.
+
+Contributions: see [`CONTRIBUTING.md`](CONTRIBUTING.md); a `Signed-off-by` is
+required.
