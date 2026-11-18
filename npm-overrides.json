@@ -28,14 +28,6 @@
             "CVE-2026-12208"
         ]
     },
-    "liquidjs": {
-        "version": "10.29.0",
-        "fixes": [
-            "GHSA-g357-x5c3-c72p",
-            "GHSA-m7fp-h3p4-hr49",
-            "GHSA-4r6h-5v86-94p3"
-        ]
-    },
     "lodash": {
         "version": "4.18.1",
         "fixes": [
