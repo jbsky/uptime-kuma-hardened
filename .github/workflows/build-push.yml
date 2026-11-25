@@ -40,7 +40,7 @@ permissions:
 
 jobs:
   pipeline:
-    uses: jbsky/hardened-ci/.github/workflows/build-push.yml@36546f19f073b81f7b8753d0e448ff68a854ffcf # fix/prep-fidele (TEST, ne pas merger)
+    uses: jbsky/hardened-ci/.github/workflows/build-push.yml@78163b0f20b2edfa0d5f5c5d92a675b0d3198b15 # v1.4.12
     permissions:
       contents: write
       packages: write
